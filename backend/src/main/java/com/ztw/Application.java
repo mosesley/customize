@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * SpringBoot application bootstrap
- * This is a RESTFul web service
+ * This is a RESTFul web repository
  *
  * @author 马旭
  * @created 2017-05-08 16:32.

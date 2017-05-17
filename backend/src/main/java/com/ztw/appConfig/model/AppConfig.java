@@ -1,5 +1,7 @@
 package com.ztw.appConfig.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_app_config")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AppConfig {
 
     @Id

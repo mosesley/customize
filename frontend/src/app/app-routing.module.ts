@@ -8,11 +8,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
  */
 const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: '/init',
+    pathMatch: 'full'
+  },
+  {
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
   },
   { path: '**', component: PageNotFoundComponent }
-]
+];
 
 /**
  * root route module
