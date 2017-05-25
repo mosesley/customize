@@ -34,8 +34,10 @@ public class User {
 
     /**
      * 状态
+     * true: 正常
+     * false： 停用
      */
-    private Integer status;
+    private boolean status;
 
     /**
      * 创建日期
@@ -80,11 +82,11 @@ public class User {
         this.password = password;
     }
 
-    public Integer getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
