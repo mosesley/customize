@@ -56,7 +56,6 @@ public class InitController {
     @PostMapping(value = "")
     @Transactional
     public HttpResponse initAppConfig(@RequestBody InitBody initBody) {
-//        System.out.println(initBody.toString());
         HttpResponse res = new HttpResponse();
         AppConfig appConfig = new AppConfig();
 
@@ -82,7 +81,6 @@ public class InitController {
         // 初始化系统菜单
         if(menuRepository.count() == 0) {
             List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
-//            System.out.println(menus.toString());
             for (Menu menu: menus) {
                 menuRepository.save(menu);
             }

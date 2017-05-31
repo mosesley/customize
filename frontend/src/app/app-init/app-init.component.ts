@@ -18,7 +18,7 @@ export class AppInitComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private initService: InitService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit():void {
     this.buildForm();
   }
 

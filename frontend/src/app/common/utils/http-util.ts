@@ -1,5 +1,6 @@
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 /**
  * Http Util
  * Created by maxu0 on 2017/5/9.
