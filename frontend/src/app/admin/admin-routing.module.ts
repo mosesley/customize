@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './login/service/login-guard.service';
 
 /**
  * Admin routes configuration
@@ -11,9 +12,10 @@ const adminRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate: [],
+    canActivate: [LoginGuard],
     children: [
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'index', loadChildren: 'app/admin/index/index.module#IndexModule'}
     ]
   }
 ];

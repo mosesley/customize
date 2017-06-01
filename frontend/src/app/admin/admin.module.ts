@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/service/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginGuard } from './login/service/login-guard.service';
 /**
  * Admin Module
  * Created by maxu0 on 2017/5/8.
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent
   ],
   providers: [
-    LoginService
+    LoginService,
+    LoginGuard
   ]
 })
 export class AdminModule {

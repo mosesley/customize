@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit{
   private loginForm: FormGroup;
+  private loginError: string;
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
 
@@ -32,6 +33,17 @@ export class LoginComponent implements OnInit{
 
   // 登陆
   onSubmit(values: Object): void {
-    console.log(JSON.stringify(values));
+    if(this.loginForm.valid) {
+      this.loginService.loginCheck(values)
+        .subscribe(res => {
+          if(res.status && res.status.endsWith("error")) {
+            this.loginError = res.statusText;
+          } else {
+            let redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : "/admin/index";
+            this.router.navigate([redirect]);
+          }
+        });
+    }
   }
+
 }

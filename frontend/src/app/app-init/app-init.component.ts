@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InitService } from './service/init.service';
-import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 
 /**
