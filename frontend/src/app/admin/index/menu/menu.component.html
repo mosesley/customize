@@ -1,0 +1,7 @@
+<aside class="al-sidebar">
+    <ul class="al-sidebar-list">
+        <li *ngFor="let menuItem of menuItems | async">
+            {{menuItem.name}}
+        </li>
+    </ul>
+</aside>

@@ -41,7 +41,7 @@ public class Menu {
     /**
      * 子菜单
      */
-    @Column(name = "sub_menu")
+    @JoinColumn(name = "sub_menu")
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Menu> subMenu;
 

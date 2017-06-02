@@ -29,4 +29,10 @@ public class UserController extends AuthRootMenu {
         res.setData(userRepository.findAll());
         return res;
     }
+
+    @GetMapping(value = "/test")
+    @AutoMenu(name = "测试", icon = "fa fa-user", orderNum = 2)
+    public HttpResponse test() {
+        return new HttpResponse();
+    }
 }

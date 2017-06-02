@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index.component';
 import { IndexRoutingModule } from './index-routing.module';
+import { MenuService } from './menu/service/menu.service';
+import { MenuComponent } from './menu/menu.component';
 /**
  * Admin Index module
  * Created by maxu0 on 2017/6/1.
@@ -12,9 +14,12 @@ import { IndexRoutingModule } from './index-routing.module';
     IndexRoutingModule
   ],
   declarations: [
-    IndexComponent
+    IndexComponent,
+    MenuComponent
   ],
-  providers: []
+  providers: [
+    MenuService
+  ]
 })
 export class IndexModule {
 
