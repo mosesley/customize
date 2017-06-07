@@ -4,6 +4,8 @@ import { IndexComponent } from './index.component';
 import { IndexRoutingModule } from './index-routing.module';
 import { MenuService } from './menu/service/menu.service';
 import { MenuComponent } from './menu/menu.component';
+import { MenuItemComponent } from './menu/menu-item/menu-item.component';
+
 /**
  * Admin Index module
  * Created by maxu0 on 2017/6/1.
@@ -15,7 +17,8 @@ import { MenuComponent } from './menu/menu.component';
   ],
   declarations: [
     IndexComponent,
-    MenuComponent
+    MenuComponent,
+    MenuItemComponent
   ],
   providers: [
     MenuService

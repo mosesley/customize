@@ -56,6 +56,7 @@ public class MenuUtil {
                     rootMenu.setName((String) amAutoMenu.get("name"));
                     rootMenu.setIcon((String) amAutoMenu.get("icon"));
                     rootMenu.setOrderNum((Integer) amAutoMenu.get("orderNum"));
+//                    rootMenu.setParentMenu(null);
 
                     /**
                      * 子菜单创建
@@ -78,7 +79,7 @@ public class MenuUtil {
     private static void buildSubMenu(Menu rootMenu, String path, String rootClassName) {
         try {
             // 遍历资源
-            List<Menu> controllerMenus = new ArrayList<>();
+            Set<Menu> controllerMenus = new HashSet<>();
             for(Resource res: rpr.getResources(path)) {
                 MetadataReader mr = mrf.getMetadataReader(res);
                 AnnotationMetadata am = mr.getAnnotationMetadata();
@@ -99,17 +100,18 @@ public class MenuUtil {
                         amMap = am.getAnnotationAttributes(PostMapping.class.getName());
                     }
 
-                    controllerMenu.setPath(((String[]) amMap.get("value"))[0]);
+                    controllerMenu.setPath(((String[]) amMap.get("value"))[0].substring(4));
                     controllerMenu.setName((String) amAutoMenu.get("name"));
                     controllerMenu.setIcon((String) amAutoMenu.get("icon"));
                     controllerMenu.setOrderNum((Integer) amAutoMenu.get("orderNum"));
+//                    controllerMenu.setParentMenu(rootMenu);
 
 
                     /**
                      * 创建三级菜单，controller内的AutoMenu注解方法
                      */
                     Set<MethodMetadata> mms = am.getAnnotatedMethods(AutoMenu.class.getName());
-                    List<Menu> methodMenus = new ArrayList<>();
+                    Set<Menu> methodMenus = new HashSet<>();
                     for (MethodMetadata mm: mms) {
                         Menu methodMenu = new Menu();
                         Map<String, Object> mmAutoMenu = mm.getAnnotationAttributes(AutoMenu.class.getName());
@@ -127,10 +129,11 @@ public class MenuUtil {
                             mmMap = mm.getAnnotationAttributes(PostMapping.class.getName());
                         }
 
-                        methodMenu.setPath(((String[]) mmMap.get("value"))[0]);
+                        methodMenu.setPath(controllerMenu.getPath() + ((String[]) mmMap.get("value"))[0]);
                         methodMenu.setName((String) mmAutoMenu.get("name"));
                         methodMenu.setIcon((String) mmAutoMenu.get("icon"));
                         methodMenu.setOrderNum((Integer) mmAutoMenu.get("orderNum"));
+//                        methodMenu.setParentMenu(controllerMenu);
 
                         methodMenus.add(methodMenu);
                     }

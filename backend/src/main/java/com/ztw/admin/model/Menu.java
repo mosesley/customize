@@ -1,7 +1,14 @@
 package com.ztw.admin.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.*;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Set;
 
 /**
  * 系统菜单类
@@ -11,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_menu")
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 public class Menu {
 
     @Id
@@ -41,9 +49,9 @@ public class Menu {
     /**
      * 子菜单
      */
-    @JoinColumn(name = "sub_menu")
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Menu> subMenu;
+    @JoinColumn(name = "pid")
+    private Set<Menu> subMenu;
 
     public Integer getId() {
         return id;
@@ -85,11 +93,11 @@ public class Menu {
         this.orderNum = orderNum;
     }
 
-    public List<Menu> getSubMenu() {
+    public Set<Menu> getSubMenu() {
         return subMenu;
     }
 
-    public void setSubMenu(List<Menu> subMenu) {
+    public void setSubMenu(Set<Menu> subMenu) {
         this.subMenu = subMenu;
     }
 

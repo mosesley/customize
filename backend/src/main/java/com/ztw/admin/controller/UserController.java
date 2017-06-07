@@ -23,7 +23,7 @@ public class UserController extends AuthRootMenu {
     private UserRepository userRepository;
 
     @GetMapping(value = "/list")
-    @AutoMenu(name = "用户列表", icon = "fa fa-list", orderNum = 1)
+    @AutoMenu(name = "用户列表", orderNum = 1)
     public HttpResponse list() {
         HttpResponse res = new HttpResponse();
         res.setData(userRepository.findAll());
@@ -31,7 +31,7 @@ public class UserController extends AuthRootMenu {
     }
 
     @GetMapping(value = "/test")
-    @AutoMenu(name = "测试", icon = "fa fa-user", orderNum = 2)
+    @AutoMenu(name = "测试", orderNum = 2)
     public HttpResponse test() {
         return new HttpResponse();
     }

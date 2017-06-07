@@ -13,14 +13,22 @@ import { MenuService } from './service/menu.service';
 })
 export class MenuComponent implements OnInit{
   private menuItems: Observable<Menu[]>;
+  public hoverElemHeight: number;
+  public hoverElemTop: number;
+  public outOfArea: number = -200;
 
   constructor(private menuService: MenuService) {}
 
   ngOnInit() {
     this.menuItems = this.menuService.getMenus().map(httpRes => {
-      console.log(JSON.stringify(httpRes.data));
       return httpRes.data as Menu[];
     });
+  }
+
+  public hoverItem($event): void {
+    this.hoverElemHeight = $event.currentTarget.clientHeight;
+    // TODO: get rid of magic 66 constant
+    this.hoverElemTop = $event.currentTarget.getBoundingClientRect().top - 66;
   }
 
 }

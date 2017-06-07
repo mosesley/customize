@@ -20,7 +20,6 @@ export class MenuService {
    * @returns {Observable<R|T>}
    */
   getMenus(): Observable<HttpRes> {
-    console.log(sessionStorage.getItem("loginUser"));
     return this.http.post(this.menu_api_url, sessionStorage.getItem("loginUser"), HttpUtil.httpOptions)
       .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);

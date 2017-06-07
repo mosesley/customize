@@ -14,7 +14,6 @@ export class LoginGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     let url:string = state.url;
-    console.log(`LoginGuard#canActivate called: ${url}`);
     return this.checkLogin(url);
   }
 

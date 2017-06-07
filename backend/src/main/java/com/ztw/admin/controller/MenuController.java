@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-
 /**
  * ${DESCRIPTION}
  *
@@ -34,9 +32,8 @@ public class MenuController {
     public HttpResponse getMenuByUser(@RequestBody User loginUser) {
         HttpResponse res = new HttpResponse();
         if(loginUser.isAdmin()) { // 如果是超级管理员，获取所有菜单
-            res.setData(menuRepository.findAll());
+            res.setData(menuRepository.findByPathOrderByOrderNumAsc(null)); // find root menu
         }
-
         return res;
     }
 }

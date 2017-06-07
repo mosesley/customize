@@ -27,7 +27,7 @@ public @interface AutoMenu {
      * 菜单图标，采用font-awesome图标集
      * @return
      */
-    String icon() default "fa fa-cog";
+    String icon() default "";
 
     /**
      * 菜单序号

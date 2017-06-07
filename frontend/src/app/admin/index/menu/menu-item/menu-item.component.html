@@ -1,0 +1,24 @@
+<li [title]="menuItem.name"
+    [ngClass]="{'with-sub-menu': menuItem.subMenu}"
+    class="al-sidebar-list-item">
+    <a *ngIf="menuItem.subMenu.length; else linkBlock" class="al-sidebar-list-link" (click)="toggleMenu()" (mouseenter)="onHoverItem($event)">
+        <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i><span>{{menuItem.name}}</span>
+        <b *ngIf="showMenu; else toggleIcon" class="fa fa-angle-down"></b>
+        <ng-template #toggleIcon>
+            <b class="fa fa-angle-right"></b>
+        </ng-template>
+    </a>
+    <ng-template #linkBlock>
+        <a class="al-sidebar-list-link routerLink" [routerLink]="menuItem.path" (mouseenter)="onHoverItem($event)">
+            <!--<i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>-->
+            <span>{{menuItem.name}}</span>
+        </a>
+    </ng-template>
+    <ul *ngIf="menuItem.subMenu.length && showMenu" class="al-sidebar-sublist" @toggleAnimation>
+        <admin-menu-item
+            *ngFor="let item of menuItem.subMenu"
+            (itemHover)="onHoverItem($event)"
+            [menuItem]="item">
+        </admin-menu-item>
+    </ul>
+</li>
