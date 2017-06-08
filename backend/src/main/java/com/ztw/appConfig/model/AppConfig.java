@@ -1,6 +1,7 @@
 package com.ztw.appConfig.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -16,8 +17,9 @@ import javax.persistence.*;
 public class AppConfig {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
 
     /**
      * 系统名称
@@ -29,11 +31,11 @@ public class AppConfig {
      */
     private String email;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

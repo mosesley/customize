@@ -11,4 +11,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AppConfigRepository extends CrudRepository<AppConfig, Integer> {
 
+
 }

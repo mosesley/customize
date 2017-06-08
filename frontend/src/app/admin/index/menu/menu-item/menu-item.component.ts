@@ -19,7 +19,7 @@ export class MenuItemComponent {
   @Input()
   menuItem: Menu;
 
-  // 想外层组件发出鼠标hover事件
+  // 向外层组件发出鼠标hover事件
   @Output()
   itemHover = new EventEmitter<any>();
 

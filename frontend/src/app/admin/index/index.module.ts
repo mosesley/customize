@@ -5,6 +5,7 @@ import { IndexRoutingModule } from './index-routing.module';
 import { MenuService } from './menu/service/menu.service';
 import { MenuComponent } from './menu/menu.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
+import { AdminPageTop } from './top/admin-page-top.component';
 
 /**
  * Admin Index module
@@ -18,7 +19,8 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
   declarations: [
     IndexComponent,
     MenuComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    AdminPageTop
   ],
   providers: [
     MenuService

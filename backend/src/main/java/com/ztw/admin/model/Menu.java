@@ -2,12 +2,9 @@ package com.ztw.admin.model;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.core.annotation.Order;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Set;
 
 /**
@@ -22,8 +19,9 @@ import java.util.Set;
 public class Menu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
 
     /**
      * 菜单地址
@@ -53,11 +51,11 @@ public class Menu {
     @JoinColumn(name = "pid")
     private Set<Menu> subMenu;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

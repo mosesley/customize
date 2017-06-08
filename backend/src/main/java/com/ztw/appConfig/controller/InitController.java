@@ -44,7 +44,7 @@ public class InitController {
     @GetMapping(value = "")
     public HttpResponse getConfigIsExist() {
         HttpResponse res = new HttpResponse();
-        res.setData(appConfigRepository.exists(1));
+        res.setData(appConfigRepository.count() <= 0 ? false : true);
         return res;
     }
 
@@ -68,10 +68,12 @@ public class InitController {
             adminUser.setNickname(initBody.getAdminName()); // 昵称，默认和登陆名一致
             adminUser.setStatus(true); // 设置为启用
             adminUser.setCreateDate(new Date()); // 创建时间
-            if(!userRepository.exists(1)) {
+
+            User existAdminUser = userRepository.findOneByAdmin(true);
+            if(existAdminUser == null) {
                 userRepository.save(adminUser);
             } else {
-                adminUser.setId(1);
+                adminUser.setId(existAdminUser.getId());
                 userRepository.save(adminUser);
             }
         } catch (NoSuchAlgorithmException e) {
@@ -79,19 +81,18 @@ public class InitController {
         }
 
         // 初始化系统菜单
-        if(menuRepository.count() == 0) {
-            List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
-            for (Menu menu: menus) {
-                menuRepository.save(menu);
-            }
+        menuRepository.deleteAll();
+        List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
+        for (Menu menu: menus) {
+            menuRepository.save(menu);
         }
 
         // 初始化系统设置信息
-        if(!appConfigRepository.exists(1)) {
-            appConfig.setAppName(initBody.getAppName());
-            appConfig.setEmail(initBody.getEmail());
-            res.setData(appConfigRepository.save(appConfig));
-        }
+        appConfigRepository.deleteAll();
+        appConfig.setAppName(initBody.getAppName());
+        appConfig.setEmail(initBody.getEmail());
+        res.setData(appConfigRepository.save(appConfig));
+
         return res;
     }
 }
