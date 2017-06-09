@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpUtil } from '../../../../common/utils/http-util';
-import { HttpRes } from '../../../../common/model/httpRes';
+import { HttpUtil } from '../../../common/utils/http-util';
+import { HttpRes } from '../../../common/model/httpRes';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 /**

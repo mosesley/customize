@@ -1,5 +1,5 @@
 @import '../theme/sass/conf/conf';
-@import "./index/menu/menu.component";
+@import "menu/menu.component";
 
 :host /deep/ {
   @mixin layout-collapsed() {

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { LoginComponent } from './login/login.component';
-import { LoginGuard } from './login/service/login-guard.service';
+import { AdminGuard } from './router-guard/admin-guard.service';
 
 /**
  * Admin routes configuration
@@ -10,11 +9,15 @@ import { LoginGuard } from './login/service/login-guard.service';
  */
 const adminRoutes: Routes = [
   {
+    path: 'login',
+    loadChildren: 'app/admin/login/login.module#LoginModule'
+  },
+  {
     path: '',
     component: AdminComponent,
-    canActivate: [LoginGuard],
+    canActivate: [AdminGuard],
     children: [
-      { path: 'login', component: LoginComponent },
+      { path: '', redirectTo: 'index', pathMatch: 'full'},
       { path: 'index', loadChildren: 'app/admin/index/index.module#IndexModule'}
     ]
   }

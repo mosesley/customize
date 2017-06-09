@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Menu } from '../model/menu';
-import { toggleAnimation } from '../../../../common/animation/toggleAnimation';
+import { toggleAnimation } from '../../../common/animation/toggleAnimation';
 /**
  * Menu item component
  * Created by maxu0 on 2017/6/4.

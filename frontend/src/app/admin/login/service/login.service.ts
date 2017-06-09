@@ -5,6 +5,7 @@ import { HttpRes } from '../../../common/model/httpRes';
 import { HttpUtil } from '../../../common/utils/http-util';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 /**
  * App Admin module login service
@@ -15,7 +16,7 @@ export class LoginService {
   private login_url_api = "/api/admin/login";
   public redirectUrl: string; // Store the url so we can redirect after logging in
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   /**
    * 后台登陆service
@@ -35,5 +36,13 @@ export class LoginService {
         return res.json() || {};
       })
       .catch(HttpUtil.handleError);
+  }
+
+  /**
+   * 退出登录
+   */
+  logout(): void {
+    sessionStorage.removeItem("loginUser");
+    this.router.navigate(['/admin/login']);
   }
 }

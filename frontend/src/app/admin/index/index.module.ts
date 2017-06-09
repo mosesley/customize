@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index.component';
 import { IndexRoutingModule } from './index-routing.module';
-import { MenuService } from './menu/service/menu.service';
-import { MenuComponent } from './menu/menu.component';
-import { MenuItemComponent } from './menu/menu-item/menu-item.component';
-import { AdminPageTop } from './top/admin-page-top.component';
 
 /**
  * Admin Index module
@@ -18,12 +14,9 @@ import { AdminPageTop } from './top/admin-page-top.component';
   ],
   declarations: [
     IndexComponent,
-    MenuComponent,
-    MenuItemComponent,
-    AdminPageTop
   ],
   providers: [
-    MenuService
+
   ]
 })
 export class IndexModule {

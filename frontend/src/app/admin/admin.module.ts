@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { LoginComponent } from './login/login.component';
+import { AdminGuard } from './router-guard/admin-guard.service';
+import { MenuComponent } from './menu/menu.component';
+import { AdminPageTop } from './top/admin-page-top.component';
+import { MenuService } from './menu/service/menu.service';
+import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { LoginService } from './login/service/login.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginGuard } from './login/service/login-guard.service';
 /**
  * Admin Module
  * Created by maxu0 on 2017/5/8.
@@ -13,17 +15,18 @@ import { LoginGuard } from './login/service/login-guard.service';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     AdminRoutingModule
   ],
   declarations: [
     AdminComponent,
-    LoginComponent
+    MenuComponent,
+    MenuItemComponent,
+    AdminPageTop
   ],
   providers: [
+    MenuService,
     LoginService,
-    LoginGuard
+    AdminGuard
   ]
 })
 export class AdminModule {
