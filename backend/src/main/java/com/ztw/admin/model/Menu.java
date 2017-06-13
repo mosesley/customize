@@ -25,6 +25,7 @@ public class Menu {
 
     /**
      * 菜单地址
+     * 如果菜单地址为null，则为根菜单
      */
     private String path;
 
@@ -47,8 +48,9 @@ public class Menu {
     /**
      * 子菜单
      */
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "pid")
+    @OrderBy("orderNum ASC")
     private Set<Menu> subMenu;
 
     public String getId() {

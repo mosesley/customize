@@ -52,11 +52,9 @@ public class MenuUtil {
                     Menu rootMenu = new Menu();
                     Map<String, Object> amAutoMenu = am.getAnnotationAttributes(AutoMenu.class.getName());
 
-//                    rootMenu.setPath("");
                     rootMenu.setName((String) amAutoMenu.get("name"));
                     rootMenu.setIcon((String) amAutoMenu.get("icon"));
                     rootMenu.setOrderNum((Integer) amAutoMenu.get("orderNum"));
-//                    rootMenu.setParentMenu(null);
 
                     /**
                      * 子菜单创建
@@ -104,7 +102,6 @@ public class MenuUtil {
                     controllerMenu.setName((String) amAutoMenu.get("name"));
                     controllerMenu.setIcon((String) amAutoMenu.get("icon"));
                     controllerMenu.setOrderNum((Integer) amAutoMenu.get("orderNum"));
-//                    controllerMenu.setParentMenu(rootMenu);
 
 
                     /**
@@ -133,7 +130,6 @@ public class MenuUtil {
                         methodMenu.setName((String) mmAutoMenu.get("name"));
                         methodMenu.setIcon((String) mmAutoMenu.get("icon"));
                         methodMenu.setOrderNum((Integer) mmAutoMenu.get("orderNum"));
-//                        methodMenu.setParentMenu(controllerMenu);
 
                         methodMenus.add(methodMenu);
                     }
