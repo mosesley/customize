@@ -26,11 +26,11 @@
   ### gradle
   解压后把bin目录加入环境变量，新建GRADLE_USER_HOME的变量用来设置java依赖包的存放位置
 
-  ![gradle_user_home](./readme/gradle_user_home.png)
+  ![gradle_user_home](./readme/gradle_user_home.PNG)
 
   同时idea需要对gradle进行设置
 
-   ![gradle_user_home](./readme/idea_gradle_setting.png)
+   ![gradle_user_home](./readme/idea_gradle_setting.PNG)
 
    ### node
   node安装完事后用如下命令更新一下npm
@@ -61,12 +61,12 @@
 
 ## 项目运行后从4200端口打开，效果下图：
   ### 项目初始化
-  ![app-init](./readme/app-init.png)
+  ![app-init](./readme/app-init.PNG)
 
   ### 后台登陆
-  ![Admin-login](./readme/admin-login.png)
+  ![Admin-login](./readme/admin-login.PNG)
 
   ### 后台示例页面
-  ![Admin-user](./readme/admin-user.png)
+  ![Admin-user](./readme/admin-user.PNG)
 
   后台页面参考[ng2-admin](https://github.com/akveo/ng2-admin) 项目
