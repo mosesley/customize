@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InitService } from './service/init.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 /**
  * App Initialize Component
@@ -15,7 +16,9 @@ export class AppInitComponent implements OnInit{
   private initForm: FormGroup;
   private submitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private initService: InitService, private router: Router) {}
+  constructor(private fb: FormBuilder, private initService: InitService, private router: Router, private pageTitle: Title) {
+    this.pageTitle.setTitle(`App-init`);
+  }
 
   ngOnInit():void {
     this.buildForm();

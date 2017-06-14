@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 export class UserComponent {
 
   constructor(private pageTitle: Title) {
-    this.pageTitle.setTitle(`${this.pageTitle.getTitle()}-user`);
+    this.pageTitle.setTitle(`Admin-user`);
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './service/login.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 /**
  * Login component
@@ -15,8 +16,8 @@ export class LoginComponent implements OnInit{
   private loginForm: FormGroup;
   private loginError: string;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
-
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private pageTitle: Title) {
+    this.pageTitle.setTitle(`Admin-login`);
   }
 
   ngOnInit(): void {

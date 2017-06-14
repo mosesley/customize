@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 /**
  * Created by maxu0 on 2017/6/1.
  */
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
+
+  constructor(private pageTitle: Title) {
+    this.pageTitle.setTitle(`Admin-index`);
+  }
 
 }
