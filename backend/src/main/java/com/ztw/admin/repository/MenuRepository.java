@@ -13,7 +13,7 @@ import java.util.List;
  * @author 马旭
  * @created 2017-05-25 14:34.
  */
-public interface MenuRepository extends JpaRepository<Menu, Integer>, JpaSpecificationExecutor<Menu> {
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     @Query("select distinct m from Menu m where m.path is null")
     @Override

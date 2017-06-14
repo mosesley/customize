@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login.component';
 
 /**
- * Admin routes configuration
+ * Login routes configuration
  * @type {Array}
  */
-const adminRoutes: Routes = [
+const loginRoutes: Routes = [
   {
     path: '',
     component: LoginComponent
@@ -20,7 +20,7 @@ const adminRoutes: Routes = [
  */
 @NgModule({
   imports: [
-    RouterModule.forChild(adminRoutes)
+    RouterModule.forChild(loginRoutes)
   ],
   exports: [
     RouterModule

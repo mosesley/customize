@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Menu } from '../model/menu';
 import { toggleAnimation } from '../../../common/animation/toggleAnimation';
+import { Router } from '@angular/router';
 /**
  * Menu item component
  * Created by maxu0 on 2017/6/4.
@@ -13,11 +14,20 @@ import { toggleAnimation } from '../../../common/animation/toggleAnimation';
     toggleAnimation
   ]
 })
-export class MenuItemComponent {
-  showMenu: boolean = false; // 是否展开菜单
+export class MenuItemComponent implements OnInit {
+
+  showMenu: boolean; // 是否展开菜单
 
   @Input()
   menuItem: Menu;
+
+  constructor(private router: Router) {
+
+  }
+
+  ngOnInit(): void {
+    this.showMenu = JSON.stringify(this.menuItem).includes(`"path":"${this.router.url}"`);
+  }
 
   // 向外层组件发出鼠标hover事件
   @Output()

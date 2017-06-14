@@ -1,5 +1,4 @@
 <li [title]="menuItem.name"
-    [ngClass]="{'with-sub-menu': menuItem.subMenu}"
     class="al-sidebar-list-item">
     <a *ngIf="menuItem.subMenu.length; else linkBlock" class="al-sidebar-list-link" (click)="toggleMenu()" (mouseenter)="onHoverItem($event)">
         <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i><span>{{menuItem.name}}</span>
@@ -9,7 +8,7 @@
         </ng-template>
     </a>
     <ng-template #linkBlock>
-        <a class="al-sidebar-list-link routerLink" [routerLink]="menuItem.path" (mouseenter)="onHoverItem($event)">
+        <a #routerRef class="al-sidebar-list-link routerLink" [routerLink]="menuItem.path" [routerLinkActive]="['active']" (mouseenter)="onHoverItem($event)">
             <!--<i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>-->
             <span>{{menuItem.name}}</span>
         </a>
