@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 /**
  * Admin Component
  * Created by maxu0 on 2017/5/8.
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
+
+  constructor(private pageTitle: Title) {
+    this.pageTitle.setTitle(`${this.pageTitle.getTitle()}-Admin`);
+  }
 
 }

@@ -43,6 +43,7 @@ export class LoginService {
    */
   logout(): void {
     sessionStorage.removeItem("loginUser");
+    this.redirectUrl = null;
     this.router.navigate(['/admin/login']);
   }
 }
