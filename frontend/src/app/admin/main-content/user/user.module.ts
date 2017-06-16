@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { UserListComponent } from './list/user-list.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { UserService } from './service/user.service';
 
 /**
  * Admin user module
@@ -11,6 +13,7 @@ import { UserListComponent } from './list/user-list.component';
 @NgModule({
   imports: [
     CommonModule,
+    Ng2SmartTableModule,
     UserRoutingModule
   ],
   declarations: [
@@ -18,7 +21,8 @@ import { UserListComponent } from './list/user-list.component';
     UserListComponent
   ],
   providers: [
-
+    UserService,
+    DatePipe
   ]
 })
 export class UserModule {

@@ -1,12 +1,15 @@
 package com.ztw.admin.controller;
 
 import com.ztw.admin.annotations.AutoMenu;
+import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.common.model.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 用户管理api
@@ -26,7 +29,11 @@ public class UserController extends AuthRootMenu {
     @AutoMenu(name = "用户列表", orderNum = 1)
     public HttpResponse list() {
         HttpResponse res = new HttpResponse();
-        res.setData(userRepository.findAll());
+        List<User> users = userRepository.findAll();
+        for (User user: users) {
+            user.setPassword(""); // 不查询密码
+        }
+        res.setData(users);
         return res;
     }
 

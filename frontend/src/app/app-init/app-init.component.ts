@@ -53,11 +53,7 @@ export class AppInitComponent implements OnInit{
       if(control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
-          if(control.errors.minlength || control.errors.maxlength) {
-            this.formErrors[field] = messages[key] + control.errors[key].requiredLength + "个字符！";
-          } else {
             this.formErrors[field] = messages[key];
-          }
         }
       }
     }
@@ -93,18 +89,18 @@ export class AppInitComponent implements OnInit{
   validationMessages = {
     'appName': {
       'required': '应用名称不能为空！',
-      'minlength': '应用名称不能少于'
+      'minlength': '应用名称不能少于2个字符！'
     },
     'adminName': {
       'required': '管理员用户名不能为空！',
-      'minlength': '管理员用户名不能少于'
+      'minlength': '管理员用户名不能少于4个字符！'
     },
     'email': {
       'email': '电子邮件地址无效！'
     },
     'password': {
       'required': '密码不能为空！',
-      'minlength': '密码不能少于'
+      'minlength': '密码不能少于6个字符！'
     },
     'repeatPassword': {
       'validateEqual': '两次输入的密码不一致！'

@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.2",
+    "@angular/cli": "^1.1.2",
     "@angular/common": "^4.2.2",
     "@angular/compiler": "^4.2.2",
     "@angular/core": "^4.2.2",
@@ -37,7 +38,6 @@
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "@angular/cli": "^1.1.1",
     "@angular/compiler-cli": "^4.2.2",
     "@types/jasmine": "^2.5.52",
     "@types/node": "^7.0.31",
@@ -53,6 +53,6 @@
     "protractor": "^5.1.2",
     "ts-node": "^3.0.6",
     "tslint": "^5.4.3",
-    "typescript": "^2.4.0"
+    "typescript": "^2.3.4"
   }
 }

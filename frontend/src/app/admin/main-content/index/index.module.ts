@@ -13,7 +13,7 @@ import { IndexRoutingModule } from './index-routing.module';
     IndexRoutingModule
   ],
   declarations: [
-    IndexComponent,
+    IndexComponent
   ],
   providers: [
 
