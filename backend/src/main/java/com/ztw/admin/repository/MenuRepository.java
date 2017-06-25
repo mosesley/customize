@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    @Query("select distinct m from Menu m where m.path is null")
+    @Query("select distinct m from Menu m where m.path is null order by m.orderNum asc")
     @Override
     List<Menu> findAll();
 

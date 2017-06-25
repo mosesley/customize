@@ -15,7 +15,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "t_menu")
-@Cache(usage = CacheConcurrencyStrategy.NONE)
 public class Menu {
 
     @Id

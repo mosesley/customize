@@ -8,6 +8,9 @@ import { AdminPageTop } from './top/admin-page-top.component';
 import { MenuService } from './menu/service/menu.service';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { LoginService } from './login/service/login.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MdCardModule } from '@angular/material';
+
 /**
  * Admin Module
  * Created by maxu0 on 2017/5/8.
@@ -15,6 +18,8 @@ import { LoginService } from './login/service/login.service';
 @NgModule({
   imports: [
     CommonModule,
+    MdCardModule,
+    FlexLayoutModule,
     AdminRoutingModule
   ],
   declarations: [
