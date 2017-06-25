@@ -1,5 +1,5 @@
 <div class="widgets">
     <div class="row">
-        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="source" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
     </div>
 </div>

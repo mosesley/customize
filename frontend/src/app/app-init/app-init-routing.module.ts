@@ -8,7 +8,7 @@ import { InitGuard } from './service/init-guard.service';
  */
 const appInitRoutes: Routes = [
   {
-    path: 'init',
+    path: '',
     component: AppInitComponent,
     canActivate: [InitGuard],
   }

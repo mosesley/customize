@@ -19,16 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/normalize.css/normalize.css",
-        "../node_modules/bootstrap/scss/bootstrap.scss",
-        "../node_modules/font-awesome/scss/font-awesome.scss",
-        "app/theme/theme.scss",
-        "styles.scss"
-      ],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/tether/dist/js/tether.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "assets/icons/material-icons.css",
+        "styles.css"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -59,7 +52,7 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
+    "styleExt": "css",
     "component": {}
   }
 }

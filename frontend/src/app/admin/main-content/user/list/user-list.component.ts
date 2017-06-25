@@ -9,10 +9,9 @@ import { DatePipe } from '@angular/common';
  */
 @Component({
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent {
-
   // user json data
   source: LocalDataSource = new LocalDataSource();
 
@@ -114,8 +113,33 @@ export class UserListComponent {
     });
   }
 
-  add(element) {
-    console.log("add");
+  /**
+   * 添加用户
+   * @param event
+   */
+  openModal(): void {
+    // const modalRef = this.ngbModal.open(NgbMsgModalComponent).result.then((result) => {
+    //   console.log($event.newData);
+    //   $event.confirm.reject();
+    //   this.closeResult = `Closed with: ${result}`;
+    // }, (reason) => {
+    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    //   $event.confirm.reject();
+    // });
+    // const modalRef = this.ngbModal.open(NgbdModalContent);
+    // modalRef.componentInstance.name = "添加用户";
+    // modalRef.componentInstance.content = "content";
   }
+
+
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
 
 }

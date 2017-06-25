@@ -6,6 +6,8 @@ import { InitService } from './service/init.service';
 import { InitGuard } from './service/init-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EqualValidatorDirective } from '../common/directive/equal-validator.directive';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MdButtonModule, MdCardModule, MdIconModule, MdInputModule } from '@angular/material';
 /**
  * App initialize module
  * Created by maxu0 on 2017/5/9.
@@ -15,6 +17,11 @@ import { EqualValidatorDirective } from '../common/directive/equal-validator.dir
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
+    MdIconModule,
+    MdInputModule,
+    MdCardModule,
+    MdButtonModule,
     AppInitRoutingModule
   ],
   declarations: [

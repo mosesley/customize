@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 /**
- * App routes configuration
+ * App root routes configuration
  * @type {Array}
  */
 const appRoutes: Routes = [
@@ -11,6 +11,10 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: '/init',
     pathMatch: 'full'
+  },
+  {
+    path: 'init',
+    loadChildren: 'app/app-init/app-init.module#AppInitModule'
   },
   {
     path: 'admin',

@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
  */
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
   private loginForm: FormGroup;

@@ -9,7 +9,7 @@ import { MenuService } from './service/menu.service';
 @Component({
   selector: 'admin-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit{
   private menuItems: Observable<Menu[]>;

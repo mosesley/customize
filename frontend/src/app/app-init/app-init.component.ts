@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
  */
 @Component({
   templateUrl: './app-init.component.html',
-  styleUrls: ['./app-init.component.scss'],
+  styleUrls: ['./app-init.component.css'],
 })
 export class AppInitComponent implements OnInit{
   private initForm: FormGroup;
@@ -88,22 +88,22 @@ export class AppInitComponent implements OnInit{
 
   validationMessages = {
     'appName': {
-      'required': '应用名称不能为空！',
-      'minlength': '应用名称不能少于2个字符！'
+      'required': '不能为空！',
+      'minlength': '不能少于2个字符！'
     },
     'adminName': {
-      'required': '管理员用户名不能为空！',
-      'minlength': '管理员用户名不能少于4个字符！'
+      'required': '不能为空！',
+      'minlength': '不能少于4个字符！'
     },
     'email': {
       'email': '电子邮件地址无效！'
     },
     'password': {
-      'required': '密码不能为空！',
-      'minlength': '密码不能少于6个字符！'
+      'required': '不能为空！',
+      'minlength': '不能少于6个字符！'
     },
     'repeatPassword': {
-      'validateEqual': '两次输入的密码不一致！'
+      'validateEqual': '两次输入不一致！'
     }
   }
 
