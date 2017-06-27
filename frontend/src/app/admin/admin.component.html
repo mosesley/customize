@@ -1,9 +1,11 @@
-<main>
+<md-toolbar [class.mat-elevation-z6]="true">
     <admin-page-top></admin-page-top>
-    <admin-menu></admin-menu>
-    <div class="al-main">
-        <div class="al-content">
-            <router-outlet></router-outlet>
-        </div>
+</md-toolbar>
+<md-sidenav-container fxFlexFill>
+    <md-sidenav mode="side" opened="true">
+        <admin-menu></admin-menu>
+    </md-sidenav>
+    <div class="sidenav-content">
+        <router-outlet></router-outlet>
     </div>
-</main>
+</md-sidenav-container>

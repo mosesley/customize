@@ -1,25 +1,7 @@
-<div class="page-top clearfix">
-    <a routerLink="/admin/index" class="al-logo clearfix"><span>ng2-</span>admin</a>
-    <!--<a class="collapse-menu-link fa fa-bars"></a>-->
-
-    <!--search block-->
-    <div class="search">
-        <i class="fa fa-search"></i>
-        <input id="searchInput" type="text" placeholder="Search for...">
-    </div>
-
-    <!-- User profile-->
-    <div class="user-profile clearfix">
-        <div class="dropdown al-user-profile">
-            <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
-                <img src="../../../assets/img/app/profile/Nasta.png">
-            </a>
-            <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-                <li class="dropdown-item"><a href><i class="fa fa-user"></i>Profile</a></li>
-                <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Settings</a></li>
-                <li class="dropdown-item"><a class="signout" (click)="logout()"><i class="fa fa-power-off"></i>退 出</a></li>
-            </ul>
-        </div>
-        <!-- msg-center -->
-    </div>
-</div>
+<!-- TODO: 显示系统名称，添加菜单toggle -->
+<a md-button routerLink="/admin/index" class="logo">ng2-Admin</a>
+<!-- TODO: 完善搜索功能-->
+<md-input-container class="search" floatPlaceholder="never">
+    <span mdPrefix><md-icon>search</md-icon> &nbsp;</span>
+    <input mdInput placeholder="请输入搜索内容">
+</md-input-container>

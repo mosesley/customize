@@ -9,7 +9,7 @@ import { MenuService } from './menu/service/menu.service';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { LoginService } from './login/service/login.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdCardModule } from '@angular/material';
+import { MdButtonModule, MdIconModule, MdInputModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 /**
  * Admin Module
@@ -18,8 +18,12 @@ import { MdCardModule } from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
-    MdCardModule,
     FlexLayoutModule,
+    MdSidenavModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdInputModule,
+    MdIconModule,
     AdminRoutingModule
   ],
   declarations: [
