@@ -9,7 +9,10 @@ import { MenuService } from './menu/service/menu.service';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { LoginService } from './login/service/login.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdIconModule, MdInputModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
+import {
+  MdButtonModule, MdIconModule, MdInputModule, MdMenuModule, MdSidenavModule,
+  MdToolbarModule
+} from '@angular/material';
 
 /**
  * Admin Module
@@ -24,6 +27,7 @@ import { MdButtonModule, MdIconModule, MdInputModule, MdSidenavModule, MdToolbar
     MdButtonModule,
     MdInputModule,
     MdIconModule,
+    MdMenuModule,
     AdminRoutingModule
   ],
   declarations: [

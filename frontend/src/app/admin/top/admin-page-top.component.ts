@@ -19,6 +19,9 @@ export class AdminPageTop implements OnInit {
     this.loginUser = JSON.parse(sessionStorage.getItem("loginUser")) as LoginUser;
   }
 
+  /**
+   * 推出登陆
+   */
   logout(): void {
     this.loginService.logout();
   }

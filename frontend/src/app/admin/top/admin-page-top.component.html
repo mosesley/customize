@@ -1,7 +1,27 @@
-<!-- TODO: 显示系统名称，添加菜单toggle -->
-<a md-button routerLink="/admin/index" class="logo">ng2-Admin</a>
-<!-- TODO: 完善搜索功能-->
-<md-input-container class="search" floatPlaceholder="never">
-    <span mdPrefix><md-icon>search</md-icon> &nbsp;</span>
-    <input mdInput placeholder="请输入搜索内容">
-</md-input-container>
+<md-toolbar [class.mat-elevation-z6]="true">
+    <!-- TODO: 显示系统名称，添加菜单toggle -->
+    <a md-button routerLink="/admin/index" class="logo">ng2-Admin</a>
+    <!-- TODO: 完善搜索功能-->
+    <md-input-container class="search" floatPlaceholder="never">
+        <span mdPrefix><md-icon>search</md-icon> &nbsp;</span>
+        <input mdInput placeholder="请输入搜索内容">
+    </md-input-container>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="md-toolbar-space"></span>
+
+    <button md-icon-button [mdMenuTriggerFor]="topMenu">
+        <md-icon>account_circle</md-icon>
+    </button>
+    <md-menu #topMenu="mdMenu" yPosition="below" xPosition="before" [overlapTrigger]="false">
+        <!-- TODO: 个人信息设置 -->
+        <button md-menu-item>
+            <md-icon>settings</md-icon>
+            <span>settings</span>
+        </button>
+        <button md-menu-item (click)="logout()">
+            <md-icon>power_settings_new</md-icon>
+            <span>exit</span>
+        </button>
+    </md-menu>
+</md-toolbar>
