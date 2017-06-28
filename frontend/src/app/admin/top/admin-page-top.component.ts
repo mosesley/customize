@@ -20,7 +20,7 @@ export class AdminPageTop implements OnInit {
   }
 
   /**
-   * 推出登陆
+   * 退出登陆
    */
   logout(): void {
     this.loginService.logout();
