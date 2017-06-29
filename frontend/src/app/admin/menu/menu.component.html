@@ -8,8 +8,11 @@
     <!--</ul>-->
     <!--<div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"></div>-->
 <!--</aside>-->
-<md-nav-list>
-    <admin-menu-item *ngFor="let item of menuItems | async" [menuItem]="item">
-
-    </admin-menu-item>
-</md-nav-list>
+<aside>
+    <ul class="aside-menu-ul">
+        <admin-menu-item
+            *ngFor="let item of menuItems | async"
+            [menuItem]="item">
+        </admin-menu-item>
+    </ul>
+</aside>

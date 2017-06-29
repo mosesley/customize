@@ -21,9 +21,21 @@
         <!--</admin-menu-item>-->
     <!--</ul>-->
 <!--</li>-->
-<md-list-item *ngIf="menuItem.subMenu.length">
-    <md-icon md-list-icon class="md-icon-18">security</md-icon>
-    <span>{{menuItem.name}}</span>
-    <md-icon>chevron_right</md-icon>
-</md-list-item>
-<md-divider></md-divider>
+<li>
+    <a md-button *ngIf="menuItem.subMenu?.length; else linkItem" fxFlexFill (click)="toggleMenu()">
+        <md-icon class="md-icon-18">security</md-icon>
+        <span>{{menuItem.name}}</span>
+        <md-icon [@rotateAnimation]="showMenu ? 'down': 'right'">chevron_right</md-icon>
+    </a>
+    <ng-template #linkItem>
+        <a md-button [routerLink]="menuItem.path" fxFlexFill class="linkItem">
+            <span>{{menuItem.name}}</span>
+        </a>
+    </ng-template>
+    <ul *ngIf="menuItem.subMenu?.length && showMenu" class="aside-subMenu-ul" @toggleAnimation>
+        <admin-menu-item
+                *ngFor="let item of menuItem.subMenu"
+                [menuItem]="item">
+        </admin-menu-item>
+    </ul>
+</li>

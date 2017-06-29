@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Menu } from '../model/menu';
-import { toggleAnimation } from '../../../common/animation/toggleAnimation';
+import { rotateAnimation, toggleAnimation } from '../../../common/animation/toggleAnimation';
 import { Router } from '@angular/router';
 /**
  * Menu item component
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.css'],
   animations: [
-    toggleAnimation
+    toggleAnimation,
+    rotateAnimation
   ]
 })
 export class MenuItemComponent implements OnInit {

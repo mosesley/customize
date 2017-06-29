@@ -1,4 +1,4 @@
-import { animate, AnimationTriggerMetadata, keyframes, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationTriggerMetadata, keyframes, state, style, transition, trigger } from '@angular/animations';
 /**
  * 用户菜单的展开和收缩
  * @type {AnimationTriggerMetadata}
@@ -17,4 +17,17 @@ export const toggleAnimation: AnimationTriggerMetadata = trigger('toggleAnimatio
       style({ height: '0', opacity: 0, offset: 1 })
     ]))
   ]),
+]);
+
+
+/**
+ * 菜单右边小图标90度旋转动画
+ * @type {AnimationTriggerMetadata}
+ * Created by maxu0 on 2017/6/29.
+ */
+export const rotateAnimation: AnimationTriggerMetadata = trigger('rotateAnimation', [
+  state('right', style({transform: 'rotate(0)'})),
+  state('down',   style({transform: 'rotate(90deg)'})),
+  transition('right => down', animate('200ms ease-in')),
+  transition('down => right', animate('200ms ease-out'))
 ]);

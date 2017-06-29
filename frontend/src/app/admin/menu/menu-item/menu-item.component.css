@@ -1,0 +1,17 @@
+.aside-subMenu-ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+a {
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.aside-subMenu-ul a {
+    padding-left: 34px;
+}
+
+.aside-subMenu-ul a.linkItem {
+    padding-left: 52px;
+}
