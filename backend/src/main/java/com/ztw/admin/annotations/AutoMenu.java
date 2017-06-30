@@ -24,7 +24,7 @@ public @interface AutoMenu {
     String name();
 
     /**
-     * 菜单图标，采用font-awesome图标集
+     * 菜单图标，采用material icons图标集
      * @return
      */
     String icon() default "";

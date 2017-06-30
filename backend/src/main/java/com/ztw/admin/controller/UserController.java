@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/api/admin/user")
-@AutoMenu(name = "用户", icon = "fa fa-users", orderNum = 1)
+@AutoMenu(name = "用户", icon = "people", orderNum = 1)
 public class UserController extends AuthRootMenu {
 
     @Autowired

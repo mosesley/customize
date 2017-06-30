@@ -1,6 +1,6 @@
 <li>
     <a md-button *ngIf="menuItem.subMenu?.length; else linkItem" fxFlexFill (click)="toggleMenu()" (mouseenter)="onHoverItem($event)">
-        <md-icon class="md-icon-18">security</md-icon>
+        <md-icon class="md-icon-18" *ngIf="menuItem.icon">{{menuItem.icon}}</md-icon>
         <span>{{menuItem.name}}</span>
         <md-icon [@rotateAnimation]="showMenu ? 'down': 'right'" class="rotate-icon">chevron_right</md-icon>
     </a>
