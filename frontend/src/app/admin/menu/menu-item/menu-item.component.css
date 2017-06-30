@@ -15,3 +15,13 @@ a {
 .aside-subMenu-ul a.linkItem {
     padding-left: 52px;
 }
+
+.rotate-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.active {
+    background-color: bisque;
+}

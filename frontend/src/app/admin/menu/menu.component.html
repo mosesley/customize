@@ -1,18 +1,10 @@
-<!--<aside class="al-sidebar">-->
-    <!--<ul class="al-sidebar-list" (mouseleave)="hoverElemTop=outOfArea">-->
-        <!--<admin-menu-item-->
-            <!--*ngFor="let item of menuItems | async"-->
-            <!--(itemHover)="hoverItem($event)"-->
-            <!--[menuItem]="item">-->
-        <!--</admin-menu-item>-->
-    <!--</ul>-->
-    <!--<div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"></div>-->
-<!--</aside>-->
 <aside>
-    <ul class="aside-menu-ul">
+    <ul class="aside-menu-ul" (mouseleave)="hoverElemTop=outOfArea">
         <admin-menu-item
             *ngFor="let item of menuItems | async"
-            [menuItem]="item">
+            [menuItem]="item"
+            (itemHover)="hoverItem($event)">
         </admin-menu-item>
     </ul>
+    <div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"></div>
 </aside>

@@ -27,8 +27,7 @@ export class MenuComponent implements OnInit{
 
   public hoverItem($event): void {
     this.hoverElemHeight = $event.currentTarget.clientHeight;
-    // TODO: get rid of magic 66 constant
-    this.hoverElemTop = $event.currentTarget.getBoundingClientRect().top - 66;
+    this.hoverElemTop = $event.currentTarget.getBoundingClientRect().top;
   }
 
 }
