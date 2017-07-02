@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'admin-menu-item',
   templateUrl: './menu-item.component.html',
-  styleUrls: ['./menu-item.component.css'],
+  styleUrls: ['./menu-item.component.scss'],
   animations: [
     toggleAnimation,
     rotateAnimation

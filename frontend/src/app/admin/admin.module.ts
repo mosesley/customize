@@ -10,9 +10,11 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { LoginService } from './login/service/login.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdSidenavModule,
+  MdButtonModule, MdIconModule, MdInputModule, MdMenuModule, MdSidenavModule,
   MdToolbarModule
 } from '@angular/material';
+import { navReducer } from '../common/reducer/nav-reducer';
+import { StoreModule } from '@ngrx/store';
 
 /**
  * Admin Module
@@ -28,7 +30,7 @@ import {
     MdInputModule,
     MdIconModule,
     MdMenuModule,
-    MdListModule,
+    StoreModule.provideStore({navReducer: navReducer}),
     AdminRoutingModule
   ],
   declarations: [

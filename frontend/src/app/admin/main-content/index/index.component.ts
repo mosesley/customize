@@ -1,36 +1,22 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { MdDialog, MdDialogRef } from '@angular/material';
-
-
-@Component({
-  selector: 'dialog-result-example-dialog',
-  template: `fdsfdsfds`,
-})
-export class DialogResultExampleDialog {
-  constructor(public dialogRef: MdDialogRef<DialogResultExampleDialog>) {}
-}
-
+import { MdDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { CHANGE, NavState } from '../../../common/reducer/nav-reducer';
 
 /**
+ * Home page,现在主要用来测试一些组件
  * Created by maxu0 on 2017/6/1.
  */
 @Component({
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
-  selectedOption: string;
 
-  constructor(private pageTitle: Title, public dialog: MdDialog) {
+  constructor(private pageTitle: Title, private store$: Store<NavState>) {
+    this.store$.dispatch({type: CHANGE, payload: {title: '主页'}});
     this.pageTitle.setTitle(`Admin-index`);
-  }
-
-  openDialog() {
-    let dialogRef = this.dialog.open(DialogResultExampleDialog);
-    dialogRef.afterClosed().subscribe(result => {
-      this.selectedOption = result;
-    });
   }
 
 }

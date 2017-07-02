@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogResultExampleDialog, IndexComponent } from './index.component';
+import { IndexComponent } from './index.component';
 import { IndexRoutingModule } from './index-routing.module';
-import { MdDialogModule } from '@angular/material';
 
 /**
  * Admin Index module
@@ -11,15 +10,10 @@ import { MdDialogModule } from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
-    MdDialogModule,
     IndexRoutingModule
   ],
   declarations: [
-    DialogResultExampleDialog,
     IndexComponent
-  ],
-  entryComponents: [
-    DialogResultExampleDialog
   ],
   providers: [
 

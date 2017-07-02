@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { UserService } from '../service/user.service';
 import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { CHANGE, NavState } from '../../../../common/reducer/nav-reducer';
+import { MdDialog } from '@angular/material';
+import { MessageDialog } from '../../../../common/dialog/message-dialog';
 
 /**
  * User list component
@@ -9,7 +13,7 @@ import { DatePipe } from '@angular/common';
  */
 @Component({
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
   // user json data
@@ -21,19 +25,19 @@ export class UserListComponent {
       columnTitle: "操作"
     },
     add: {
-      addButtonContent: "<i class='fa fa-plus-circle'></i>",
-      createButtonContent: "<i class='fa fa-check-circle'></i>",
-      cancelButtonContent: "<i class='fa fa-times-circle'></i>",
+      addButtonContent: "<i class='material-icons'>person_add</i>",
+      createButtonContent: "<i class='material-icons'>check_circle</i>",
+      cancelButtonContent: "<i class='material-icons'>cancel</i>",
       confirmCreate: true
     },
     delete: {
-      deleteButtonContent: "<i class='fa fa-trash'></i>",
+      deleteButtonContent: "<i class='material-icons'>delete_forever</i>",
       confirmDelete: true
     },
     edit: {
-      editButtonContent: "<i class='fa fa-pencil'></i>",
-      saveButtonContent: "<i class='fa fa-check-circle'></i>",
-      cancelButtonContent: "<i class='fa fa-times-circle'></i>",
+      editButtonContent: "<i class='material-icons'>mode_edit</i>",
+      saveButtonContent: "<i class='material-icons'>check_circle</i>",
+      cancelButtonContent: "<i class='material-icons'>cancel</i>",
     },
     pager: {
       perPage: 2
@@ -62,6 +66,7 @@ export class UserListComponent {
             return "停用";
           }
         },
+        defaultValue: true,
         editor: {
           type: 'list',
           config: {
@@ -107,7 +112,8 @@ export class UserListComponent {
     }
   };
 
-  constructor(private userService: UserService,  private datePipe: DatePipe) {
+  constructor(private userService: UserService, private dialog: MdDialog, private datePipe: DatePipe, private store$: Store<NavState>) {
+    this.store$.dispatch({type: CHANGE, payload: {title: '用户列表'}});
     this.userService.getUsers().subscribe(httpRes => {
       this.source.load(httpRes.data as Array<any>)
     });
@@ -115,31 +121,37 @@ export class UserListComponent {
 
   /**
    * 添加用户
-   * @param event
+   * @param $event
    */
-  openModal(): void {
-    // const modalRef = this.ngbModal.open(NgbMsgModalComponent).result.then((result) => {
-    //   console.log($event.newData);
-    //   $event.confirm.reject();
-    //   this.closeResult = `Closed with: ${result}`;
-    // }, (reason) => {
-    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //   $event.confirm.reject();
-    // });
-    // const modalRef = this.ngbModal.open(NgbdModalContent);
-    // modalRef.componentInstance.name = "添加用户";
-    // modalRef.componentInstance.content = "content";
+  createUser($event): void {
+    if($event.newData.username.length <= 0) {
+      this.dialog.open(MessageDialog, {data: '用户名不能为空'});
+      $event.confirm.reject();
+      return;
+    }
+
+    if($event.newData.nickname.length <= 0) {
+      this.dialog.open(MessageDialog, {data: '用户昵称不能为空'});
+      $event.confirm.reject();
+      return;
+    }
+
+    if($event.newData.password.length < 6) {
+      this.dialog.open(MessageDialog, {data: '登陆密码不能少于6位'});
+      $event.confirm.reject();
+      return;
+    }
   }
 
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return  `with: ${reason}`;
-  //   }
-  // }
+  /**
+   * 删除用户
+   */
+  deleteUser($event): void {
+    if($event.data.admin) {
+      this.dialog.open(MessageDialog, {data: '不能删除超级管理员！'});
+      $event.confirm.reject();
+      return;
+    }
+  }
 
 }

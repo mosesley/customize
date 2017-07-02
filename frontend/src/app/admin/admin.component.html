@@ -4,6 +4,12 @@
         <admin-menu></admin-menu>
     </md-sidenav>
     <div class="sidenav-content">
-        <router-outlet></router-outlet>
+        <md-toolbar>
+            <!-- TODO:添加导航视图 -->
+            <span>{{(navState$ | async)?.title}}</span>
+        </md-toolbar>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </md-sidenav-container>

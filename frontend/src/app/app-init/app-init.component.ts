@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
  */
 @Component({
   templateUrl: './app-init.component.html',
-  styleUrls: ['./app-init.component.css'],
+  styleUrls: ['./app-init.component.scss'],
 })
 export class AppInitComponent implements OnInit{
   private initForm: FormGroup;

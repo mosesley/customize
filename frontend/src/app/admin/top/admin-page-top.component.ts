@@ -8,7 +8,7 @@ import { LoginService } from '../login/service/login.service';
 @Component({
   selector: 'admin-page-top',
   templateUrl: './admin-page-top.component.html',
-  styleUrls: ['./admin-page-top.component.css']
+  styleUrls: ['./admin-page-top.component.scss']
 })
 export class AdminPageTop implements OnInit {
   loginUser: LoginUser;
