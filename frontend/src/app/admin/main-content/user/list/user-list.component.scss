@@ -3,11 +3,43 @@
         th, td {
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
-
         tbody {
             tr:hover {
                 background-color: rgba(0, 0, 0, 0.1);
             }
+        }
+
+        .ng2-smart-pagination-nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .ng2-smart-page-link {
+            display: block;
+            border: 1px solid #dddddd;
+            margin-left: -1px;
+            padding: 6px 12px;
+            text-decoration: none !important;
+        }
+
+        .page-item.active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .page-item.disabled {
+            a {
+                cursor: not-allowed;
+            }
+        }
+
+        .pagination > li:first-child > .ng2-smart-page-link {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .pagination > li:last-child > .ng2-smart-page-link {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
         }
     }
 }

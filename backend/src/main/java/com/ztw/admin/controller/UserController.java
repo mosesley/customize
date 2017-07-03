@@ -3,11 +3,10 @@ package com.ztw.admin.controller;
 import com.ztw.admin.annotations.AutoMenu;
 import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
+import com.ztw.admin.service.UserService;
 import com.ztw.common.model.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +24,13 @@ public class UserController extends AuthRootMenu {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 获取用户列表
+     * @return
+     */
     @GetMapping(value = "/list")
     @AutoMenu(name = "用户列表", orderNum = 1)
     public HttpResponse list() {
@@ -37,9 +43,13 @@ public class UserController extends AuthRootMenu {
         return res;
     }
 
-    @GetMapping(value = "/test")
-    @AutoMenu(name = "测试", orderNum = 2)
-    public HttpResponse test() {
-        return new HttpResponse();
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "/add")
+    public HttpResponse add(@RequestBody User user) {
+        return userService.addUser(user);
     }
 }

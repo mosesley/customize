@@ -40,11 +40,12 @@ export class UserListComponent {
       cancelButtonContent: "<i class='material-icons'>cancel</i>",
     },
     pager: {
-      perPage: 2
+      perPage: 10
     },
     columns: {
       username: {
-        title: '用户名'
+        title: '用户名',
+        editable: false,
       },
       nickname: {
         title: '用户昵称'
@@ -100,6 +101,7 @@ export class UserListComponent {
       admin: {
         title: '权限',
         editable: false,
+        addable: false,
         sort: false,
         valuePrepareFunction: (admin) => {
           if(admin) {
@@ -141,6 +143,20 @@ export class UserListComponent {
       $event.confirm.reject();
       return;
     }
+
+    this.userService.addUser($event.newData).subscribe(res => {
+      if(res.status && res.status.endsWith("error")) {
+        this.dialog.open(MessageDialog, {data: res.statusText});
+        $event.confirm.reject();
+        return;
+      }
+
+      if(res.status && res.status.endsWith("ok")) {
+        this.dialog.open(MessageDialog, {data: res.statusText});
+        $event.confirm.resolve(res.data);
+        return;
+      }
+    });
   }
 
   /**
