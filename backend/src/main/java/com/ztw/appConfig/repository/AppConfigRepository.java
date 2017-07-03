@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author 马旭
  * @created 2017-05-08 16:57.
  */
-public interface AppConfigRepository extends CrudRepository<AppConfig, Integer> {
+public interface AppConfigRepository extends CrudRepository<AppConfig, String> {
 
 
 }

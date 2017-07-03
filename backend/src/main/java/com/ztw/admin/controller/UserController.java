@@ -52,4 +52,14 @@ public class UserController extends AuthRootMenu {
     public HttpResponse add(@RequestBody User user) {
         return userService.addUser(user);
     }
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @DeleteMapping(value = "/{id}/delete")
+    public HttpResponse delete(@PathVariable("id") String id) {
+        return userService.deleteUser(id);
+    }
 }

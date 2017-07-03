@@ -37,4 +37,15 @@ export class UserService {
       .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);
   }
+
+  /**
+   * 删除用户
+   * @param id
+   * @returns {Observable<R|T>}
+   */
+  deleteUser(id: string): Observable<HttpRes> {
+    return this.http.delete(`${this.user_api_url}/${id}/delete`, HttpUtil.httpOptions)
+      .map(HttpUtil.extractRes)
+      .catch(HttpUtil.handleError);
+  }
 }

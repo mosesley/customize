@@ -1,4 +1,5 @@
 <md-card>
+    <!-- TODO: 不能从服务器分页，等angular-material有table功能后，需要换成data-table -->
     <ng2-smart-table [settings]="settings" [source]="source"
         (deleteConfirm)="deleteUser($event)"
         (createConfirm)="createUser($event)">

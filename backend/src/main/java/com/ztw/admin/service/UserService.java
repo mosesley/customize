@@ -50,4 +50,23 @@ public class UserService {
         }
         return res;
     }
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    public HttpResponse deleteUser(String id) {
+        HttpResponse res = new HttpResponse();
+        userRepository.delete(id);
+
+        if(userRepository.exists(id)) {
+            res.setStatus("error");
+            res.setStatusText("删除用户失败");
+        } else {
+            res.setStatus("ok");
+        }
+
+        return res;
+    }
 }

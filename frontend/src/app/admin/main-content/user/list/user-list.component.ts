@@ -167,6 +167,17 @@ export class UserListComponent {
       this.dialog.open(MessageDialog, {data: '不能删除超级管理员！'});
       $event.confirm.reject();
       return;
+    } else {
+      this.userService.deleteUser($event.data.id).subscribe(res => {
+        if(res.status && res.status.endsWith("ok")) {
+          $event.confirm.resolve();
+          return;
+        } else {
+          this.dialog.open(MessageDialog, {data: res.statusText});
+          $event.confirm.reject();
+          return;
+        }
+      })
     }
   }
 
