@@ -69,4 +69,37 @@ public class UserService {
 
         return res;
     }
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    public HttpResponse updateUser(User user) {
+        HttpResponse res = new HttpResponse();
+
+        // 密码修改
+        try {
+            if(user.getPassword().length() > 0) {
+                user.setPassword(SecurityUtil.md5(user.getUsername(), user.getPassword()));
+            } else {
+                user.setPassword(userRepository.findOne(user.getId()).getPassword());
+            }
+        } catch (NoSuchAlgorithmException e) {
+            res.setStatus("error");
+            res.setStatusText("密码更新失败");
+            return res;
+        }
+
+        User existUser = userRepository.save(user);
+        if(existUser == null) {
+            res.setStatus("error");
+            res.setStatusText("用户更新失败或更新用户不存在");
+        } else {
+            res.setStatus("ok");
+            existUser.setPassword("");
+            res.setData(existUser);
+        }
+        return res;
+    }
 }

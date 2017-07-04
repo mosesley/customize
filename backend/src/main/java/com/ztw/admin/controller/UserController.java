@@ -62,4 +62,14 @@ public class UserController extends AuthRootMenu {
     public HttpResponse delete(@PathVariable("id") String id) {
         return userService.deleteUser(id);
     }
+
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
+    @PatchMapping(value = "/update")
+    public HttpResponse update(@RequestBody User user) {
+        return userService.updateUser(user);
+    }
 }

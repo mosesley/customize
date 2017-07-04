@@ -38,6 +38,7 @@ export class UserListComponent {
       editButtonContent: "<i class='material-icons'>mode_edit</i>",
       saveButtonContent: "<i class='material-icons'>check_circle</i>",
       cancelButtonContent: "<i class='material-icons'>cancel</i>",
+      confirmSave: true
     },
     pager: {
       perPage: 10
@@ -178,6 +179,41 @@ export class UserListComponent {
           return;
         }
       })
+    }
+  }
+
+  /**
+   * 更新用户
+   * @param $event
+   */
+  updateUser($event): void {
+    if($event.newData.admin) {
+      this.dialog.open(MessageDialog, {data: '超级管理员不能在此修改'});
+      $event.confirm.reject();
+      return;
+    } else {
+      if($event.newData.nickname.length <= 0) {
+        this.dialog.open(MessageDialog, {data: '用户昵称不能为空'});
+        $event.confirm.reject();
+        return;
+      }
+
+      if($event.newData.password.length > 0 && $event.newData.password.length < 6) {
+        this.dialog.open(MessageDialog, {data: '如果要修改密码，密码长度必须不少于6位'});
+        $event.confirm.reject();
+        return;
+      }
+
+      this.userService.updateUser($event.newData).subscribe(res => {
+        if(res.status && res.status.endsWith("ok")) {
+          $event.confirm.resolve(res.data);
+          return;
+        } else {
+          this.dialog.open(MessageDialog, {data: res.statusText});
+          $event.confirm.reject();
+          return;
+        }
+      });
     }
   }
 

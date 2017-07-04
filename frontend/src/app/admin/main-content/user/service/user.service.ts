@@ -48,4 +48,15 @@ export class UserService {
       .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);
   }
+
+  /**
+   * 更新用户
+   * @param user
+   * @returns {Observable<R|T>}
+   */
+  updateUser(user: Object): Observable<HttpRes> {
+    return this.http.patch(`${this.user_api_url}/update`, JSON.stringify(user), HttpUtil.httpOptions)
+      .map(HttpUtil.extractRes)
+      .catch(HttpUtil.handleError);
+  }
 }
