@@ -1,6 +1,7 @@
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
+import { LoginUser } from '../../admin/top/model/login-user';
 /**
  * Http Util
  * Created by maxu0 on 2017/5/9.
@@ -18,6 +19,9 @@ export class HttpUtil {
    * @type {RequestOptions}
    */
   public static httpOptions = new RequestOptions({ headers: HttpUtil.headers });
+
+  public static httpActOptions = new RequestOptions({ headers: HttpUtil.headers,
+                                                      params: {'userID': (JSON.parse(sessionStorage.getItem("loginUser")) as LoginUser).id }});
 
   /**
    * Extract response data json

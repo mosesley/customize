@@ -55,7 +55,7 @@ export class UserService {
    * @returns {Observable<R|T>}
    */
   updateUser(user: Object): Observable<HttpRes> {
-    return this.http.patch(`${this.user_api_url}/update`, JSON.stringify(user), HttpUtil.httpOptions)
+    return this.http.put(`${this.user_api_url}/update`, JSON.stringify(user), HttpUtil.httpOptions)
       .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);
   }

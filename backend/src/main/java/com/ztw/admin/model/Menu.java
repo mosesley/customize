@@ -1,7 +1,5 @@
 package com.ztw.admin.model;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -34,9 +32,14 @@ public class Menu {
     private String name;
 
     /**
-     * 菜单图标，采用font-awesome图标集
+     * 菜单图标，采用material-icon图标集
      */
     private String icon;
+
+    /**
+     * 菜单类型
+     */
+    private MenuType type;
 
     /**
      * 菜单顺序

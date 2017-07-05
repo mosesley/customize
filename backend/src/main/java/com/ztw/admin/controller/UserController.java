@@ -68,8 +68,9 @@ public class UserController extends AuthRootMenu {
      * @param user
      * @return
      */
-    @PatchMapping(value = "/update")
+    @PutMapping(value = "/update")
     public HttpResponse update(@RequestBody User user) {
+        System.out.println(user.getUsername());
         return userService.updateUser(user);
     }
 }

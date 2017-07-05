@@ -23,7 +23,9 @@ import 'hammerjs';
     JsonpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

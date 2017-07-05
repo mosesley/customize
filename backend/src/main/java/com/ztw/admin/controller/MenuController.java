@@ -1,6 +1,5 @@
 package com.ztw.admin.controller;
 
-import com.ztw.admin.model.Menu;
 import com.ztw.admin.model.User;
 import com.ztw.admin.repository.MenuRepository;
 import com.ztw.common.model.HttpResponse;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * ${DESCRIPTION}

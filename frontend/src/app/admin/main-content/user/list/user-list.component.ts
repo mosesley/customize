@@ -153,7 +153,6 @@ export class UserListComponent {
       }
 
       if(res.status && res.status.endsWith("ok")) {
-        this.dialog.open(MessageDialog, {data: res.statusText});
         $event.confirm.resolve(res.data);
         return;
       }
