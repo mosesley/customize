@@ -117,8 +117,8 @@ export class UserListComponent {
 
   constructor(private userService: UserService, private dialog: MdDialog, private datePipe: DatePipe, private store$: Store<NavState>) {
     this.store$.dispatch({type: CHANGE, payload: {title: '用户列表'}});
-    this.userService.getUsers().subscribe(httpRes => {
-      this.source.load(httpRes.data as Array<any>)
+    this.userService.getUsers().subscribe(data => {
+      this.source.load(JSON.parse(JSON.stringify(data)) as Array<any>)
     });
   }
 
@@ -145,18 +145,15 @@ export class UserListComponent {
       return;
     }
 
-    this.userService.addUser($event.newData).subscribe(res => {
-      if(res.status && res.status.endsWith("error")) {
-        this.dialog.open(MessageDialog, {data: res.statusText});
+    this.userService.addUser($event.newData).subscribe(
+      data => {
+        $event.confirm.resolve(JSON.parse(JSON.stringify(data)));
+      },
+      error => {
+        this.dialog.open(MessageDialog, {data: error});
         $event.confirm.reject();
-        return;
       }
-
-      if(res.status && res.status.endsWith("ok")) {
-        $event.confirm.resolve(res.data);
-        return;
-      }
-    });
+    );
   }
 
   /**
@@ -168,16 +165,15 @@ export class UserListComponent {
       $event.confirm.reject();
       return;
     } else {
-      this.userService.deleteUser($event.data.id).subscribe(res => {
-        if(res.status && res.status.endsWith("ok")) {
+      this.userService.deleteUser($event.data.id).subscribe(
+        () => {
           $event.confirm.resolve();
-          return;
-        } else {
-          this.dialog.open(MessageDialog, {data: res.statusText});
+        },
+        error => {
+          this.dialog.open(MessageDialog, {data: error});
           $event.confirm.reject();
-          return;
         }
-      })
+      );
     }
   }
 
@@ -203,16 +199,15 @@ export class UserListComponent {
         return;
       }
 
-      this.userService.updateUser($event.newData).subscribe(res => {
-        if(res.status && res.status.endsWith("ok")) {
-          $event.confirm.resolve(res.data);
-          return;
-        } else {
-          this.dialog.open(MessageDialog, {data: res.statusText});
+      this.userService.updateUser($event.newData).subscribe(
+        data => {
+          $event.confirm.resolve(JSON.parse(JSON.stringify(data)));
+        },
+        error => {
+          this.dialog.open(MessageDialog, {data: error});
           $event.confirm.reject();
-          return;
         }
-      });
+      );
     }
   }
 

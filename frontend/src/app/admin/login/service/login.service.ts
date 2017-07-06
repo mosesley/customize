@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpRes } from '../../../common/model/httpRes';
 import { HttpUtil } from '../../../common/utils/http-util';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -23,18 +22,9 @@ export class LoginService {
    * @param values
    * @returns {Observable<R|T>}
    */
-  loginCheck(values: Object): Observable<HttpRes> {
+  loginCheck(values: Object): Observable<Response> {
     return this.http.post(this.login_url_api, JSON.stringify(values), HttpUtil.httpOptions)
-      .map((res: Response) => {
-        let loginUser = JSON.stringify(res.json().data);
-        if(loginUser) {
-          sessionStorage.setItem('loginUser', loginUser);
-        } else {
-          sessionStorage.removeItem('loginUser');
-        }
-        
-        return res.json() || {};
-      })
+      .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
 

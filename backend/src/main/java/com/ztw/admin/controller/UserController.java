@@ -4,10 +4,11 @@ import com.ztw.admin.annotations.AutoMenu;
 import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.service.UserService;
-import com.ztw.common.model.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,14 +34,12 @@ public class UserController extends AuthRootMenu {
      */
     @GetMapping(value = "/list")
     @AutoMenu(name = "用户列表", orderNum = 1)
-    public HttpResponse list() {
-        HttpResponse res = new HttpResponse();
+    public List<User> list() {
         List<User> users = userRepository.findAll();
         for (User user: users) {
             user.setPassword(""); // 不查询密码
         }
-        res.setData(users);
-        return res;
+        return users;
     }
 
     /**
@@ -49,8 +48,13 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @PostMapping(value = "/add")
-    public HttpResponse add(@RequestBody User user) {
-        return userService.addUser(user);
+    public User add(@RequestBody User user, HttpServletResponse response) throws IOException {
+        try {
+            return userService.addUser(user);
+        } catch (RuntimeException e) {
+            response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -59,8 +63,12 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @DeleteMapping(value = "/{id}/delete")
-    public HttpResponse delete(@PathVariable("id") String id) {
-        return userService.deleteUser(id);
+    public void delete(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
+        try {
+            userService.deleteUser(id);
+        } catch (RuntimeException e) {
+            response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
+        }
     }
 
     /**
@@ -69,8 +77,12 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @PutMapping(value = "/update")
-    public HttpResponse update(@RequestBody User user) {
-        System.out.println(user.getUsername());
-        return userService.updateUser(user);
+    public User update(@RequestBody User user, HttpServletResponse response) throws IOException {
+        try {
+            return userService.updateUser(user);
+        } catch (RuntimeException e) {
+            response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
+            return null;
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.ztw.admin.service;
 
 import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
-import com.ztw.common.model.HttpResponse;
 import com.ztw.common.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,29 +25,20 @@ public class UserService {
      * 添加用户
      * @return
      */
-    public HttpResponse addUser(User user) {
-        HttpResponse res = new HttpResponse();
+    public User addUser(User user) throws RuntimeException {
         User existUser = userRepository.findByUsername(user.getUsername());
-
         if(existUser != null) {
-            res.setStatus("error");
-            res.setStatusText("添加的用户已存在!");
-            return res;
+            throw new RuntimeException("添加的用户已存在!");
         }
 
         try {
             user.setAdmin(false);
             user.setPassword(SecurityUtil.md5(user.getUsername(), user.getPassword()));
             user.setCreateDate(new Date());
-            res.setData(userRepository.save(user));
-            res.setStatus("ok");
-            res.setStatusText("添加成功!");
+            return userRepository.save(user);
         } catch (NoSuchAlgorithmException e) {
-            res.setStatus("error");
-            res.setStatusText("添加用户异常!");
-            return res;
+            throw new RuntimeException("添加用户异常!");
         }
-        return res;
     }
 
     /**
@@ -56,18 +46,15 @@ public class UserService {
      * @param id
      * @return
      */
-    public HttpResponse deleteUser(String id) {
-        HttpResponse res = new HttpResponse();
-        userRepository.delete(id);
-
-        if(userRepository.exists(id)) {
-            res.setStatus("error");
-            res.setStatusText("删除用户失败");
+    public void deleteUser(String id) throws RuntimeException {
+        if(!userRepository.exists(id)) {
+            throw new RuntimeException("删除用户不存在！");
         } else {
-            res.setStatus("ok");
+            userRepository.delete(id);
         }
-
-        return res;
+        if(userRepository.exists(id)) {
+            throw new RuntimeException("删除用户失败!");
+        }
     }
 
     /**
@@ -75,9 +62,7 @@ public class UserService {
      * @param user
      * @return
      */
-    public HttpResponse updateUser(User user) {
-        HttpResponse res = new HttpResponse();
-
+    public User updateUser(User user) {
         // 密码修改
         try {
             if(user.getPassword().length() > 0) {
@@ -86,20 +71,12 @@ public class UserService {
                 user.setPassword(userRepository.findOne(user.getId()).getPassword());
             }
         } catch (NoSuchAlgorithmException e) {
-            res.setStatus("error");
-            res.setStatusText("密码更新失败");
-            return res;
+            throw new RuntimeException("密码更新失败!");
         }
 
-        User existUser = userRepository.save(user);
-        if(existUser == null) {
-            res.setStatus("error");
-            res.setStatusText("用户更新失败或更新用户不存在");
-        } else {
-            res.setStatus("ok");
-            existUser.setPassword("");
-            res.setData(existUser);
+        if(!userRepository.exists(user.getId())) {
+           throw new RuntimeException("更新用户不存在！");
         }
-        return res;
+        return userRepository.save(user);
     }
 }

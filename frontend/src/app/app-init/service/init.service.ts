@@ -5,7 +5,6 @@ import { AppConfig } from '../model/app-config';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpUtil } from '../../common/utils/http-util';
-import { HttpRes } from '../../common/model/httpRes';
 
 /**
  * App initialize service
@@ -21,9 +20,8 @@ export class InitService {
    * 判断系统是否已经被初始化
    * @returns {Observable<R|T>}
    */
-  appConfigIsExist(): Observable<HttpRes> {
+  appConfigIsExist(): Observable<Response> {
     return this.http.get(this.init_url_api)
-      .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);
   }
 

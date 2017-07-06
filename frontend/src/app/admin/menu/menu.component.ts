@@ -20,8 +20,8 @@ export class MenuComponent implements OnInit{
   constructor(private menuService: MenuService) {}
 
   ngOnInit() {
-    this.menuItems = this.menuService.getMenus().map(httpRes => {
-      return httpRes.data as Menu[];
+    this.menuItems = this.menuService.getMenus().map(data => {
+      return JSON.parse(JSON.stringify(data)) as Menu[];
     });
   }
 

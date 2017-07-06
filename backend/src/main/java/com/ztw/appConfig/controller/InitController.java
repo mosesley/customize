@@ -8,7 +8,6 @@ import com.ztw.appConfig.model.AppConfig;
 import com.ztw.appConfig.model.InitBody;
 import com.ztw.appConfig.repository.AppConfigRepository;
 import com.ztw.appConfig.util.MenuUtil;
-import com.ztw.common.model.HttpResponse;
 import com.ztw.common.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,10 +41,8 @@ public class InitController {
      * @return
      */
     @GetMapping(value = "")
-    public HttpResponse getConfigIsExist() {
-        HttpResponse res = new HttpResponse();
-        res.setData(appConfigRepository.count() <= 0 ? false : true);
-        return res;
+    public boolean getConfigIsExist() {
+        return appConfigRepository.count() <= 0 ? false : true;
     }
 
     /**
@@ -55,8 +52,7 @@ public class InitController {
      */
     @PostMapping(value = "")
     @Transactional
-    public HttpResponse initAppConfig(@RequestBody InitBody initBody) {
-        HttpResponse res = new HttpResponse();
+    public AppConfig initAppConfig(@RequestBody InitBody initBody) {
         AppConfig appConfig = new AppConfig();
 
         // 初始化超级管理员
@@ -81,7 +77,11 @@ public class InitController {
         }
 
         // 初始化系统菜单
-        menuRepository.deleteAll();
+        List<Menu> existMenus = menuRepository.findAll();
+        for ( Menu m: existMenus ) {
+            menuRepository.delete(m);
+        }
+
         List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
         for (Menu menu: menus) {
             menuRepository.save(menu);
@@ -91,8 +91,7 @@ public class InitController {
         appConfigRepository.deleteAll();
         appConfig.setAppName(initBody.getAppName());
         appConfig.setEmail(initBody.getEmail());
-        res.setData(appConfigRepository.save(appConfig));
 
-        return res;
+        return appConfigRepository.save(appConfig);
     }
 }

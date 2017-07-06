@@ -35,15 +35,17 @@ export class LoginComponent implements OnInit{
   // 登陆
   onSubmit(values: Object): void {
     if(this.loginForm.valid) {
-      this.loginService.loginCheck(values)
-        .subscribe(res => {
-          if(res.status && res.status.endsWith("error")) {
-            this.loginError = res.statusText;
-          } else {
-            let redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : "/admin/index";
-            this.router.navigate([redirect]);
-          }
-        });
+      this.loginService.loginCheck(values).subscribe(
+        data => {
+          sessionStorage.setItem("loginUser", JSON.stringify(data));
+          let redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : "/admin/index";
+          this.router.navigate([redirect]);
+        },
+        error => {
+          sessionStorage.removeItem("loginUser");
+          this.loginError = error;
+        }
+      );
     }
   }
 

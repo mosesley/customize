@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpRes } from '../../../../common/model/httpRes';
 import { HttpUtil } from '../../../../common/utils/http-util';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -22,9 +21,9 @@ export class UserService {
    * Get user list
    * @returns {Observable<R|T>}
    */
-  getUsers(): Observable<HttpRes> {
+  getUsers(): Observable<Response> {
     return this.http.get(`${this.user_api_url}/list`)
-      .map(HttpUtil.extractRes)
+      .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
 
@@ -32,9 +31,9 @@ export class UserService {
    * 添加用户
    * @returns {Observable<R|T>}
    */
-  addUser(user: Object): Observable<HttpRes> {
+  addUser(user: Object): Observable<Response> {
     return this.http.post(`${this.user_api_url}/add`, JSON.stringify(user), HttpUtil.httpOptions)
-      .map(HttpUtil.extractRes)
+      .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
 
@@ -43,9 +42,8 @@ export class UserService {
    * @param id
    * @returns {Observable<R|T>}
    */
-  deleteUser(id: string): Observable<HttpRes> {
+  deleteUser(id: string): Observable<Response> {
     return this.http.delete(`${this.user_api_url}/${id}/delete`, HttpUtil.httpOptions)
-      .map(HttpUtil.extractRes)
       .catch(HttpUtil.handleError);
   }
 
@@ -54,9 +52,11 @@ export class UserService {
    * @param user
    * @returns {Observable<R|T>}
    */
-  updateUser(user: Object): Observable<HttpRes> {
-    return this.http.put(`${this.user_api_url}/update`, JSON.stringify(user), HttpUtil.httpOptions)
-      .map(HttpUtil.extractRes)
+  updateUser(user: Object): Observable<Response> {
+    let options = HttpUtil.httpOptions;
+    options.params.append('userId', JSON.parse(sessionStorage.getItem('loginUser')).id);
+    return this.http.put(`${this.user_api_url}/update`, JSON.stringify(user), options)
+      .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
 }

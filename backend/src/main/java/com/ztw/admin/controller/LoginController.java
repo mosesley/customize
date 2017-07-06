@@ -2,12 +2,15 @@ package com.ztw.admin.controller;
 
 import com.ztw.admin.model.User;
 import com.ztw.admin.service.LoginService;
-import com.ztw.common.model.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 后台登陆api
@@ -28,7 +31,12 @@ public class LoginController {
      * @return
      */
     @PostMapping(value = "")
-    public HttpResponse login(@RequestBody User loginUser) {
-        return loginService.loginCheck(loginUser);
+    public User login(@RequestBody User loginUser, HttpServletResponse response) throws IOException {
+        try {
+            return loginService.loginCheck(loginUser);
+        } catch (LoginException e) {
+            response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
+            return null;
+        }
     }
 }

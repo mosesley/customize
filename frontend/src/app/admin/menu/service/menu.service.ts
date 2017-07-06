@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpUtil } from '../../../common/utils/http-util';
-import { HttpRes } from '../../../common/model/httpRes';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 /**
@@ -19,9 +18,9 @@ export class MenuService {
    * Get Menu list by loginUser
    * @returns {Observable<R|T>}
    */
-  getMenus(): Observable<HttpRes> {
+  getMenus(): Observable<Response> {
     return this.http.post(this.menu_api_url, sessionStorage.getItem("loginUser"), HttpUtil.httpOptions)
-      .map(HttpUtil.extractRes)
+      .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
 }

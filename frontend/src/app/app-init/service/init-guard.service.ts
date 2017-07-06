@@ -23,8 +23,8 @@ export class InitGuard implements CanActivate {
    */
   checkInit(): Observable<boolean> | boolean {
     return this.initService.appConfigIsExist()
-      .map(httpRes => {
-        if(httpRes.data) { // 系统已经初始化完成
+      .map(res => {
+        if(res.json()) { // 系统已经初始化完成
           this.router.navigate(['/admin']);
           return false;
         } else { // 系统还没有被初始化，需要初始化

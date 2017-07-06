@@ -68,7 +68,7 @@ export class AppInitComponent implements OnInit{
     if(this.initForm.valid) {
       this.initService.initAppConfig(values)
         .subscribe(appConfig => {
-          if(appConfig.appName) {
+          if(appConfig.id) {
             //  系统初始化完成，跳转到后台登陆页面
             this.router.navigate(['/admin']);
           } else {
