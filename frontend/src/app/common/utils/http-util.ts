@@ -35,14 +35,16 @@ export class HttpUtil {
    */
   public static handleError(error: Response | any) {
     let errMsg: string;
-
     if(error instanceof Response) {
-      const body = error.json() || '';
-      errMsg = `${body.message}`;
+      try {
+        const body = error.json() || '';
+        errMsg = `${body.message}`;
+      } catch (e) {
+        errMsg = `${error.statusText}`;
+      }
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-
     return Observable.throw(errMsg);
   }
 
