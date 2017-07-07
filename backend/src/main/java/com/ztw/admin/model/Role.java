@@ -1,5 +1,6 @@
 package com.ztw.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_role")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Role {
 
     @Id
@@ -25,9 +27,9 @@ public class Role {
     private String name;
 
     /**
-     * 角色资源标识
+     * 角色标识
      */
-    private String sn;
+    private String role;
 
     public String getId() {
         return id;
@@ -45,11 +47,11 @@ public class Role {
         this.name = name;
     }
 
-    public String getSn() {
-        return sn;
+    public String getRole() {
+        return role;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -10,9 +10,9 @@ import com.ztw.appConfig.repository.AppConfigRepository;
 import com.ztw.appConfig.util.MenuUtil;
 import com.ztw.common.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;

@@ -5,6 +5,7 @@ import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +49,7 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @PostMapping(value = "/add")
+    @Transactional
     public User add(@RequestBody User user, HttpServletResponse response) throws IOException {
         try {
             return userService.addUser(user);
@@ -63,6 +65,7 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @DeleteMapping(value = "/{id}/delete")
+    @Transactional
     public void delete(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
         try {
             userService.deleteUser(id);
@@ -77,6 +80,7 @@ public class UserController extends AuthRootMenu {
      * @return
      */
     @PutMapping(value = "/update")
+    @Transactional
     public User update(@RequestBody User user, HttpServletResponse response) throws IOException {
         try {
             return userService.updateUser(user);

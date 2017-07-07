@@ -40,7 +40,7 @@ export class HttpUtil {
         const body = error.json() || '';
         errMsg = `${body.message}`;
       } catch (e) {
-        errMsg = `${error.statusText}`;
+        errMsg = `${error.status}-${error.statusText}`;
       }
     } else {
       errMsg = error.message ? error.message : error.toString();
