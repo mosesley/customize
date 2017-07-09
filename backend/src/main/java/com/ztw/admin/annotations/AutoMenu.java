@@ -1,7 +1,5 @@
 package com.ztw.admin.annotations;
 
-import com.ztw.admin.model.MenuType;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.METHOD;
@@ -30,12 +28,6 @@ public @interface AutoMenu {
      * @return
      */
     String icon() default "";
-
-    /**
-     * 菜单图标
-     * @return
-     */
-    MenuType type() default MenuType.NAV;
 
     /**
      * 菜单序号

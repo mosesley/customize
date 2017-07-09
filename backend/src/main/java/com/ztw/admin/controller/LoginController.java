@@ -19,7 +19,7 @@ import java.io.IOException;
  * @created 2017-05-31 10:44.
  */
 @RestController
-@RequestMapping(value = "/api/admin/login")
+@RequestMapping(value = "/admin/login")
 public class LoginController {
 
     @Autowired

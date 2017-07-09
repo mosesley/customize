@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class MenuService {
-  private menu_api_url = "/api/admin/menu";
+  private menu_api_url = "/api/admin/menus";
 
   constructor(private http: Http) { }
 
@@ -19,7 +19,7 @@ export class MenuService {
    * @returns {Observable<R|T>}
    */
   getMenus(): Observable<Response> {
-    return this.http.post(this.menu_api_url, sessionStorage.getItem("loginUser"), HttpUtil.httpOptions)
+    return this.http.get(this.menu_api_url, HttpUtil.httpOptions)
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }

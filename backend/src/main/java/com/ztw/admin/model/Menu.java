@@ -37,11 +37,6 @@ public class Menu {
     private String icon;
 
     /**
-     * 菜单类型
-     */
-    private MenuType type;
-
-    /**
      * 菜单顺序
      */
     @Column(name = "order_num")

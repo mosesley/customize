@@ -1,9 +1,13 @@
 package com.ztw.appConfig.controller;
 
 import com.ztw.admin.model.Menu;
+import com.ztw.admin.model.Role;
 import com.ztw.admin.model.User;
+import com.ztw.admin.model.UserRole;
 import com.ztw.admin.repository.MenuRepository;
+import com.ztw.admin.repository.RoleRepository;
 import com.ztw.admin.repository.UserRepository;
+import com.ztw.admin.repository.UserRoleRepository;
 import com.ztw.appConfig.model.AppConfig;
 import com.ztw.appConfig.model.InitBody;
 import com.ztw.appConfig.repository.AppConfigRepository;
@@ -24,7 +28,7 @@ import java.util.List;
  * @created 2017-05-08 16:54.
  */
 @RestController
-@RequestMapping(value = "/api/appConfig")
+@RequestMapping(value = "/appConfig")
 public class InitController {
 
     @Autowired
@@ -35,6 +39,14 @@ public class InitController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+
 
     /**
      * 查看系统是否初始化
@@ -58,20 +70,34 @@ public class InitController {
         // 初始化超级管理员
         try {
             User adminUser = new User();
-            adminUser.setAdmin(true); // 设置为超级管理员，拥有所有菜单权限
             adminUser.setUsername(initBody.getAdminName()); // 超级管理员登陆名
             adminUser.setPassword(SecurityUtil.md5(initBody.getAdminName(), initBody.getPassword()));
             adminUser.setNickname(initBody.getAdminName()); // 昵称，默认和登陆名一致
             adminUser.setStatus(true); // 设置为启用
             adminUser.setCreateDate(new Date()); // 创建时间
 
-            User existAdminUser = userRepository.findOneByAdmin(true);
+            User existAdminUser = userRepository.findByUsername(adminUser.getUsername());
             if(existAdminUser == null) {
-                userRepository.save(adminUser);
+                adminUser = userRepository.save(adminUser);
             } else {
                 adminUser.setId(existAdminUser.getId());
-                userRepository.save(adminUser);
+                adminUser = userRepository.save(adminUser);
             }
+
+            // 初始化角色
+            Role role = new Role();
+            role.setName("超级管理员");
+            role.setRole("ROLE_ADMIN");
+            roleRepository.deleteAll();
+            role = roleRepository.save(role);
+
+            // 初始化管理员角色
+            UserRole ur = new UserRole();
+            ur.setUserId(adminUser.getId());
+            ur.setRoleId(role.getId());
+            userRoleRepository.deleteAll();
+            userRoleRepository.save(ur);
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -81,7 +107,6 @@ public class InitController {
         for ( Menu m: existMenus ) {
             menuRepository.delete(m);
         }
-
         List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
         for (Menu menu: menus) {
             menuRepository.save(menu);

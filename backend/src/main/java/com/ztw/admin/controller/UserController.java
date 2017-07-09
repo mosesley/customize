@@ -5,6 +5,7 @@ import com.ztw.admin.model.User;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,9 @@ import java.util.List;
  * @created 2017-05-18 10:57.
  */
 @RestController
-@RequestMapping(value = "/api/admin/user")
+@RequestMapping(value = "/admin/user")
 @AutoMenu(name = "用户", icon = "people", orderNum = 1)
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController extends AuthRootMenu {
 
     @Autowired

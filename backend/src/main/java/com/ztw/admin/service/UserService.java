@@ -32,7 +32,6 @@ public class UserService {
         }
 
         try {
-            user.setAdmin(false);
             user.setPassword(SecurityUtil.md5(user.getUsername(), user.getPassword()));
             user.setCreateDate(new Date());
             return userRepository.save(user);

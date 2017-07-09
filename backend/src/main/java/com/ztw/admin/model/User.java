@@ -50,11 +50,6 @@ public class User {
     @Column(name = "create_date")
     private Date createDate;
 
-    /**
-     * 是否是超级管理员
-     */
-    private boolean admin;
-
     public String getId() {
         return id;
     }
@@ -107,11 +102,4 @@ public class User {
         this.createDate = createDate;
     }
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 }
