@@ -2,6 +2,7 @@ package com.ztw.admin.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource;
 
 import java.util.Collection;
 

@@ -98,7 +98,7 @@ public class MenuUtil {
                         amMap = am.getAnnotationAttributes(PostMapping.class.getName());
                     }
 
-                    controllerMenu.setPath(((String[]) amMap.get("value"))[0].substring(4));
+                    controllerMenu.setPath(((String[]) amMap.get("value"))[0]);
                     controllerMenu.setName((String) amAutoMenu.get("name"));
                     controllerMenu.setIcon((String) amAutoMenu.get("icon"));
                     controllerMenu.setOrderNum((Integer) amAutoMenu.get("orderNum"));

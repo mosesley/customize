@@ -8,5 +8,5 @@ export class LoginUser {
   password: string;
   status: boolean;
   createDate: string;
-  admin: boolean;
+  token: string;
 }

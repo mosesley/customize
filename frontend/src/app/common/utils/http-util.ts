@@ -18,7 +18,7 @@ export class HttpUtil {
    * Http options
    * @type {RequestOptions}
    */
-  public static httpOptions = new RequestOptions({ headers: HttpUtil.headers, params: {}});
+  public static httpOptions = new RequestOptions({ headers: HttpUtil.headers});
 
   /**
    * Extract response body json

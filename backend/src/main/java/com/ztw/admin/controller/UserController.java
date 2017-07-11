@@ -2,10 +2,8 @@ package com.ztw.admin.controller;
 
 import com.ztw.admin.annotations.AutoMenu;
 import com.ztw.admin.model.User;
-import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/admin/user")
 @AutoMenu(name = "用户", icon = "people", orderNum = 1)
-@PreAuthorize("hasRole('ADMIN')")
 public class UserController extends AuthRootMenu {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -38,11 +32,7 @@ public class UserController extends AuthRootMenu {
     @GetMapping(value = "/list")
     @AutoMenu(name = "用户列表", orderNum = 1)
     public List<User> list() {
-        List<User> users = userRepository.findAll();
-        for (User user: users) {
-            user.setPassword(""); // 不查询密码
-        }
-        return users;
+        return userService.findAll();
     }
 
     /**
@@ -54,7 +44,7 @@ public class UserController extends AuthRootMenu {
     @Transactional
     public User add(@RequestBody User user, HttpServletResponse response) throws IOException {
         try {
-            return userService.addUser(user);
+            return userService.saveUser(user);
         } catch (RuntimeException e) {
             response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
             return null;

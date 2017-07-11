@@ -12,12 +12,11 @@ import com.ztw.appConfig.model.AppConfig;
 import com.ztw.appConfig.model.InitBody;
 import com.ztw.appConfig.repository.AppConfigRepository;
 import com.ztw.appConfig.util.MenuUtil;
-import com.ztw.common.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +45,8 @@ public class InitController {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 查看系统是否初始化
@@ -68,39 +68,35 @@ public class InitController {
         AppConfig appConfig = new AppConfig();
 
         // 初始化超级管理员
-        try {
-            User adminUser = new User();
-            adminUser.setUsername(initBody.getAdminName()); // 超级管理员登陆名
-            adminUser.setPassword(SecurityUtil.md5(initBody.getAdminName(), initBody.getPassword()));
-            adminUser.setNickname(initBody.getAdminName()); // 昵称，默认和登陆名一致
-            adminUser.setStatus(true); // 设置为启用
-            adminUser.setCreateDate(new Date()); // 创建时间
+        User adminUser = new User();
+        adminUser.setUsername(initBody.getAdminName()); // 超级管理员登陆名
+        adminUser.setPassword(bCryptPasswordEncoder.encode(initBody.getPassword()));
+        adminUser.setNickname(initBody.getAdminName()); // 昵称，默认和登陆名一致
+        adminUser.setStatus(true); // 设置为启用
+        adminUser.setCreateDate(new Date()); // 创建时间
 
-            User existAdminUser = userRepository.findByUsername(adminUser.getUsername());
-            if(existAdminUser == null) {
-                adminUser = userRepository.save(adminUser);
-            } else {
-                adminUser.setId(existAdminUser.getId());
-                adminUser = userRepository.save(adminUser);
-            }
-
-            // 初始化角色
-            Role role = new Role();
-            role.setName("超级管理员");
-            role.setRole("ROLE_ADMIN");
-            roleRepository.deleteAll();
-            role = roleRepository.save(role);
-
-            // 初始化管理员角色
-            UserRole ur = new UserRole();
-            ur.setUserId(adminUser.getId());
-            ur.setRoleId(role.getId());
-            userRoleRepository.deleteAll();
-            userRoleRepository.save(ur);
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        User existAdminUser = userRepository.findByUsername(adminUser.getUsername());
+        if(existAdminUser == null) {
+            adminUser = userRepository.save(adminUser);
+        } else {
+            adminUser.setId(existAdminUser.getId());
+            adminUser = userRepository.save(adminUser);
         }
+
+        // 初始化角色
+        Role role = new Role();
+        role.setName("超级管理员");
+        role.setRole("ROLE_ADMIN");
+        roleRepository.deleteAll();
+        role = roleRepository.save(role);
+
+        // 初始化管理员角色
+        UserRole ur = new UserRole();
+        ur.setUserId(adminUser.getId());
+        ur.setRoleId(role.getId());
+        userRoleRepository.deleteAll();
+        userRoleRepository.save(ur);
+
 
         // 初始化系统菜单
         List<Menu> existMenus = menuRepository.findAll();

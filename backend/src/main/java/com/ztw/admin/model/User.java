@@ -50,6 +50,24 @@ public class User {
     @Column(name = "create_date")
     private Date createDate;
 
+    /**
+     * JWT
+     */
+    private String token;
+
+    public User() {
+
+    }
+
+    public User(String id, String username, String nickname, String password, boolean status, Date createDate) {
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.status = status;
+        this.createDate = createDate;
+    }
+
     public String getId() {
         return id;
     }
@@ -102,4 +120,11 @@ public class User {
         this.createDate = createDate;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

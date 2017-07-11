@@ -160,21 +160,15 @@ export class UserListComponent {
    * 删除用户
    */
   deleteUser($event): void {
-    if($event.data.admin) {
-      this.dialog.open(MessageDialog, {data: '不能删除超级管理员！'});
-      $event.confirm.reject();
-      return;
-    } else {
-      this.userService.deleteUser($event.data.id).subscribe(
-        () => {
-          $event.confirm.resolve();
-        },
-        error => {
-          this.dialog.open(MessageDialog, {data: error});
-          $event.confirm.reject();
-        }
-      );
-    }
+    this.userService.deleteUser($event.data.id).subscribe(
+      () => {
+        $event.confirm.resolve();
+      },
+      error => {
+        this.dialog.open(MessageDialog, {data: error});
+        $event.confirm.reject();
+      }
+    )
   }
 
   /**
@@ -182,33 +176,26 @@ export class UserListComponent {
    * @param $event
    */
   updateUser($event): void {
-    if($event.newData.admin) {
-      this.dialog.open(MessageDialog, {data: '超级管理员不能在此修改'});
+    if ($event.newData.nickname.length <= 0) {
+      this.dialog.open(MessageDialog, {data: '用户昵称不能为空'});
       $event.confirm.reject();
       return;
-    } else {
-      if($event.newData.nickname.length <= 0) {
-        this.dialog.open(MessageDialog, {data: '用户昵称不能为空'});
-        $event.confirm.reject();
-        return;
-      }
-
-      if($event.newData.password.length > 0 && $event.newData.password.length < 6) {
-        this.dialog.open(MessageDialog, {data: '如果要修改密码，密码长度必须不少于6位'});
-        $event.confirm.reject();
-        return;
-      }
-
-      this.userService.updateUser($event.newData).subscribe(
-        data => {
-          $event.confirm.resolve(JSON.parse(JSON.stringify(data)));
-        },
-        error => {
-          this.dialog.open(MessageDialog, {data: error});
-          $event.confirm.reject();
-        }
-      );
     }
-  }
 
+    if ($event.newData.password.length > 0 && $event.newData.password.length < 6) {
+      this.dialog.open(MessageDialog, {data: '如果要修改密码，密码长度必须不少于6位'});
+      $event.confirm.reject();
+      return;
+    }
+
+    this.userService.updateUser($event.newData).subscribe(
+      data => {
+        $event.confirm.resolve(JSON.parse(JSON.stringify(data)));
+      },
+      error => {
+        this.dialog.open(MessageDialog, {data: error});
+        $event.confirm.reject();
+      }
+    )
+  }
 }
