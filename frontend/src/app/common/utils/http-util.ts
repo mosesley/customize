@@ -21,6 +21,14 @@ export class HttpUtil {
   public static httpOptions = new RequestOptions({ headers: HttpUtil.headers});
 
   /**
+   * http options with token
+   * @type {any}
+   */
+  public static httpOptionsWithToken = sessionStorage.getItem("loginUser") ?
+    new RequestOptions({ headers: new Headers({'Content-Type': 'application/json',
+        'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem("loginUser")).token}`})}) : null;
+
+  /**
    * Extract response body json
    * @param res
    * @returns {{}}
@@ -35,6 +43,7 @@ export class HttpUtil {
    */
   public static handleError(error: Response | any) {
     let errMsg: string;
+    console.log(JSON.stringify(error));
     if(error instanceof Response) {
       try {
         const body = error.json() || '';

@@ -1,14 +1,15 @@
 package com.ztw.admin.controller;
 
-import com.ztw.admin.model.User;
+import com.ztw.admin.security.JwtAuthenticationRequest;
+import com.ztw.admin.security.JwtAuthenticationResponse;
 import com.ztw.admin.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.security.auth.login.LoginException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.mobile.device.Device;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 后台登陆api
@@ -25,16 +26,11 @@ public class LoginController {
 
     /**
      * 用户登录api
-     * @param loginUser
+     * @param authenticationRequest
      * @return
      */
     @PostMapping(value = "")
-    public User login(@RequestBody User loginUser, HttpServletResponse response) throws IOException {
-        try {
-            return loginService.loginCheck(loginUser);
-        } catch (LoginException e) {
-            response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());
-            return null;
-        }
+    public ResponseEntity<?> login(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) {
+        return ResponseEntity.ok(new JwtAuthenticationResponse(loginService.loginCheck(authenticationRequest, device)));
     }
 }

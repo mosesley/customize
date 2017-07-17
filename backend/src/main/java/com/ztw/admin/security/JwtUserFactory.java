@@ -25,8 +25,9 @@ public final class JwtUserFactory {
         return new JwtUser(
                 user.getId(),
                 user.getUsername(),
+                user.getNickname(),
                 user.getPassword(),
-                mapToGrantedAuthorities(authorities)
+                user.isStatus(), mapToGrantedAuthorities(authorities)
         );
     }
 

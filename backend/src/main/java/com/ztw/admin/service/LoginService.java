@@ -1,17 +1,18 @@
 package com.ztw.admin.service;
 
-import com.ztw.admin.model.User;
-import com.ztw.admin.repository.UserRepository;
+import com.ztw.admin.security.JwtAuthenticationRequest;
 import com.ztw.admin.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * 后台用户登录service
@@ -23,36 +24,31 @@ import javax.security.auth.login.LoginException;
 public class LoginService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /**
      * 登陆用户检测
-     * @param loginUser
+     * @param authenticationRequest
      * @return
      */
-    public User loginCheck(User loginUser) throws LoginException {
-        User existUser = userRepository.findByUsername(loginUser.getUsername());
-        // 登陆用户不存在或已被停用
-        if(existUser == null || !existUser.getStatus()) {
-            throw new LoginException("登陆用户不存在或已被停用!");
-        }
-
-        UsernamePasswordAuthenticationToken upToken =
-                new UsernamePasswordAuthenticationToken(loginUser.getUsername(),loginUser.getPassword());
+    public String loginCheck(JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
         // Perform the security
-        try {
-            final Authentication authentication = authenticationManager.authenticate(upToken);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (AuthenticationException e) {
-            throw new LoginException("密码输入不正确!");
-        }
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Reload password post-security so we can generate token
-        existUser.setToken(JwtTokenUtil.generateToken(existUser.getUsername()));
-        return existUser;
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final String token = JwtTokenUtil.generateToken(userDetails, device);
+
+        // Return the token
+        return token;
     }
 }

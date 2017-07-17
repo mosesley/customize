@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpUtil } from '../../../../common/utils/http-util';
 import 'rxjs/add/operator/catch';
@@ -12,9 +12,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UserService {
   private user_api_url = "/api/admin/user";
-  private httpHeaders = new Headers({'Content-Type': 'application/json',
-                                     'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem("loginUser")).token}`});
-  private httpOptions = new RequestOptions({ headers: this.httpHeaders});
 
   constructor(private http: Http) {
 
@@ -25,7 +22,7 @@ export class UserService {
    * @returns {Observable<R|T>}
    */
   getUsers(): Observable<Response> {
-    return this.http.get(`${this.user_api_url}/list`, this.httpOptions)
+    return this.http.get(`${this.user_api_url}/list`, HttpUtil.httpOptionsWithToken)
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
@@ -35,7 +32,7 @@ export class UserService {
    * @returns {Observable<R|T>}
    */
   addUser(user: Object): Observable<Response> {
-    return this.http.post(`${this.user_api_url}/add`, JSON.stringify(user), this.httpOptions)
+    return this.http.post(`${this.user_api_url}/add`, JSON.stringify(user), HttpUtil.httpOptionsWithToken)
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
@@ -46,7 +43,7 @@ export class UserService {
    * @returns {Observable<R|T>}
    */
   deleteUser(id: string): Observable<Response> {
-    return this.http.delete(`${this.user_api_url}/${id}/delete`, this.httpOptions)
+    return this.http.delete(`${this.user_api_url}/${id}/delete`, HttpUtil.httpOptionsWithToken)
       .catch(HttpUtil.handleError);
   }
 
@@ -56,7 +53,7 @@ export class UserService {
    * @returns {Observable<R|T>}
    */
   updateUser(user: Object): Observable<Response> {
-    return this.http.put(`${this.user_api_url}/update`, JSON.stringify(user), this.httpOptions)
+    return this.http.put(`${this.user_api_url}/update`, JSON.stringify(user), HttpUtil.httpOptionsWithToken)
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }

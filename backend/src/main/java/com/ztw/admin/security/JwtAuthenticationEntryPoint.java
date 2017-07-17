@@ -1,5 +1,7 @@
 package com.ztw.admin.security;
 
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,13 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
                          AuthenticationException authException) throws IOException, ServletException {
         // This is invoked when user tries to access a secured REST resource without supplying any credentials
         // We should just send a 401 Unauthorized response because there is no 'login page' to redirect to
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "没有权限");
+        // System.out.println(authException.getMessage());
+        if(authException instanceof BadCredentialsException) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "密码输入不正确.");
+        } else if(authException instanceof DisabledException) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "用户已经被停用.");
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+        }
     }
 }

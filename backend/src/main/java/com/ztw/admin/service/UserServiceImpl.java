@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setCreateDate(new Date());
         User su = userRepository.save(user);
-        User u = new User(su.getId(), su.getUsername(), su.getNickname(),"", su.getStatus(), su.getCreateDate());
+        User u = new User(su.getId(), su.getUsername(), su.getNickname(),"", su.isStatus(), su.getCreateDate());
         return u;
     }
 
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User su = userRepository.save(user);
-        User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.getStatus(), su.getCreateDate());
+        User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.isStatus(), su.getCreateDate());
         return u;
     }
 
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ROLE_TELLER')")
     private User updateAdmin(User user) {
         User su = userRepository.save(user);
-        User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.getStatus(), su.getCreateDate());
+        User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.isStatus(), su.getCreateDate());
         return u;
     }
 }
