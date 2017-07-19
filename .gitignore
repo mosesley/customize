@@ -16,6 +16,7 @@ dist
 tmp
 out-tsc
 build
+out
 
 # dependencies
 node_modules
