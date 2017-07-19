@@ -229,7 +229,7 @@ public class JwtTokenUtil implements Serializable {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority authority;
         for (Object role : roles) {
-            authority = new SimpleGrantedAuthority(role.toString());
+            authority = new SimpleGrantedAuthority(role.toString().substring(11, role.toString().length()-1));
             authorities.add(authority);
         }
         return authorities;

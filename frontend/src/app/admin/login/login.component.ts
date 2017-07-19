@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit{
     if(this.loginForm.valid) {
       this.loginService.loginCheck(values).subscribe(
         data => {
-          console.log(this.jwtHelper.decodeToken(JSON.parse(JSON.stringify(data)).token));
+          // console.log(this.jwtHelper.decodeToken(JSON.parse(JSON.stringify(data)).token));
           sessionStorage.setItem("loginUser", JSON.stringify(data));
           HttpUtil.httpOptionsWithToken = new RequestOptions({ headers: new Headers({'Content-Type': 'application/json',
             'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem("loginUser")).token}`})});

@@ -43,7 +43,7 @@ export class HttpUtil {
    */
   public static handleError(error: Response | any) {
     let errMsg: string;
-    console.log(JSON.stringify(error));
+    // console.log(JSON.stringify(error));
     if(error instanceof Response) {
       try {
         const body = error.json() || '';

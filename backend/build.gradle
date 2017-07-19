@@ -52,6 +52,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("io.jsonwebtoken:jjwt:${jjwtVersion}")
     compile("mysql:mysql-connector-java")
+    compile("com.belerweb:pinyin4j:2.5.1")
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

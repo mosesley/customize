@@ -1,17 +1,12 @@
 package com.ztw.appConfig.controller;
 
-import com.ztw.admin.model.Menu;
-import com.ztw.admin.model.Role;
-import com.ztw.admin.model.User;
-import com.ztw.admin.model.UserRole;
-import com.ztw.admin.repository.MenuRepository;
-import com.ztw.admin.repository.RoleRepository;
-import com.ztw.admin.repository.UserRepository;
-import com.ztw.admin.repository.UserRoleRepository;
+import com.ztw.admin.model.*;
+import com.ztw.admin.repository.*;
 import com.ztw.appConfig.model.AppConfig;
 import com.ztw.appConfig.model.InitBody;
 import com.ztw.appConfig.repository.AppConfigRepository;
 import com.ztw.appConfig.util.MenuUtil;
+import com.ztw.appConfig.util.PermissionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +39,12 @@ public class InitController {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private PermissionRepository permissionRepository;
+
+    @Autowired
+    private PermissionRoleRepository permissionRoleRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -97,6 +98,29 @@ public class InitController {
         userRoleRepository.deleteAll();
         userRoleRepository.save(ur);
 
+        // 初始化系统资源
+        List<Permission> existPermissions = permissionRepository.findAll();
+        for (Permission ep : existPermissions) {
+            if(ep.getMethod().equals("")) {
+                permissionRepository.delete(ep);
+            }
+        }
+        List<Permission> permissions = PermissionUtil.buildAppPermision("com/ztw/admin/controller/*.class");
+        for (Permission p: permissions) {
+            Permission sp = permissionRepository.save(p);
+
+            // 初始化管理员角色对应所有资源
+            PermissionRole pr = new PermissionRole();
+            pr.setRoleId(role.getId());
+            pr.setPermissionId(sp.getId());
+            permissionRoleRepository.save(pr);
+            for(Permission subP: sp.getSubPer()) {
+                PermissionRole spr = new PermissionRole();
+                spr.setRoleId(role.getId());
+                spr.setPermissionId(subP.getId());
+                permissionRoleRepository.save(spr);
+            }
+        }
 
         // 初始化系统菜单
         List<Menu> existMenus = menuRepository.findAll();

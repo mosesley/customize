@@ -86,10 +86,12 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+
         if(!userRepository.exists(id)) {
             throw new RuntimeException("删除用户不存在！");
         } else {
             userRepository.delete(id);
+            userRoleRepository.deleteByUserId(id);
         }
         if(userRepository.exists(id)) {
             throw new RuntimeException("删除用户失败!");
@@ -103,7 +105,21 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User updateUser(User user) {
+        return this.update(user);
+    }
 
+    /**
+     * 更新管理员需要管理员权限
+     * @param user
+     * @return
+     */
+    @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public User updateAdmin(User user) {
+        return this.update(user);
+    }
+
+    private User update(User user) {
         // 密码修改
         if(user.getPassword().length() > 0) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -112,33 +128,9 @@ public class UserServiceImpl implements UserService {
         }
 
         if(!userRepository.exists(user.getId())) {
-           throw new RuntimeException("更新用户不存在！");
+            throw new RuntimeException("更新用户不存在！");
         }
 
-        List<String> ids = new ArrayList<>();
-        List<UserRole> urs = userRoleRepository.findByUserId(user.getId());
-        for (UserRole ur: urs) {
-            ids.add(ur.getRoleId());
-        }
-        List<Role> roles = roleRepository.findAll(ids);
-        for(Role r: roles) {
-            if(r.getRole().equals("ROLE_ADMIN")) {
-                return this.updateAdmin(user);
-            }
-        }
-
-        User su = userRepository.save(user);
-        User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.isStatus(), su.getCreateDate());
-        return u;
-    }
-
-    /**
-     * 更新管理员
-     * @param user
-     * @return
-     */
-    @PreAuthorize("hasRole('ROLE_TELLER')")
-    private User updateAdmin(User user) {
         User su = userRepository.save(user);
         User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.isStatus(), su.getCreateDate());
         return u;
