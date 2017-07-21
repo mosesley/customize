@@ -45,7 +45,7 @@ public class RoleController extends AuthRootMenu{
      */
     @PostMapping(value = "/add")
     @Transactional
-    @AuthPermission(name = "添加用户", url = "/add", method = "POST")
+    @AuthPermission(name = "添加角色", url = "/add", method = "POST")
     public Role add(@RequestBody Role role, HttpServletResponse response) throws IOException {
         try {
             return roleService.save(role);

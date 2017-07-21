@@ -168,7 +168,7 @@ export class UserListComponent {
         this.dialog.open(MessageDialog, {data: error});
         $event.confirm.reject();
       }
-    )
+    );
   }
 
   /**

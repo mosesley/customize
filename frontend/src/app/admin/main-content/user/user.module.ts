@@ -5,7 +5,6 @@ import { UserComponent } from './user.component';
 import { UserListComponent } from './list/user-list.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UserService } from './service/user.service';
-import { MdCardModule } from '@angular/material';
 import { DialogModule } from '../../../common/dialog/dialog.module';
 import { MessageDialog } from '../../../common/dialog/message-dialog';
 
@@ -16,7 +15,6 @@ import { MessageDialog } from '../../../common/dialog/message-dialog';
 @NgModule({
   imports: [
     CommonModule,
-    MdCardModule,
     Ng2SmartTableModule,
     DialogModule,
     UserRoutingModule

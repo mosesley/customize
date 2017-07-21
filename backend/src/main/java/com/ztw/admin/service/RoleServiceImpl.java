@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role save(Role role) throws RuntimeException {
-        role.setRole("ROLE_" + PinyinToolkit.cn2FirstSpell(role.getName()));
+        role.setRole("ROLE_" + PinyinToolkit.cn2FirstSpell(role.getName()).toUpperCase());
         Role r = roleRepository.findByRole(role.getRole());
         if(r == null) {
             return roleRepository.save(role);
@@ -61,7 +61,7 @@ public class RoleServiceImpl implements RoleService {
         if(role.getRole().equals("ROLE_ADMIN")) {
             throw new RuntimeException("超级管理员角色不能修改");
         } else {
-            role.setRole("ROLE_" + PinyinToolkit.cn2FirstSpell(role.getName()));
+            role.setRole("ROLE_" + PinyinToolkit.cn2FirstSpell(role.getName()).toUpperCase());
             Role r = roleRepository.findByRole(role.getRole());
             if(r == null) {
                 return roleRepository.save(role);

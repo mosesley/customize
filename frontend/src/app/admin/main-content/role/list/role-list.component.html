@@ -1,0 +1,59 @@
+<div class="mat-elevation-z5">
+    <md-toolbar>
+        <md-input-container floatPlaceholder="never">
+            <span mdPrefix><md-icon>verified_user</md-icon> &nbsp;</span>
+            <input mdInput placeholder="角色名称" required #inputName>
+        </md-input-container>
+        <button md-mini-fab [disabled]="inputName.value.length == 0" (click)="createRole(inputName)"><md-icon>add</md-icon></button>
+    </md-toolbar>
+    <div fxLayout="row" fxLayoutAlign="start stretch" >
+        <md-table #table [dataSource]="dataSource" fxFlex="80">
+            <md-header-row *cdkHeaderRowDef="roleColumns"></md-header-row>
+            <md-row *cdkRowDef="let row; columns: roleColumns"></md-row>
+            <!-- operation Column -->
+            <ng-container cdkColumnDef="operation">
+                <md-header-cell *cdkHeaderCellDef> 操作 </md-header-cell>
+                <md-cell *cdkCellDef="let row">
+                    <button md-mini-fab *ngIf="row.role != 'ROLE_ADMIN'" (click)="changeRoles(row.id)"><md-icon>verified_user</md-icon></button>
+                    <button md-mini-fab *ngIf="row.role != 'ROLE_ADMIN'" (click)="deleteRole(row.id)"><md-icon>delete_forever</md-icon></button>
+                </md-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container cdkColumnDef="name">
+                <md-header-cell *cdkHeaderCellDef> 角色名称 </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+            </ng-container>
+
+            <!-- role Column -->
+            <ng-container cdkColumnDef="role">
+                <md-header-cell *cdkHeaderCellDef> 角色标识 </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{row.role}} </md-cell>
+            </ng-container>
+        </md-table>
+        <!-- 角色权限设置 -->
+        <md-card fxFlex="20">
+            <md-card-header>
+                <md-card-title>角色权限</md-card-title>
+            </md-card-header>
+            <md-card-content>
+                <section fxLayout="column" fxLayoutAlign="start stretch" *ngFor="let permission of permissions">
+                    <md-checkbox
+                            [id]="permission.id"
+                            [indeterminate]="indeterminate"
+                            (change)="change($event)">
+                        {{permission.name}}
+                    </md-checkbox>
+                    <md-checkbox
+                            *ngFor="let subPer of permission.subPer"
+                            [id]="subPer.id"
+                            fxFlexOffset="10"
+                            (change)="change($event)">
+                        {{subPer.name}}
+                    </md-checkbox>
+                </section>
+            </md-card-content>
+        </md-card>
+    </div>
+
+</div>
