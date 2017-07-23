@@ -10,8 +10,17 @@ import org.springframework.security.access.ConfigAttribute;
  */
 public class MyConfigAttribute implements ConfigAttribute {
 
+    private String id;
     private String url;
     private String method;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUrl() {
         return url;
@@ -29,7 +38,8 @@ public class MyConfigAttribute implements ConfigAttribute {
         this.method = method;
     }
 
-    public MyConfigAttribute(String url, String method) {
+    public MyConfigAttribute(String id, String url, String method) {
+        this.id = id;
         this.url = url;
         this.method = method;
     }

@@ -9,7 +9,9 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * ${DESCRIPTION}
@@ -31,9 +33,9 @@ public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityM
     private void loadAttributes() {
         List<Permission> permissions = permissionRepository.findAll();
         for(Permission permission : permissions) {
-           attributes.add(new MyConfigAttribute(permission.getUrl(), permission.getMethod()));
+           attributes.add(new MyConfigAttribute(permission.getId(), permission.getUrl(), permission.getMethod()));
            for(Permission subPer : permission.getSubPer()) {
-               attributes.add(new MyConfigAttribute(subPer.getUrl(), subPer.getMethod()));
+               attributes.add(new MyConfigAttribute(subPer.getId(), subPer.getUrl(), subPer.getMethod()));
            }
         }
     }
@@ -41,6 +43,7 @@ public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityM
     // 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+        List<ConfigAttribute> reAttributes = new ArrayList<>();
         if(attributes.size() == 0) {
             loadAttributes();
         }
@@ -50,10 +53,10 @@ public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityM
         for(ConfigAttribute ca : attributes) {
             matcher = new AntPathRequestMatcher(((MyConfigAttribute) ca).getUrl(), ((MyConfigAttribute) ca).getMethod());
             if(matcher.matches(fi.getHttpRequest())) {
-                return (Collection<ConfigAttribute>) ca;
+                reAttributes.add(ca);
             }
         }
-        return null;
+        return reAttributes;
     }
 
     @Override

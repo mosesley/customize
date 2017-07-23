@@ -40,7 +40,7 @@ public class Permission {
     /**
      * 子资源
      */
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "pid")
     private Set<Permission> subPer;
 

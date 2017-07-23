@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { CHANGE, NavState } from '../../../../common/reducer/nav-reducer';
 import { MdDialog } from '@angular/material';
 import { MessageDialog } from '../../../../common/dialog/message-dialog';
+import { CustomRenderComponent } from "./custom-render.component";
 
 /**
  * User list component
@@ -18,6 +19,7 @@ import { MessageDialog } from '../../../../common/dialog/message-dialog';
 export class UserListComponent {
   // user json data
   source: LocalDataSource = new LocalDataSource();
+  auth: string[] = ['admin', 'user'];
 
   // ng2-smart-table setting
   settings = {
@@ -101,16 +103,8 @@ export class UserListComponent {
       },
       admin: {
         title: '权限',
-        editable: false,
-        addable: false,
-        sort: false,
-        valuePrepareFunction: (admin) => {
-          if(admin) {
-            return "超级管理员"
-          } else {
-            return "普通用户"
-          }
-        }
+        type: 'custom',
+        renderComponent: CustomRenderComponent
       }
     }
   };

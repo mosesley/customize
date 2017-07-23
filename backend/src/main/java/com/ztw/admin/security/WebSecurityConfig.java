@@ -35,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
+    private MyFilterSecurityMetadataSource myFilterSecurityMetadataSource;
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -86,8 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // .anyRequest().authenticated();
                 .anyRequest().authenticated().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-                        FilterInvocationSecurityMetadataSource newSource = new MyFilterSecurityMetadataSource();
-                        fsi.setSecurityMetadataSource(newSource);
+                        fsi.setSecurityMetadataSource(myFilterSecurityMetadataSource);
                         return fsi;
                     }
                 });

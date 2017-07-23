@@ -7,6 +7,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UserService } from './service/user.service';
 import { DialogModule } from '../../../common/dialog/dialog.module';
 import { MessageDialog } from '../../../common/dialog/message-dialog';
+import { CustomRenderComponent } from "./list/custom-render.component";
 
 /**
  * Admin user module
@@ -21,10 +22,12 @@ import { MessageDialog } from '../../../common/dialog/message-dialog';
   ],
   declarations: [
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    CustomRenderComponent
   ],
   entryComponents: [
-    MessageDialog
+    MessageDialog,
+    CustomRenderComponent
   ],
   providers: [
     UserService,
@@ -32,5 +35,5 @@ import { MessageDialog } from '../../../common/dialog/message-dialog';
   ]
 })
 export class UserModule {
-  
+
 }
