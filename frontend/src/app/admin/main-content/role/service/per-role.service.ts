@@ -22,8 +22,7 @@ export class PerRoleService {
    * @returns {Observable<R|T>}
    */
   getPerRoles(id: string): Observable<Response> {
-    console.log(`${this.permission_api_url}/${id}`);
-    return this.http.get(`${this.permission_api_url}/${id}`, HttpUtil.httpOptionsWithToken)
+    return this.http.get(`${this.permission_api_url}/list_by_role/${id}`, HttpUtil.httpOptionsWithToken)
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }

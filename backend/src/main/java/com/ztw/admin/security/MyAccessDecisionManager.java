@@ -27,7 +27,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                        Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
         Collection<GrantedAuthority> userHasRoles = (Collection<GrantedAuthority>) authentication.getAuthorities();
-        // System.out.println(configAttributes);
+        System.out.println(configAttributes);
         // 放行[超级管理员: ROLE_ADMIN]角色
         Iterator<GrantedAuthority> iterator = userHasRoles.iterator();
         while (iterator.hasNext()){

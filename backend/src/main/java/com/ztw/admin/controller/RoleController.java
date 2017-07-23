@@ -88,4 +88,15 @@ public class RoleController extends AuthRootMenu{
         }
     }
 
+    /**
+     * 修改权限
+     * @return
+     */
+    @GetMapping(value = "/updatePermission")
+    @Transactional
+    @AuthPermission(name = "修改权限", url = "/updatePermission", method = "GET")
+    public void updatePermissionRole(@RequestParam("roleId") String roleId, @RequestParam("permissionId") String permissionId, @RequestParam("checked") boolean checked) {
+        roleService.updatePermissionRole(roleId, permissionId, checked);
+    }
+
 }

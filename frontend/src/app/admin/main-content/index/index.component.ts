@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { MdDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { CHANGE, NavState } from '../../../common/reducer/nav-reducer';
 
@@ -18,5 +17,4 @@ export class IndexComponent {
     this.store$.dispatch({type: CHANGE, payload: {title: '主页'}});
     this.pageTitle.setTitle(`Admin-index`);
   }
-
 }

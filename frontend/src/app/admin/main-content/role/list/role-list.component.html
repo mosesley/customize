@@ -14,7 +14,7 @@
             <ng-container cdkColumnDef="operation">
                 <md-header-cell *cdkHeaderCellDef> 操作 </md-header-cell>
                 <md-cell *cdkCellDef="let row">
-                    <button md-mini-fab *ngIf="row.role != 'ROLE_ADMIN'" (click)="changeRoles(row.id)"><md-icon>verified_user</md-icon></button>
+                    <button md-mini-fab *ngIf="row.role != 'ROLE_ADMIN'" (click)="changeRoles(row.id, row.name)"><md-icon>verified_user</md-icon></button>
                     <button md-mini-fab *ngIf="row.role != 'ROLE_ADMIN'" (click)="deleteRole(row.id)"><md-icon>delete_forever</md-icon></button>
                 </md-cell>
             </ng-container>
@@ -34,26 +34,26 @@
         <!-- 角色权限设置 -->
         <md-card fxFlex="20">
             <md-card-header>
-                <md-card-title>角色权限</md-card-title>
+                <md-card-title>{{current_role_name}} - 权限</md-card-title>
             </md-card-header>
             <md-card-content>
                 <section fxLayout="column" fxLayoutAlign="start stretch" *ngFor="let permission of permissions">
                     <md-checkbox
                             [id]="permission.id"
-                            [indeterminate]="indeterminate"
-                            (change)="change($event)">
+                            [checked]="isChecked(permission.id)"
+                            (change)="changeAuth($event, current_role_id)">
                         {{permission.name}}
                     </md-checkbox>
                     <md-checkbox
                             *ngFor="let subPer of permission.subPer"
                             [id]="subPer.id"
+                            [checked]="isChecked(subPer.id)"
                             fxFlexOffset="10"
-                            (change)="change($event)">
+                            (change)="changeAuth($event, current_role_id)">
                         {{subPer.name}}
                     </md-checkbox>
                 </section>
             </md-card-content>
         </md-card>
     </div>
-
 </div>

@@ -15,4 +15,5 @@ public interface RoleService {
     Role save(Role role);
     void delete(String id);
     Role update(Role role);
+    void updatePermissionRole(String roleId, String permissionId, boolean checked);
 }

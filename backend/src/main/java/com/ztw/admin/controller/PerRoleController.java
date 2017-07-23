@@ -27,10 +27,8 @@ public class PerRoleController {
      * 获取角色对应的资源列表
      * @return
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/list_by_role/{id}")
     public List<PermissionRole> list(@PathVariable("id") String id) {
-        System.out.println(id);
-        System.out.println(permissionRoleRepository.findByRoleId(id));
         return permissionRoleRepository.findByRoleId(id);
     }
 }

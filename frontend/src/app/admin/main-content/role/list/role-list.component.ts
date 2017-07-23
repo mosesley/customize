@@ -8,7 +8,6 @@ import { MessageDialog } from '../../../../common/dialog/message-dialog';
 import { TableDataBase } from '../../../../common/table/table-data-base';
 import { PermissionService } from '../service/permission.service';
 import { PerRoleService } from '../service/per-role.service';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Role list component
@@ -23,7 +22,9 @@ export class RoleListComponent {
   dataBase: TableDataBase<any>;
   dataSource: TableDataSource | null;
   permissions: any[];
-  current_per_role: Observable<string>;
+  current_role_name: string;
+  current_role_id: string;
+  current_per_role: string;
 
   constructor(
     private roleService: RoleService,
@@ -71,16 +72,43 @@ export class RoleListComponent {
   }
 
   /**
-   * 编辑角色选择
+   * 选择目标角色
    * @param {string} id
    */
-  changeRoles(id: string) {
-    this.current_per_role = this.perRoleService.getPerRoles(id).map( data => {
-      return JSON.stringify(data);
-    })
+  changeRoles(id: string, name: string) {
+    this.current_role_name = name;
+    this.current_role_id = id;
+    this.perRoleService.getPerRoles(id).subscribe(data => {
+      this.current_per_role = JSON.stringify(data);
+    });
   }
 
-  change($event) {
-    // console.log($event);
+  /**
+   * 改变权限
+   * @param $event
+   * @param {string} id
+   */
+  changeAuth($event, id: string) {
+    if(id) {
+      this.roleService.updateRolePermission(id, $event.source.id, $event.checked).subscribe(
+        data => {
+
+        },
+        error => {
+          this.dialog.open(MessageDialog, {data: error});
+      });
+    }
+  }
+
+  /**
+   * 判断是否为选中状态
+   * @param {string} permissionId
+   */
+  isChecked(permissionId: string): boolean {
+    if(this.current_per_role) {
+      return this.current_per_role.includes(`"permissionId":"${permissionId}"`);
+    } else {
+      return false;
+    }
   }
 }

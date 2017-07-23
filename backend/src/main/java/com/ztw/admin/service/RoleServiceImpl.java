@@ -1,5 +1,6 @@
 package com.ztw.admin.service;
 
+import com.ztw.admin.model.PermissionRole;
 import com.ztw.admin.model.Role;
 import com.ztw.admin.repository.PermissionRoleRepository;
 import com.ztw.admin.repository.RoleRepository;
@@ -68,6 +69,18 @@ public class RoleServiceImpl implements RoleService {
             } else {
                 throw new RuntimeException("角色标识已经被使用，请换一个角色名称");
             }
+        }
+    }
+
+    @Override
+    public void updatePermissionRole(String roleId, String permissionId, boolean checked) {
+        if(checked) {
+            PermissionRole pr = new PermissionRole();
+            pr.setPermissionId(permissionId);
+            pr.setRoleId(roleId);
+            permissionRoleRepository.save(pr);
+        } else {
+            permissionRoleRepository.deleteByRoleIdAndPermissionId(roleId, permissionId);
         }
     }
 }

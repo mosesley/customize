@@ -57,4 +57,15 @@ export class RoleService {
       .map(HttpUtil.extractData)
       .catch(HttpUtil.handleError);
   }
+
+  /**
+   * 修改角色系统资源权限
+   * @returns {Observable<Response>}
+   */
+  updateRolePermission(roleId: string, permissionId: string, checked: boolean): Observable<Response> {
+    return this.http.get(
+      `${this.user_api_url}/updatePermission?roleId=${roleId}&permissionId=${permissionId}&checked=${checked}`,
+            HttpUtil.httpOptionsWithToken)
+      .catch(HttpUtil.handleError);
+  }
 }
