@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginUser } from './model/login-user';
-import { LoginService } from '../login/service/login.service';
+import { Router } from "@angular/router";
+import { LoginComponent } from "../login/login.component";
 
 /**
  * Admin page top component
@@ -13,16 +14,18 @@ import { LoginService } from '../login/service/login.service';
 export class AdminPageTop implements OnInit {
   loginUser: LoginUser;
 
-  constructor (private loginService: LoginService) { }
+  constructor (private router: Router) { }
 
   ngOnInit(): void {
-    this.loginUser = JSON.parse(sessionStorage.getItem("loginUser")) as LoginUser;
+    this.loginUser = JSON.parse(sessionStorage.getItem("jwtToken")) as LoginUser;
   }
 
   /**
    * 退出登陆
    */
   logout(): void {
-    this.loginService.logout();
+    sessionStorage.removeItem("loginUser");
+    LoginComponent.redirectUrl = null;
+    this.router.navigate(['/admin/login']);
   }
 }

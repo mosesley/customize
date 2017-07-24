@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Menu } from './model/menu';
-import { MenuService } from './service/menu.service';
+import { Menu } from './menu';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 /**
  * Admin left main menu component
  * Created by maxu0 on 2017/6/2.
@@ -12,17 +12,18 @@ import { MenuService } from './service/menu.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit{
+  private menu_api_url = "/api/admin/menus";
   private menuItems: Observable<Menu[]>;
   public hoverElemHeight: number;
   public hoverElemTop: number;
   public outOfArea: number = -200;
 
-  constructor(private menuService: MenuService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.menuItems = this.menuService.getMenus().map(data => {
-      return JSON.parse(JSON.stringify(data)) as Menu[];
-    });
+    console.log("menu init");
+    this.menuItems = this.http.get<Menu[]>(this.menu_api_url,
+      { headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)});
   }
 
   public hoverItem($event): void {

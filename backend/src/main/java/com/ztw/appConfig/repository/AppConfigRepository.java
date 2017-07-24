@@ -1,7 +1,7 @@
 package com.ztw.appConfig.repository;
 
 import com.ztw.appConfig.model.AppConfig;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @created 2017-05-08 16:57.
  */
 @Repository("appConfigRepository")
-public interface AppConfigRepository extends CrudRepository<AppConfig, String> {
+public interface AppConfigRepository extends JpaRepository<AppConfig, String> {
 
 }

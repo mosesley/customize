@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from './service/login.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { HttpUtil } from '../../common/utils/http-util';
-import { Headers, RequestOptions } from '@angular/http';
-import { JwtHelper } from 'angular2-jwt';
+// import { JwtHelper } from 'angular2-jwt';
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { JwtToken } from "./jwt-token";
 
 /**
  * Login component
@@ -16,12 +15,14 @@ import { JwtHelper } from 'angular2-jwt';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
+  public static redirectUrl: string; // Store the url so we can redirect after logging in
+  private login_url_api = "/api/admin/login";
   private loginForm: FormGroup;
   private loginError: string;
-  jwtHelper: JwtHelper = new JwtHelper();
+  // jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private fb: FormBuilder,
-              private loginService: LoginService,
+              private http: HttpClient,
               private router: Router,
               private pageTitle: Title) {
     this.pageTitle.setTitle(`Admin-login`);
@@ -42,18 +43,26 @@ export class LoginComponent implements OnInit{
   // 登陆
   onSubmit(values: Object): void {
     if(this.loginForm.valid) {
-      this.loginService.loginCheck(values).subscribe(
+      this.http.post<JwtToken>(this.login_url_api, values).subscribe(
         data => {
-          // console.log(this.jwtHelper.decodeToken(JSON.parse(JSON.stringify(data)).token));
-          sessionStorage.setItem("loginUser", JSON.stringify(data));
-          HttpUtil.httpOptionsWithToken = new RequestOptions({ headers: new Headers({'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem("loginUser")).token}`})});
-          let redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : "/admin/index";
+          // console.log(this.jwtHelper.decodeToken(data.token));
+          sessionStorage.setItem("jwtToken", data.token);
+          let redirect = LoginComponent.redirectUrl ? LoginComponent.redirectUrl : "/admin/index";
+          console.log(redirect);
           this.router.navigate([redirect]);
         },
-        error => {
+        (error: HttpErrorResponse) => {
           sessionStorage.removeItem("loginUser");
-          this.loginError = error;
+          if (error.error instanceof Error) {
+            // A client-side or network error occurred. Handle it accordingly.
+            // console.log('An error occurred:', error.error.message);
+            this.loginError = error.error.message;
+          } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+            this.loginError = error.error.message;
+          }
         }
       );
     }

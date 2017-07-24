@@ -54,8 +54,8 @@ public class InitController {
      * @return
      */
     @GetMapping(value = "")
-    public boolean getConfigIsExist() {
-        return appConfigRepository.count() <= 0 ? false : true;
+    public List<AppConfig> getConfig() {
+        return appConfigRepository.findAll();
     }
 
     /**

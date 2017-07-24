@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserRoutingModule } from './user-routing.module';
-import { UserComponent } from './user.component';
-import { UserListComponent } from './list/user-list.component';
-import { DialogModule } from '../../../common/dialog/dialog.module';
-import { MessageDialog } from '../../../common/dialog/message-dialog';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { UserRoutingModule } from "./user-routing.module";
+import { UserComponent } from "./user.component";
+import { UserListComponent } from "./list/user-list.component";
+import { DialogModule } from "../../../common/dialog/dialog.module";
+import { MessageDialog } from "../../../common/dialog/message-dialog";
 import {
   MdButtonModule,
   MdIconModule,
@@ -14,12 +14,11 @@ import {
   MdSortModule,
   MdTableModule,
   MdToolbarModule
-} from '@angular/material';
-import { CdkTableModule } from '@angular/cdk';
-import { UserAddDialogComponent } from './add/user-add-dialog.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EqualValidatorDirective } from '../../../common/directive/equal-validator.directive';
+} from "@angular/material";
+import { CdkTableModule } from "@angular/cdk";
+import { UserAddDialogComponent } from "./add/user-add-dialog.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 /**
  * Admin user module
@@ -46,8 +45,7 @@ import { EqualValidatorDirective } from '../../../common/directive/equal-validat
   declarations: [
     UserComponent,
     UserListComponent,
-    UserAddDialogComponent,
-    EqualValidatorDirective
+    UserAddDialogComponent
   ],
   entryComponents: [
     MessageDialog,

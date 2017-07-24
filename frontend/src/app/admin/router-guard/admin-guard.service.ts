@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { LoginService } from '../login/service/login.service';
+import { LoginComponent } from "../login/login.component";
 /**
  * 后台用户路由守卫，查看是否登陆，如果没有登陆，跳转到登陆页面
  * Created by maxu0 on 2017/6/1.
@@ -9,7 +9,7 @@ import { LoginService } from '../login/service/login.service';
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate {
   // 检查用户登录情况
   checkLogin(url: string): boolean {
     if(!sessionStorage.getItem('loginUser')) {
-      this.loginService.redirectUrl = url;
+      LoginComponent.redirectUrl = url;
       this.router.navigate(['/admin/login']);
       return false;
     } else {

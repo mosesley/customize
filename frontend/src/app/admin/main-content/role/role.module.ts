@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RoleRoutingModule } from './role-routing.module';
 import { RoleComponent } from './role.component';
 import { RoleListComponent } from './list/role-list.component';
-import { RoleService } from './service/role.service';
 import {
   MdButtonModule,
   MdCardModule,
@@ -18,8 +17,6 @@ import { MessageDialog } from '../../../common/dialog/message-dialog';
 import { CdkTableModule } from '@angular/cdk';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PermissionService } from './service/permission.service';
-import { PerRoleService } from './service/per-role.service';
 
 /**
  * Admin role module
@@ -47,11 +44,6 @@ import { PerRoleService } from './service/per-role.service';
   ],
   entryComponents: [
     MessageDialog
-  ],
-  providers: [
-    RoleService,
-    PermissionService,
-    PerRoleService
   ]
 })
 export class RoleModule {

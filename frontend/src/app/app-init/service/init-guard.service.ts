@@ -1,7 +1,8 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { InitService } from './init.service';
+import { HttpClient } from "@angular/common/http";
+import { AppConfig } from "../app-config";
 import 'rxjs/add/operator/map';
 
 /**
@@ -10,8 +11,9 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class InitGuard implements CanActivate {
+  private init_url_api = "/api/appConfig";
 
-  constructor(private initService: InitService, private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     return this.checkInit();
@@ -22,9 +24,9 @@ export class InitGuard implements CanActivate {
    * @returns {boolean}
    */
   checkInit(): Observable<boolean> | boolean {
-    return this.initService.appConfigIsExist()
-      .map(res => {
-        if(res.json()) { // 系统已经初始化完成
+    return this.http.get<AppConfig[]>(this.init_url_api)
+      .map(data => {
+        if(data.length) { // 系统已经初始化完成
           this.router.navigate(['/admin']);
           return false;
         } else { // 系统还没有被初始化，需要初始化

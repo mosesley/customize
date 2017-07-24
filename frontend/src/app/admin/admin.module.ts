@@ -5,12 +5,14 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './router-guard/admin-guard.service';
 import { MenuComponent } from './menu/menu.component';
 import { AdminPageTop } from './top/admin-page-top.component';
-import { MenuService } from './menu/service/menu.service';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
-import { LoginService } from './login/service/login.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdIconModule, MdInputModule, MdMenuModule, MdSidenavModule,
+  MdButtonModule,
+  MdIconModule,
+  MdInputModule,
+  MdMenuModule,
+  MdSidenavModule,
   MdToolbarModule
 } from '@angular/material';
 import { navReducer } from '../common/reducer/nav-reducer';
@@ -40,8 +42,6 @@ import { StoreModule } from '@ngrx/store';
     AdminPageTop
   ],
   providers: [
-    MenuService,
-    LoginService,
     AdminGuard
   ]
 })

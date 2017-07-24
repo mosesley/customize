@@ -1,15 +1,14 @@
 import { DataSource } from '@angular/cdk';
 import { MdPaginator, MdSort } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import { ExampleHttpService } from './example-http-service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/observable/of';
+
+
 /**
  * Data source to provide what data should be rendered in the table. Note that the data source
  * can retrieve its data in any way.
@@ -21,11 +20,13 @@ export class ExampleDataSource<T> extends DataSource<T> {
   get dataChange(): string {
     return this._dataChange.value;
   }
+
   set dataChange(value: string) {
     this._dataChange.next(value);
   }
 
-  constructor(private service: ExampleHttpService,
+  constructor(private url: string,
+              private http: HttpClient,
               private sort: MdSort,
               private paginator: MdPaginator) {
     super();
@@ -47,15 +48,24 @@ export class ExampleDataSource<T> extends DataSource<T> {
       .startWith(null)
       .switchMap(() => {
         this.isLoadingResults = true;
-        return this.service.getData(this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+        return this.http.get(`${this.url}/list`, {
+          params: new HttpParams()
+            .append('sort', `${this.sort.active}`)
+            .append('order', `${this.sort.direction}`)
+            .append('page', `${this.paginator.pageIndex}`)
+            .append('pageSize', `${this.paginator.pageSize}`),
+          headers: new HttpHeaders().set('Authorization', `${JSON.parse(sessionStorage.getItem("loginUser")).token}`)
+        });
       })
       .map(result => {
-        if (!result) {
-          return [];
-        }
-        this.resultsLength = result.json().totalElements;
-        this.isLoadingResults = false;
-        return JSON.parse(JSON.stringify(result.json().content)) as T[];
+        console.log(result);
+        // if (!result) {
+        //   return [];
+        // }
+        // this.resultsLength = result.json().totalElements;
+        // this.isLoadingResults = false;
+        // return JSON.parse(JSON.stringify(result.json().content)) as T[];
+        return null;
       });
   }
 

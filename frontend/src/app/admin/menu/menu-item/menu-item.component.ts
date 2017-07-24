@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Menu } from '../model/menu';
+import { Menu } from '../menu';
 import { rotateAnimation, toggleAnimation } from '../../../common/animation/toggleAnimation';
 import { Router } from '@angular/router';
 /**

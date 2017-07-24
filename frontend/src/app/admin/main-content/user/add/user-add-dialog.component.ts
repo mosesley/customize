@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExampleHttpService } from '../../../../common/table/example-http-service';
-import { Http } from '@angular/http';
-import { HttpUtil } from '../../../../common/utils/http-util';
+import { HttpClient } from "@angular/common/http";
 
 /**
  * 用户添加dialog
@@ -13,15 +11,13 @@ import { HttpUtil } from '../../../../common/utils/http-util';
 })
 export class UserAddDialogComponent implements OnInit {
   private user_api_url = "/api/admin/user";
-  private addForm: FormGroup;
   private addError: string;
-  database: ExampleHttpService | null;
+  private addForm: FormGroup;
   private submitted: boolean = false;
 
   constructor(private dialogRef: MdDialogRef<UserAddDialogComponent>,
               private fb: FormBuilder,
-              private http: Http) {
-    this.database = new ExampleHttpService(http, this.user_api_url, HttpUtil.httpOptionsWithToken);
+              private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -67,7 +63,7 @@ export class UserAddDialogComponent implements OnInit {
   public onSubmit(values: Object): void {
     this.submitted = true;
     if(this.addForm.valid) {
-      this.database.addData(values).subscribe(
+      this.http.post(this.user_api_url, JSON.stringify(values)).subscribe(
         () => {
           this.dialogRef.close("addUser");
         },

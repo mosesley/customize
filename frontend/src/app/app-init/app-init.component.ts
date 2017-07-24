@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InitService } from './service/init.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpClient } from "@angular/common/http";
+import { AppConfig } from "./app-config";
 
 /**
  * App Initialize Component
@@ -13,10 +14,14 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app-init.component.scss'],
 })
 export class AppInitComponent implements OnInit{
+  private init_url_api = "/api/appConfig";
   private initForm: FormGroup;
   private submitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private initService: InitService, private router: Router, private pageTitle: Title) {
+  constructor(private pageTitle: Title,
+              private fb: FormBuilder,
+              private router: Router,
+              private http: HttpClient) {
     this.pageTitle.setTitle(`App-init`);
   }
 
@@ -66,7 +71,7 @@ export class AppInitComponent implements OnInit{
   public onSubmit(values: Object): void {
     this.submitted = true;
     if(this.initForm.valid) {
-      this.initService.initAppConfig(values)
+      this.http.post<AppConfig>(this.init_url_api, values)
         .subscribe(appConfig => {
           if(appConfig.id) {
             //  系统初始化完成，跳转到后台登陆页面
