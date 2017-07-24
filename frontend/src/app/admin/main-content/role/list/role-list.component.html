@@ -9,7 +9,7 @@
     <div fxLayout="row" fxLayoutAlign="start stretch" >
         <md-table #table [dataSource]="dataSource" fxFlex="80">
             <md-header-row *cdkHeaderRowDef="roleColumns"></md-header-row>
-            <md-row *cdkRowDef="let row; columns: roleColumns"></md-row>
+            <md-row *cdkRowDef="let row; columns: roleColumns" [ngClass]="{'current_row': row.id == current_role_id}"></md-row>
             <!-- operation Column -->
             <ng-container cdkColumnDef="operation">
                 <md-header-cell *cdkHeaderCellDef> 操作 </md-header-cell>

@@ -1,46 +1,57 @@
-:host /deep/ {
-    ng2-smart-table {
-        th, td {
-            border: 1px solid rgba(0, 0, 0, 0.2);
-        }
-        tbody {
-            tr:hover {
-                background-color: rgba(0, 0, 0, 0.1);
-            }
-        }
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  position: relative;
+}
 
-        .ng2-smart-pagination-nav {
-            display: flex;
-            justify-content: center;
-        }
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 20px;
+}
 
-        .ng2-smart-page-link {
-            display: block;
-            border: 1px solid #dddddd;
-            margin-left: -1px;
-            padding: 6px 12px;
-            text-decoration: none !important;
-        }
+.example-table {
+  overflow: auto;
+  min-height: 300px;
+}
 
-        .page-item.active {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
+.mat-column-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  overflow: hidden;
+}
 
-        .page-item.disabled {
-            a {
-                cursor: not-allowed;
-            }
-        }
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
 
-        .pagination > li:first-child > .ng2-smart-page-link {
-            margin-left: 0px !important;
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-        }
+.mat-column-created {
+  max-width: 124px;
+}
 
-        .pagination > li:last-child > .ng2-smart-page-link {
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-    }
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
 }

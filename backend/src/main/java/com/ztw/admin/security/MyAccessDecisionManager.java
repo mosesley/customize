@@ -1,9 +1,7 @@
 package com.ztw.admin.security;
 
 import com.ztw.admin.model.PermissionRole;
-import com.ztw.admin.model.Role;
 import com.ztw.admin.repository.PermissionRoleRepository;
-import com.ztw.admin.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -29,9 +27,6 @@ import java.util.List;
 public class MyAccessDecisionManager implements AccessDecisionManager {
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private PermissionRoleRepository permissionRoleRepository;
 
     @Override
@@ -43,33 +38,31 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
         // 放行[超级管理员: ROLE_ADMIN]角色
         Iterator<GrantedAuthority> iterator = userHasRoles.iterator();
+        List<String> gaIds = new ArrayList<>();
         while (iterator.hasNext()){
             GrantedAuthority grantedAuthority = iterator.next();
             if(grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 return;
+            } else {
+                List<PermissionRole> prs = permissionRoleRepository.findByRoleId(grantedAuthority.getAuthority());
+                for(PermissionRole pr : prs) {
+                    gaIds.add(pr.getPermissionId());
+                }
             }
         }
 
         // 如果不是超级管理员，判断权限
-        List<String> prids = new ArrayList<>();
+        List<String> caIds = new ArrayList<>();
         Iterator<ConfigAttribute> caIterator = configAttributes.iterator();
         while (caIterator.hasNext()) {
             ConfigAttribute ca = caIterator.next();
-            prids.add(((MyConfigAttribute) ca).getId());
+            caIds.add(((MyConfigAttribute) ca).getId());
         }
 
-        Iterator<GrantedAuthority> iterator2 = userHasRoles.iterator();
-        List<String> authIds = new ArrayList<>();
-        while (iterator2.hasNext()){
-            GrantedAuthority grantedAuthority = iterator2.next();
-            Role role = roleRepository.findByRole(grantedAuthority.getAuthority());
-            List<PermissionRole> prs = permissionRoleRepository.findByRoleId(role.getId());
-            for(PermissionRole pr : prs) {
-                authIds.add(pr.getPermissionId());
-            }
-        }
 
-        if(authIds.containsAll(prids)) {
+        System.out.println(gaIds);
+        System.out.println(caIds);
+        if(gaIds.containsAll(caIds)) {
             return;
         }
 

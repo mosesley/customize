@@ -20,7 +20,11 @@ public final class JwtUserFactory {
     public static JwtUser create(User user, List<Role> roles) {
         List<String> authorities = new ArrayList<>();
         for(Role r: roles) {
-            authorities.add(r.getRole());
+            if(r.getRole().equals("ROLE_ADMIN")) {
+                authorities.add(r.getRole());
+            } else {
+                authorities.add(r.getId());
+            }
         }
         return new JwtUser(
                 user.getId(),

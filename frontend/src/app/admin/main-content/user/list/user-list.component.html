@@ -1,10 +1,48 @@
 <div class="mat-elevation-z5">
-    <!-- TODO: 不能从服务器分页，等angular-material有table功能后，需要换成data-table -->
-    <ng2-smart-table [settings]="settings" [source]="source"
-        (deleteConfirm)="deleteUser($event)"
-        (createConfirm)="createUser($event)"
-        (editConfirm)="updateUser($event)">
-    </ng2-smart-table>
+    <!--<div class="example-loading-shade" *ngIf="dataSource.isLoadingResults">-->
+        <!--<md-spinner></md-spinner>-->
+        <!--<div class="example-rate-limit-reached">-->
+            <!--数据加载中-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <md-toolbar>
+        <button md-mini-fab (click)="openAddUserDialog()"><md-icon>add</md-icon></button>
+    </md-toolbar>
+    <md-table #table [dataSource]="dataSource" class="example-table"
+              mdSort mdSortActive="createDate" mdSortDisableClear mdSortDirection="asc">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Number Column -->
+        <ng-container cdkColumnDef="username">
+            <md-header-cell *cdkHeaderCellDef> 用户名 </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.username}} </md-cell>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container cdkColumnDef="nickname">
+            <md-header-cell *cdkHeaderCellDef> 昵称 </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.nickname}} </md-cell>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container cdkColumnDef="status">
+            <md-header-cell *cdkHeaderCellDef> 状态 </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.status ? "正常" : "停用"}} </md-cell>
+        </ng-container>
+
+        <!-- Created Column -->
+        <ng-container cdkColumnDef="createDate">
+            <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> 创建时间 </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.createDate | date:"yyyy-MM-dd HH:mm:ss"}} </md-cell>
+        </ng-container>
+
+        <md-header-row *cdkHeaderRowDef="userColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: userColumns;"></md-row>
+    </md-table>
+    <md-paginator [length]="dataSource.resultsLength"
+                  [pageSize]="15"
+                  [pageSizeOptions]="[15, 20, 25, 30]">
+    </md-paginator>
 </div>
-
-

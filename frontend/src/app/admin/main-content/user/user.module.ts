@@ -1,13 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { UserListComponent } from './list/user-list.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { UserService } from './service/user.service';
 import { DialogModule } from '../../../common/dialog/dialog.module';
 import { MessageDialog } from '../../../common/dialog/message-dialog';
-import { CustomRenderComponent } from "./list/custom-render.component";
+import {
+  MdButtonModule,
+  MdIconModule,
+  MdInputModule,
+  MdPaginatorModule,
+  MdProgressSpinnerModule,
+  MdSortModule,
+  MdTableModule,
+  MdToolbarModule
+} from '@angular/material';
+import { CdkTableModule } from '@angular/cdk';
+import { UserAddDialogComponent } from './add/user-add-dialog.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EqualValidatorDirective } from '../../../common/directive/equal-validator.directive';
 
 /**
  * Admin user module
@@ -16,22 +28,30 @@ import { CustomRenderComponent } from "./list/custom-render.component";
 @NgModule({
   imports: [
     CommonModule,
-    Ng2SmartTableModule,
+    FormsModule,
+    ReactiveFormsModule,
     DialogModule,
+    MdTableModule,
+    CdkTableModule,
+    MdProgressSpinnerModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdIconModule,
+    MdInputModule,
+    MdPaginatorModule,
+    MdSortModule,
+    FlexLayoutModule,
     UserRoutingModule
   ],
   declarations: [
     UserComponent,
     UserListComponent,
-    CustomRenderComponent
+    UserAddDialogComponent,
+    EqualValidatorDirective
   ],
   entryComponents: [
     MessageDialog,
-    CustomRenderComponent
-  ],
-  providers: [
-    UserService,
-    DatePipe
+    UserAddDialogComponent
   ]
 })
 export class UserModule {

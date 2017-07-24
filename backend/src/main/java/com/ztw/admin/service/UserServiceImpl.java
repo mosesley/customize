@@ -7,6 +7,8 @@ import com.ztw.admin.repository.RoleRepository;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,16 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
+     * 分页获取用户
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    /**
      * 获取所有用户
      * @return
      */
@@ -60,6 +72,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("添加的用户已存在!");
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setStatus(true);
         user.setCreateDate(new Date());
         User su = userRepository.save(user);
         User u = new User(su.getId(), su.getUsername(), su.getNickname(),"", su.isStatus(), su.getCreateDate());

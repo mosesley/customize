@@ -1,0 +1,26 @@
+<form [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm.value)" fxLayout="column" fxLayoutGap="10px">
+    <md-input-container>
+        <span mdPrefix><md-icon>account_box</md-icon> &nbsp;</span>
+        <input mdInput formControlName="username" placeholder="用户名">
+        <md-error>{{ formErrors.username }}</md-error>
+    </md-input-container>
+    <md-input-container>
+        <span mdPrefix><md-icon>account_box</md-icon> &nbsp;</span>
+        <input mdInput formControlName="nickname" placeholder="昵称">
+        <md-error>{{ formErrors.nickname }}</md-error>
+    </md-input-container>
+    <md-input-container>
+        <span mdPrefix><md-icon>lock</md-icon> &nbsp;</span>
+        <input mdInput formControlName="password" type="password" equalValidate="repeatPassword" reverse="true" placeholder="管理员密码">
+        <md-error>{{ formErrors.password }}</md-error>
+    </md-input-container>
+    <md-input-container>
+        <span mdPrefix><md-icon>lock_outline</md-icon> &nbsp;</span>
+        <input mdInput formControlName="repeatPassword" type="password" equalValidate="password" reverse="false" placeholder="确认密码">
+        <md-error>{{ formErrors.repeatPassword }}</md-error>
+    </md-input-container>
+    <md-error>{{addError}}</md-error>
+    <div>
+        <button [disabled]="addForm.invalid" md-raised-button type="submit">提 交</button>
+    </div>
+</form>
