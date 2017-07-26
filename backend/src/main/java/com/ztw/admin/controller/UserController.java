@@ -2,11 +2,8 @@ package com.ztw.admin.controller;
 
 import com.ztw.admin.annotations.AuthPermission;
 import com.ztw.admin.annotations.AutoMenu;
-import com.ztw.admin.model.Role;
 import com.ztw.admin.model.User;
-import com.ztw.admin.model.UserRole;
-import com.ztw.admin.repository.RoleRepository;
-import com.ztw.admin.repository.UserRoleRepository;
+import com.ztw.admin.model.UserDto;
 import com.ztw.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 用户管理api
@@ -36,12 +31,6 @@ public class UserController extends AuthRootMenu {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRoleRepository userRoleRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     /**
      * 获取用户列表
      * @return
@@ -49,8 +38,8 @@ public class UserController extends AuthRootMenu {
     @GetMapping(value = "/list")
     @AutoMenu(name = "用户列表", orderNum = 1)
     @AuthPermission(name = "用户列表", url = "/list", method = "GET")
-    public Page<User> list(@RequestParam("sort") String sort, @RequestParam("order") String order,
-                           @RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
+    public Page<UserDto> list(@RequestParam("sort") String sort, @RequestParam("order") String order,
+                              @RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         Sort.Direction sort_order;
         if(order.equals("asc")) {
             sort_order = Sort.Direction.ASC;
@@ -104,17 +93,6 @@ public class UserController extends AuthRootMenu {
     @AuthPermission(name = "更新用户", url = "/update", method = "PUT")
     public User update(@RequestBody User user, HttpServletResponse response) throws IOException {
         try {
-            List<String> ids = new ArrayList<>();
-            List<UserRole> urs = userRoleRepository.findByUserId(user.getId());
-            for (UserRole ur: urs) {
-                ids.add(ur.getRoleId());
-            }
-            List<Role> roles = roleRepository.findAll(ids);
-            for(Role r: roles) {
-                if(r.getRole().equals("ROLE_ADMIN")) {
-                    return userService.updateAdmin(user);
-                }
-            }
             return userService.updateUser(user);
         } catch (RuntimeException e) {
             response.sendError(response.SC_EXPECTATION_FAILED, e.getMessage());

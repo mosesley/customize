@@ -45,7 +45,7 @@ export class TableDataSource<T> extends DataSource<T> {
       .startWith(null)
       .switchMap(() => {
         this.isLoadingResults = true;
-        return this.http.get<PageData>(`${this.url}/list`, {
+        return this.http.get<PageData<T>>(`${this.url}/list`, {
           params: new HttpParams()
             .append('sort', `${this.sort.active}`)
             .append('order', `${this.sort.direction}`)

@@ -1,3 +1,4 @@
+import { AdminRole } from "./admin-role";
 /**
  * Admin User interface
  */
@@ -6,5 +7,7 @@ export interface AdminUser {
   username: string;
   nickname: string;
   status: boolean;
+  admin: boolean;
   createDate: string;
+  roles: AdminRole[];
 }

@@ -99,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         // 禁用缓存
-        http.headers().cacheControl();
+        http.headers().cacheControl().disable();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.ztw.admin.service;
 
 import com.ztw.admin.model.PermissionRole;
 import com.ztw.admin.model.Role;
+import com.ztw.admin.model.UserRole;
 import com.ztw.admin.repository.PermissionRoleRepository;
 import com.ztw.admin.repository.RoleRepository;
 import com.ztw.admin.repository.UserRoleRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,8 +34,13 @@ public class RoleServiceImpl implements RoleService {
     private PermissionRoleRepository permissionRoleRepository;
 
     @Override
-    public List<Role> findAll() {
-        return roleRepository.findAll();
+    public List<Role> findByUserId(String userId) {
+        List<String> ids = new ArrayList<>();
+        List<UserRole> urs = userRoleRepository.findByUserId(userId);
+        for (UserRole ur: urs) {
+            ids.add(ur.getRoleId());
+        }
+        return roleRepository.findAll(ids);
     }
 
     /**

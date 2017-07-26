@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface RoleService {
     Page<Role> findAll(Pageable pageable);
-    List<Role> findAll();
+    List<Role> findByUserId(String userId);
     Role save(Role role);
     void delete(String id);
     Role update(Role role);

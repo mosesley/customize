@@ -2,6 +2,7 @@ package com.ztw.admin.security;
 
 import com.ztw.admin.model.Permission;
 import com.ztw.admin.repository.PermissionRepository;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
@@ -9,6 +10,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
+import javax.naming.spi.InitialContextFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 @Component
 public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityMetadataSource{
 
-    private static List<ConfigAttribute> attributes = new ArrayList<>();
+    private static final List<ConfigAttribute> attributes = new ArrayList<>();
 
     @Autowired
     private PermissionRepository permissionRepository;
@@ -48,7 +50,6 @@ public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityM
         if(!attributes.isEmpty()) {
             return attributes;
         }
-
         List<Permission> permissions = permissionRepository.findAll();
         for(Permission permission : permissions) {
             attributes.add(new MyConfigAttribute(permission.getId(), permission.getUrl(), permission.getMethod()));

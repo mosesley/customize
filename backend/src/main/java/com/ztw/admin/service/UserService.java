@@ -1,6 +1,7 @@
 package com.ztw.admin.service;
 
 import com.ztw.admin.model.User;
+import com.ztw.admin.model.UserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,10 +15,8 @@ import java.util.List;
  */
 public interface UserService {
 
-    Page<User> findAll(Pageable pageable);
-    List<User> findAll();
+    Page<UserDto> findAll(Pageable pageable);
     User saveUser(User user);
     void deleteUser(String id);
     User updateUser(User user);
-    User updateAdmin(User user);
 }
