@@ -8,8 +8,7 @@ import { Observable } from 'rxjs/Observable';
  * Created by maxu0 on 2017/5/8.
  */
 @Component({
-  // templateUrl: './admin.component.html',
-  template: 'admin module',
+  templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {

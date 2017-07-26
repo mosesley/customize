@@ -13,6 +13,7 @@
     <button md-icon-button [mdMenuTriggerFor]="topMenu">
         <md-icon>account_circle</md-icon>
     </button>
+    <span>{{loginUser.nickname}}</span>
     <md-menu #topMenu="mdMenu" yPosition="below" xPosition="before" [overlapTrigger]="false">
         <!-- TODO: 个人信息设置 -->
         <button md-menu-item>

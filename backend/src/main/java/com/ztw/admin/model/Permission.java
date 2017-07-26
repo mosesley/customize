@@ -42,6 +42,7 @@ public class Permission {
      */
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "pid")
+    @OrderBy("name ASC")
     private Set<Permission> subPer;
 
     public String getId() {

@@ -1,29 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { EqualValidatorDirective } from "./common/directive/equal-validator.directive";
-import { HttpClientModule } from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 /**
  * App root Module
  */
 @NgModule({
-  declarations: [
-    AppComponent,
-    EqualValidatorDirective,
-    PageNotFoundComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     AppRoutingModule
+  ],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent
   ],
   bootstrap: [AppComponent]
 })

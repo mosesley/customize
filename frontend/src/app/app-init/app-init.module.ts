@@ -1,11 +1,12 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MdButtonModule, MdCardModule, MdIconModule, MdInputModule } from "@angular/material";
+import { DirectiveModule } from "../common/directive/directive.module";
+import { AppInitGuard } from "./app-init-guard.service";
 import { AppInitRoutingModule } from "./app-init-routing.module";
 import { AppInitComponent } from "./app-init.component";
-import { InitGuard } from "./service/init-guard.service";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { MdButtonModule, MdCardModule, MdIconModule, MdInputModule } from "@angular/material";
 
 /**
  * App initialize module
@@ -21,13 +22,14 @@ import { MdButtonModule, MdCardModule, MdIconModule, MdInputModule } from "@angu
     MdInputModule,
     MdCardModule,
     MdButtonModule,
+    DirectiveModule,
     AppInitRoutingModule
   ],
   declarations: [
     AppInitComponent
   ],
   providers: [
-    InitGuard
+    AppInitGuard
   ]
 })
 export class AppInitModule {}

@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from "@angular/common/http";
-import { AppConfig } from "../app-config";
+import { AppConfig } from "./app-config";
 import 'rxjs/add/operator/map';
 
 /**
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
  * Created by maxu0 on 2017/5/9.
  */
 @Injectable()
-export class InitGuard implements CanActivate {
+export class AppInitGuard implements CanActivate {
   private init_url_api = "/api/appConfig";
 
   constructor(private router: Router, private http: HttpClient) { }

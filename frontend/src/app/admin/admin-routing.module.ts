@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { AdminGuard } from './router-guard/admin-guard.service';
+import { AdminGuard } from './admin-guard.service';
 
 /**
  * Admin routes configuration

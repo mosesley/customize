@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Menu } from '../menu';
+import { AdminMenu } from '../../../common/model/admin-menu';
 import { rotateAnimation, toggleAnimation } from '../../../common/animation/toggleAnimation';
 import { Router } from '@angular/router';
 /**
- * Menu item component
+ * AdminMenu item component
  * Created by maxu0 on 2017/6/4.
  */
 @Component({
@@ -20,7 +20,7 @@ export class MenuItemComponent implements OnInit {
   showMenu: boolean; // 是否展开菜单
 
   @Input()
-  menuItem: Menu;
+  menuItem: AdminMenu;
 
   constructor(private router: Router) {
 

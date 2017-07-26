@@ -3,10 +3,7 @@ package com.ztw.admin.controller;
 import com.ztw.admin.model.PermissionRole;
 import com.ztw.admin.repository.PermissionRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,11 +21,11 @@ public class PerRoleController {
     private PermissionRoleRepository permissionRoleRepository;
 
     /**
-     * 获取角色对应的资源列表
+     * 根据permissionID 和 roleId获取对象
      * @return
      */
-    @GetMapping(value = "/list_by_role/{id}")
-    public List<PermissionRole> list(@PathVariable("id") String id) {
-        return permissionRoleRepository.findByRoleId(id);
+    @GetMapping(value = "")
+    public PermissionRole find(@RequestParam("permissionId") String permissionId, @RequestParam("roleId") String roleId) {
+        return permissionRoleRepository.findByPermissionIdAndRoleId(permissionId, roleId);
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 
 /**
  * 用户添加dialog
@@ -10,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './user-add-dialog.component.html'
 })
 export class UserAddDialogComponent implements OnInit {
-  private user_api_url = "/api/admin/user";
+  private api_user_add_url = "/api/admin/user/add";
   private addError: string;
   private addForm: FormGroup;
   private submitted: boolean = false;
@@ -63,14 +63,24 @@ export class UserAddDialogComponent implements OnInit {
   public onSubmit(values: Object): void {
     this.submitted = true;
     if(this.addForm.valid) {
-      this.http.post(this.user_api_url, JSON.stringify(values)).subscribe(
+      this.http.post(this.api_user_add_url, values, {
+        headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)
+      }).subscribe(
         () => {
           this.dialogRef.close("addUser");
         },
-        error => {
-          this.addError = error;
-        }
-       );
+        (error: HttpErrorResponse) => {
+          if (error.error instanceof Error) {
+            // A client-side or network error occurred. Handle it accordingly.
+            // console.log('An error occurred:', error.error.message);
+            this.addError = error.error.message;
+          } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+            this.addError = error.error.message;
+          }
+        });
     }
   }
 

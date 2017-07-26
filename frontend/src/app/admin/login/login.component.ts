@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-// import { JwtHelper } from 'angular2-jwt';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { JwtToken } from "./jwt-token";
+import { JwtToken } from "../../common/model/jwt-token";
 
 /**
  * Login component
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit{
   private login_url_api = "/api/admin/login";
   private loginForm: FormGroup;
   private loginError: string;
-  // jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private fb: FormBuilder,
               private http: HttpClient,
@@ -45,14 +43,12 @@ export class LoginComponent implements OnInit{
     if(this.loginForm.valid) {
       this.http.post<JwtToken>(this.login_url_api, values).subscribe(
         data => {
-          // console.log(this.jwtHelper.decodeToken(data.token));
-          sessionStorage.setItem("jwtToken", data.token);
+          sessionStorage.setItem("jwtToken", `Bearer ${data.token}`);
           let redirect = LoginComponent.redirectUrl ? LoginComponent.redirectUrl : "/admin/index";
-          console.log(redirect);
           this.router.navigate([redirect]);
         },
         (error: HttpErrorResponse) => {
-          sessionStorage.removeItem("loginUser");
+          sessionStorage.removeItem("jwtToken");
           if (error.error instanceof Error) {
             // A client-side or network error occurred. Handle it accordingly.
             // console.log('An error occurred:', error.error.message);

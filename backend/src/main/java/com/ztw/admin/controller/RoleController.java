@@ -5,12 +5,15 @@ import com.ztw.admin.annotations.AutoMenu;
 import com.ztw.admin.model.Role;
 import com.ztw.admin.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * 角色管理api
@@ -34,8 +37,16 @@ public class RoleController extends AuthRootMenu{
     @GetMapping(value = "/list")
     @AutoMenu(name = "角色列表", orderNum = 1)
     @AuthPermission(name = "角色列表", url = "/list", method = "GET")
-    public List<Role> list() {
-        return roleService.findAll();
+    public Page<Role> list(@RequestParam("sort") String sort, @RequestParam("order") String order,
+                           @RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
+        Sort.Direction sort_order;
+        if(order.equals("asc")) {
+            sort_order = Sort.Direction.ASC;
+        } else {
+            sort_order = Sort.Direction.DESC;
+        }
+        Pageable pageable = new PageRequest(page, pageSize, new Sort(sort_order , sort));
+        return roleService.findAll(pageable);
     }
 
     /**

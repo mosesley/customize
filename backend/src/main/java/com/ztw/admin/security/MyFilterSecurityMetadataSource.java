@@ -20,37 +20,21 @@ import java.util.List;
  * @created 2017-07-18 14:50.
  */
 @Component
-public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityMetadataSource{
 
     private static List<ConfigAttribute> attributes = new ArrayList<>();
 
     @Autowired
     private PermissionRepository permissionRepository;
 
-    /**
-     * 加载权限表中的所有权限
-     */
-    private void loadAttributes() {
-        List<Permission> permissions = permissionRepository.findAll();
-        for(Permission permission : permissions) {
-           attributes.add(new MyConfigAttribute(permission.getId(), permission.getUrl(), permission.getMethod()));
-           for(Permission subPer : permission.getSubPer()) {
-               attributes.add(new MyConfigAttribute(subPer.getId(), subPer.getUrl(), subPer.getMethod()));
-           }
-        }
-    }
-
     // 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         List<ConfigAttribute> reAttributes = new ArrayList<>();
-        if(attributes.size() == 0) {
-            loadAttributes();
-        }
 
         FilterInvocation fi = (FilterInvocation) object;
         AntPathRequestMatcher matcher;
-        for(ConfigAttribute ca : attributes) {
+        for(ConfigAttribute ca : getAllConfigAttributes()) {
             matcher = new AntPathRequestMatcher(((MyConfigAttribute) ca).getUrl(), ((MyConfigAttribute) ca).getMethod());
             if(matcher.matches(fi.getHttpRequest())) {
                 reAttributes.add(ca);
@@ -61,7 +45,18 @@ public class MyFilterSecurityMetadataSource implements FilterInvocationSecurityM
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
-        return null;
+        if(!attributes.isEmpty()) {
+            return attributes;
+        }
+
+        List<Permission> permissions = permissionRepository.findAll();
+        for(Permission permission : permissions) {
+            attributes.add(new MyConfigAttribute(permission.getId(), permission.getUrl(), permission.getMethod()));
+            for(Permission subPer : permission.getSubPer()) {
+                attributes.add(new MyConfigAttribute(subPer.getId(), subPer.getUrl(), subPer.getMethod()));
+            }
+        }
+        return attributes;
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
 @Repository("permissionRepository")
 public interface PermissionRepository extends JpaRepository<Permission, String> {
 
-    @Query("select distinct p from Permission p where p.method = ''")
+    @Query("select distinct p from Permission p where p.method = '' order by p.name asc")
     @Override
     List<Permission> findAll();
 

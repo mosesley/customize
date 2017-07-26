@@ -1,7 +1,7 @@
 /**
- * Admin Login User Model interface
+ * Admin User interface
  */
-export class LoginUser {
+export interface AdminUser {
   id: string;
   username: string;
   nickname: string;

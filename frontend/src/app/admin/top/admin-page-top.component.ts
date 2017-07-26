@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginUser } from './model/login-user';
+import { AdminUser } from '../../common/model/admin-user';
 import { Router } from "@angular/router";
 import { LoginComponent } from "../login/login.component";
+import { JwtHelper } from 'angular2-jwt';
 
 /**
  * Admin page top component
@@ -12,19 +13,20 @@ import { LoginComponent } from "../login/login.component";
   styleUrls: ['./admin-page-top.component.scss']
 })
 export class AdminPageTop implements OnInit {
-  loginUser: LoginUser;
+  private jwtHelper: JwtHelper = new JwtHelper();
+  private loginUser: AdminUser;
 
   constructor (private router: Router) { }
 
   ngOnInit(): void {
-    this.loginUser = JSON.parse(sessionStorage.getItem("jwtToken")) as LoginUser;
+    this.loginUser = this.jwtHelper.decodeToken(sessionStorage.getItem('jwtToken'));
   }
 
   /**
    * 退出登陆
    */
   logout(): void {
-    sessionStorage.removeItem("loginUser");
+    sessionStorage.removeItem("jwtToken");
     LoginComponent.redirectUrl = null;
     this.router.navigate(['/admin/login']);
   }

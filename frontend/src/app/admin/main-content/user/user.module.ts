@@ -1,10 +1,8 @@
-import { NgModule } from "@angular/core";
+import { CdkTableModule } from "@angular/cdk";
 import { CommonModule } from "@angular/common";
-import { UserRoutingModule } from "./user-routing.module";
-import { UserComponent } from "./user.component";
-import { UserListComponent } from "./list/user-list.component";
-import { DialogModule } from "../../../common/dialog/dialog.module";
-import { MessageDialog } from "../../../common/dialog/message-dialog";
+import { NgModule } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MdButtonModule,
   MdIconModule,
@@ -15,10 +13,13 @@ import {
   MdTableModule,
   MdToolbarModule
 } from "@angular/material";
-import { CdkTableModule } from "@angular/cdk";
+import { DialogModule } from "../../../common/dialog/dialog.module";
+import { MessageDialog } from "../../../common/dialog/message-dialog";
+import { DirectiveModule } from "../../../common/directive/directive.module";
 import { UserAddDialogComponent } from "./add/user-add-dialog.component";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { UserListComponent } from "./list/user-list.component";
+import { UserRoutingModule } from "./user-routing.module";
+import { UserComponent } from "./user.component";
 
 /**
  * Admin user module
@@ -40,6 +41,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MdPaginatorModule,
     MdSortModule,
     FlexLayoutModule,
+    DirectiveModule,
     UserRoutingModule
   ],
   declarations: [

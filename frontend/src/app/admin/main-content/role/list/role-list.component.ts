@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MdDialog, MdPaginator, MdSort } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { Observable } from "rxjs/Observable";
+import { MessageDialog } from "../../../../common/dialog/message-dialog";
+import { AdminPerRole } from "../../../../common/model/admin-per-role";
+import { AdminPermission } from "../../../../common/model/admin-permission";
+import { AdminRole } from "../../../../common/model/admin-role";
 import { CHANGE, NavState } from '../../../../common/reducer/nav-reducer';
-import { MdDialog } from '@angular/material';
 import { TableDataSource } from '../../../../common/table/table-data-source';
-import { TableDataBase } from '../../../../common/table/table-data-base';
-import { HttpClient } from "@angular/common/http";
+import "rxjs/add/operator/map";
 
 /**
  * Role list component
@@ -14,95 +19,161 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.scss']
 })
-export class RoleListComponent {
+export class RoleListComponent implements OnInit {
+  private api_role_url = "/api/admin/role";
+  private api_permission_url = "/api/admin/permission/list";
+  private api_per_role_url = "/api/admin/per_role";
+
   roleColumns = ['operation', 'name', 'role'];
-  dataBase: TableDataBase<any>;
-  dataSource: TableDataSource | null;
-  permissions: any[];
-  current_role_name: string;
-  current_role_id: string;
-  current_per_role: string;
+  dataSource: TableDataSource<AdminRole> | null;
+  permissions: AdminPermission[];
+  current_role: AdminRole;
+
+  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MdSort) sort: MdSort;
 
   constructor(private http: HttpClient,
               private dialog: MdDialog,
               private store$: Store<NavState>) {
     this.store$.dispatch({type: CHANGE, payload: {title: '角色列表'}});
-    this.http.get("/api/admin/role/list").subscribe(datas => {
-      this.dataBase = new TableDataBase(JSON.parse(JSON.stringify(datas)));
-      this.dataSource = new TableDataSource(this.dataBase);
-    });
-    this.http.get("/api/admin/permission/list").subscribe(datas => {
-      this.permissions = JSON.parse(JSON.stringify(datas));
+  }
+
+  ngOnInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "每页数据条数";
+    this.dataSource = new TableDataSource<AdminRole>(this.api_role_url, this.http, this.sort, this.paginator);
+    this.http.get<AdminPermission[]>(this.api_permission_url, {
+      headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)
+    }).subscribe(data => {
+      this.permissions = data;
     });
   }
 
-  // /**
-  //  * 添加角色
-  //  * @param $event
-  //  */
-  // createRole(inputName): void {
-  //   this.http.addRole({name: inputName.value}).subscribe(
-  //     data => {
-  //       this.dataBase.addData(data);
-  //       inputName.value = "";
-  //     },
-  //     error => {
-  //       this.dialog.open(MessageDialog, {data: error});
-  //     }
-  //   );
-  // }
-  //
-  // /**
-  //  * 删除角色
-  //  */
-  // deleteRole(id: string): void {
-  //   this.roleService.deleteRole(id).subscribe(
-  //     () => {
-  //       this.dataBase.deleteData(id);
-  //     },
-  //     error => {
-  //       this.dialog.open(MessageDialog, {data: error});
-  //     });
-  // }
-  //
-  // /**
-  //  * 选择目标角色
-  //  * @param {string} id
-  //  */
-  // changeRoles(id: string, name: string) {
-  //   this.current_role_name = name;
-  //   this.current_role_id = id;
-  //   this.perRoleService.getPerRoles(id).subscribe(data => {
-  //     this.current_per_role = JSON.stringify(data);
-  //   });
-  // }
-  //
-  // /**
-  //  * 改变权限
-  //  * @param $event
-  //  * @param {string} id
-  //  */
-  // changeAuth($event, id: string) {
-  //   if(id) {
-  //     this.roleService.updateRolePermission(id, $event.source.id, $event.checked).subscribe(
-  //       data => {
-  //
-  //       },
-  //       error => {
-  //         this.dialog.open(MessageDialog, {data: error});
-  //     });
-  //   }
-  // }
+  /**
+   * 添加角色
+   * @param inputName
+   */
+  createRole(inputName): void {
+    this.http.post<AdminRole>(`${this.api_role_url}/add`, {name: inputName.value}, {
+      headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)
+    }).subscribe(
+      data => {
+        this.dataSource.dataChange = "addRole";
+        inputName.value = "";
+      },
+      (error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          // console.log('An error occurred:', error.error.message);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        }
+      }
+    );
+  }
+
+
+  /**
+   * 删除角色
+   */
+  deleteRole(id: string): void {
+    this.http.delete(`${this.api_role_url}/${id}/delete`, {
+      headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)
+    }).subscribe(
+      (data) => {
+        this.dataSource.dataChange = "deleteRole";
+      },
+      (error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          // console.log('An error occurred:', error.error.message);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        }
+      });
+  }
+
+  /**
+   * 选择目标角色
+   * @param {string} id
+   */
+  changeCurrentRoles(role: AdminRole) {
+    this.current_role = role;
+    for (let permission of this.permissions) {
+      permission.checked = this.isChecked(permission.id, role.id);
+      for (let subPer of permission.subPer) {
+        subPer.checked = this.isChecked(subPer.id, role.id);
+      }
+    }
+  }
+
+  /**
+   * 改变权限
+   * @param $event
+   * @param {string} id
+   */
+  changeAuth($event, roleId: string) {
+    this.http.get(`${this.api_role_url}/updatePermission`, {
+      headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`),
+      params: new HttpParams()
+        .append("permissionId", $event.source.id)
+        .append("roleId", roleId)
+        .append("checked", $event.checked)
+    }).subscribe(
+      (data) => {
+        // nothing
+      },
+      (error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          // console.log('An error occurred:', error.error.message);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        }
+      });
+  }
 
   /**
    * 判断是否为选中状态
    * @param {string} permissionId
    */
-  isChecked(permissionId: string): boolean {
-    if(this.current_per_role) {
-      return this.current_per_role.includes(`"permissionId":"${permissionId}"`);
-    } else {
-      return false;
-    }
+  private isChecked(permissionId: string, roleId: string): Observable<boolean> {
+    return this.http.get<AdminPerRole>(this.api_per_role_url, {
+      headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`),
+      params: new HttpParams()
+        .append("permissionId", permissionId)
+        .append("roleId", roleId)
+    }).map(
+      (data) => {
+        if (data) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          // console.log('An error occurred:', error.error.message);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          // console.log(`Backend returned code ${error.status}, body was: ${error.error.message}`);
+          this.dialog.open(MessageDialog, {data: error.error.message});
+        }
+      });
   }
+
 }

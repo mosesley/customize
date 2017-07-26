@@ -1,22 +1,24 @@
-import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk';
 import { CommonModule } from '@angular/common';
-import { RoleRoutingModule } from './role-routing.module';
-import { RoleComponent } from './role.component';
-import { RoleListComponent } from './list/role-list.component';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 import {
   MdButtonModule,
   MdCardModule,
   MdCheckboxModule,
   MdIconModule,
   MdInputModule,
+  MdPaginatorModule,
+  MdSortModule,
   MdTableModule,
   MdToolbarModule
 } from '@angular/material';
 import { DialogModule } from '../../../common/dialog/dialog.module';
 import { MessageDialog } from '../../../common/dialog/message-dialog';
-import { CdkTableModule } from '@angular/cdk';
-import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { RoleListComponent } from './list/role-list.component';
+import { RoleRoutingModule } from './role-routing.module';
+import { RoleComponent } from './role.component';
 
 /**
  * Admin role module
@@ -26,6 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     CommonModule,
     FormsModule,
+    MdPaginatorModule,
+    MdSortModule,
     MdInputModule,
     MdCardModule,
     DialogModule,

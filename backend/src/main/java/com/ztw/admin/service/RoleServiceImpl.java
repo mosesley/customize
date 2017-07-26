@@ -7,6 +7,8 @@ import com.ztw.admin.repository.RoleRepository;
 import com.ztw.admin.repository.UserRoleRepository;
 import com.ztw.admin.util.PinyinToolkit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +34,16 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();
+    }
+
+    /**
+     * 分页获取用户
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<Role> findAll(Pageable pageable) {
+        return roleRepository.findAll(pageable);
     }
 
     @Override

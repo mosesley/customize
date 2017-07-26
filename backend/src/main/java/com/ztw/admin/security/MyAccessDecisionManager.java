@@ -41,6 +41,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         List<String> gaIds = new ArrayList<>();
         while (iterator.hasNext()){
             GrantedAuthority grantedAuthority = iterator.next();
+            // System.out.println(grantedAuthority.getAuthority());
             if(grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 return;
             } else {
@@ -59,14 +60,11 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             caIds.add(((MyConfigAttribute) ca).getId());
         }
 
-
-        System.out.println(gaIds);
-        System.out.println(caIds);
         if(gaIds.containsAll(caIds)) {
             return;
         }
 
-        throw new AccessDeniedException("当前用户没有访问权限");
+        throw new AccessDeniedException("当前用户没有权限");
     }
 
     @Override
