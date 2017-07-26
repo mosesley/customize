@@ -55,7 +55,7 @@ public class UserDto {
         this.username = user.getUsername();
         this.nickname = user.getNickname();
         this.status = user.isStatus();
-//        this.setAdmin(roles);
+        this.isAdmin = checkIsAdmin(roles);
         this.createDate = user.getCreateDate();
         this.roles = roles;
     }
@@ -92,20 +92,6 @@ public class UserDto {
         this.status = status;
     }
 
-//    public boolean isAdmin(List<Role> roles) {
-//        for(Role role: roles) {
-//            if(role.getRole().equals("ROLE_ADMIN")) {
-//                System.out.println("true");
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public void setAdmin(boolean admin) {
-//        isAdmin = admin;
-//    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -128,5 +114,14 @@ public class UserDto {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    private boolean checkIsAdmin(List<Role> roles) {
+        for(Role role: roles) {
+            if(role.getRole().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

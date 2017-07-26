@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
-  MdButtonModule, MdChipsModule,
+  MdButtonModule, MdCheckboxModule, MdChipsModule,
   MdIconModule,
   MdInputModule,
   MdPaginatorModule,
@@ -21,6 +21,7 @@ import { UserListComponent } from "./list/user-list.component";
 import { UserRoutingModule } from "./user-routing.module";
 import { UserComponent } from "./user.component";
 import { UserEditDialogComponent } from "./edit/user-edit-dialog.component";
+import { UserAuthDialogComponent } from "./auth/user-auth-dialog.component";
 
 /**
  * Admin user module
@@ -44,6 +45,7 @@ import { UserEditDialogComponent } from "./edit/user-edit-dialog.component";
     MdChipsModule,
     FlexLayoutModule,
     DirectiveModule,
+    MdCheckboxModule,
     MdRadioModule,
     UserRoutingModule
   ],
@@ -51,12 +53,14 @@ import { UserEditDialogComponent } from "./edit/user-edit-dialog.component";
     UserComponent,
     UserListComponent,
     UserAddDialogComponent,
-    UserEditDialogComponent
+    UserEditDialogComponent,
+    UserAuthDialogComponent
   ],
   entryComponents: [
     MessageDialog,
     UserAddDialogComponent,
-    UserEditDialogComponent
+    UserEditDialogComponent,
+    UserAuthDialogComponent
   ]
 })
 export class UserModule {

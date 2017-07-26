@@ -8,6 +8,7 @@ import { TableDataSource } from '../../../../common/table/table-data-source';
 import { UserAddDialogComponent } from '../add/user-add-dialog.component';
 import { MessageDialog } from "../../../../common/dialog/message-dialog";
 import { UserEditDialogComponent } from "../edit/user-edit-dialog.component";
+import { UserAuthDialogComponent } from "../auth/user-auth-dialog.component";
 
 /**
  * User list component
@@ -53,6 +54,17 @@ export class UserListComponent implements OnInit {
     let dialogRef = this.dialog.open(UserEditDialogComponent, { data: user});
     dialogRef.afterClosed().subscribe(result => {
       this.dataSource.dataChange = result;
+    });
+  }
+
+  /**
+   * 设置权限
+   * @param {AdminUser} user
+   */
+  setRoles(user: AdminUser) {
+    let dialogRef = this.dialog.open(UserAuthDialogComponent, { data: user});
+    dialogRef.afterClosed().subscribe(() => {
+      this.dataSource.dataChange = "setRoles";
     });
   }
 

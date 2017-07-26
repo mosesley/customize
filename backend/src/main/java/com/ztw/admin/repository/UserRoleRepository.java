@@ -17,4 +17,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, String> {
     List<UserRole> findByUserId(String userId);
     void deleteByUserId(String userId);
     void deleteByRoleId(String roleId);
+    void deleteByUserIdAndRoleId(String userId, String roleId);
 }

@@ -17,7 +17,7 @@ export class UserEditDialogComponent implements OnInit {
   private submitted: boolean = false;
 
   constructor(private dialogRef: MdDialogRef<UserEditDialogComponent>,
-              @Inject(MD_DIALOG_DATA) private user: AdminUser,
+              @Inject(MD_DIALOG_DATA) private data: AdminUser,
               private http: HttpClient) {
   }
 
@@ -28,13 +28,13 @@ export class UserEditDialogComponent implements OnInit {
   // 创建登陆表单
   buildForm(): void {
     this.editForm = new FormGroup({
-      id: new FormControl(this.user.id),
-      username: new FormControl(this.user.username),
-      usernameView: new FormControl({value: this.user.username, disabled: true}),
-      nickname: new FormControl(this.user.nickname, [Validators.required, Validators.minLength(4)]),
-      createDate: new FormControl(this.user.createDate),
+      id: new FormControl(this.data.id),
+      username: new FormControl(this.data.username),
+      usernameView: new FormControl({value: this.data.username, disabled: true}),
+      nickname: new FormControl(this.data.nickname, [Validators.required, Validators.minLength(4)]),
+      createDate: new FormControl(this.data.createDate),
       password: new FormControl('', Validators.minLength(6)),
-      status: new FormControl(this.user.status)
+      status: new FormControl(this.data.status),
     });
 
     this.editForm.valueChanges.subscribe(data => this.onValueChanged(data));

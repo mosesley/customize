@@ -99,4 +99,11 @@ public class UserController extends AuthRootMenu {
             return null;
         }
     }
+
+    @GetMapping(value = "/updateUserRole")
+    public void updateRole(@RequestParam("userId") String userId,
+                           @RequestParam("roleId") String roleId,
+                           @RequestParam("checked") boolean checked) {
+        userService.updateUserRole(userId, roleId, checked);
+    }
 }

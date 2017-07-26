@@ -2,6 +2,7 @@ package com.ztw.admin.service;
 
 import com.ztw.admin.model.User;
 import com.ztw.admin.model.UserDto;
+import com.ztw.admin.model.UserRole;
 import com.ztw.admin.repository.UserRepository;
 import com.ztw.admin.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +107,23 @@ public class UserServiceImpl implements UserService {
         User su = userRepository.save(user);
         User u = new User(su.getId(), su.getUsername(), su.getNickname(), "", su.isStatus(), su.getCreateDate());
         return u;
+    }
+
+    /**
+     * 设置用户角色
+     * @param userId
+     * @param roleId
+     * @param checked
+     */
+    @Override
+    public void updateUserRole(String userId, String roleId, boolean checked) {
+        if(checked) {
+            UserRole ur = new UserRole();
+            ur.setUserId(userId);
+            ur.setRoleId(roleId);
+            userRoleRepository.save(ur);
+        } else {
+            userRoleRepository.deleteByUserIdAndRoleId(userId, roleId);
+        }
     }
 }

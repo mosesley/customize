@@ -43,6 +43,11 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findAll(ids);
     }
 
+    @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll();
+    }
+
     /**
      * 分页获取用户
      * @param pageable

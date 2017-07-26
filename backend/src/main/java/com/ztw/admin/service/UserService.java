@@ -19,4 +19,5 @@ public interface UserService {
     User saveUser(User user);
     void deleteUser(String id);
     User updateUser(User user);
+    void updateUserRole(String userId, String roleId, boolean checked);
 }

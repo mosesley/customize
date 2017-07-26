@@ -9,11 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 角色管理api
@@ -47,6 +49,11 @@ public class RoleController extends AuthRootMenu{
         }
         Pageable pageable = new PageRequest(page, pageSize, new Sort(sort_order , sort));
         return roleService.findAll(pageable);
+    }
+
+    @GetMapping(value = "/listAll")
+    public List<Role> findAll() {
+        return roleService.findAll();
     }
 
     /**
@@ -106,7 +113,9 @@ public class RoleController extends AuthRootMenu{
     @GetMapping(value = "/updatePermission")
     @Transactional
     @AuthPermission(name = "修改权限", url = "/updatePermission", method = "GET")
-    public void updatePermissionRole(@RequestParam("roleId") String roleId, @RequestParam("permissionId") String permissionId, @RequestParam("checked") boolean checked) {
+    public void updatePermissionRole(@RequestParam("roleId") String roleId,
+                                     @RequestParam("permissionId") String permissionId,
+                                     @RequestParam("checked") boolean checked) {
         roleService.updatePermissionRole(roleId, permissionId, checked);
     }
 

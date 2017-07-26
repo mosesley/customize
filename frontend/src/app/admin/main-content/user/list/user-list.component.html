@@ -19,6 +19,9 @@
         <button md-mini-fab (click)="deleteUser(row.id)" *ngIf="!row.admin">
           <md-icon>delete_forever</md-icon>
         </button>
+        <button md-mini-fab *ngIf="!row.admin" (click)="setRoles(row)">
+          <md-icon>verified_user</md-icon>
+        </button>
       </md-cell>
     </ng-container>
 

@@ -13,6 +13,7 @@ import java.util.List;
  * @created 2017-07-19 15:47.
  */
 public interface RoleService {
+    List<Role> findAll();
     Page<Role> findAll(Pageable pageable);
     List<Role> findByUserId(String userId);
     Role save(Role role);
