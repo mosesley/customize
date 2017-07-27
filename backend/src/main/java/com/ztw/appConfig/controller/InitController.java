@@ -106,6 +106,7 @@ public class InitController {
             }
         }
         List<Permission> permissions = PermissionUtil.buildAppPermision("com/ztw/admin/controller/*.class");
+        permissionRoleRepository.deleteAll();
         for (Permission p: permissions) {
             Permission sp = permissionRepository.save(p);
 

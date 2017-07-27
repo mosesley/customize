@@ -101,6 +101,8 @@ public class UserController extends AuthRootMenu {
     }
 
     @GetMapping(value = "/updateUserRole")
+    @Transactional
+    @AuthPermission(name = "修改用户角色", url = "/updateUserRole", method = "GET")
     public void updateRole(@RequestParam("userId") String userId,
                            @RequestParam("roleId") String roleId,
                            @RequestParam("checked") boolean checked) {

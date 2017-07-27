@@ -34,7 +34,7 @@ public class UserDto {
     /**
      * 是否事超级管理员
      */
-    private boolean isAdmin;
+    private boolean admin;
 
     /**
      * 创建日期
@@ -55,7 +55,7 @@ public class UserDto {
         this.username = user.getUsername();
         this.nickname = user.getNickname();
         this.status = user.isStatus();
-        this.isAdmin = checkIsAdmin(roles);
+        this.admin = checkIsAdmin(roles);
         this.createDate = user.getCreateDate();
         this.roles = roles;
     }
@@ -93,11 +93,11 @@ public class UserDto {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     public Date getCreateDate() {

@@ -34,11 +34,6 @@ export class UserAuthDialogComponent implements OnInit {
     });
   }
 
-  isCheck(roleId: string): boolean {
-    console.log("check");
-    return this.userRoleIds.includes(roleId);
-  }
-
   /**
    * 设置用户角色
    * @param $event

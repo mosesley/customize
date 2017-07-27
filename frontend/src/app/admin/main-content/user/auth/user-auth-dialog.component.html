@@ -1,7 +1,7 @@
 <div *ngFor="let adminRole of adminRoles | async">
   <md-checkbox *ngIf="adminRole.role != 'ROLE_ADMIN'"
                [id]="adminRole.id"
-               [checked]="isCheck(adminRole.id)"
+               [checked]="userRoleIds.indexOf(adminRole.id) >= 0"
                (change)="changeRoles($event, data.id)">
     {{adminRole.name}}
   </md-checkbox>
