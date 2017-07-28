@@ -1,7 +1,7 @@
 package com.ztw.appConfig.util;
 
-import com.ztw.admin.annotations.AutoMenu;
-import com.ztw.admin.model.Menu;
+import com.ztw.admin.basic.annotations.AutoMenu;
+import com.ztw.admin.basic.model.Menu;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;

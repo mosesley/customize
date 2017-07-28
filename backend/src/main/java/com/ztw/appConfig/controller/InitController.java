@@ -1,7 +1,7 @@
 package com.ztw.appConfig.controller;
 
-import com.ztw.admin.model.*;
-import com.ztw.admin.repository.*;
+import com.ztw.admin.basic.model.*;
+import com.ztw.admin.basic.repository.*;
 import com.ztw.appConfig.model.AppConfig;
 import com.ztw.appConfig.model.InitBody;
 import com.ztw.appConfig.repository.AppConfigRepository;
@@ -66,6 +66,10 @@ public class InitController {
     @PostMapping(value = "")
     @Transactional
     public AppConfig initAppConfig(@RequestBody InitBody initBody) {
+        if(!appConfigRepository.findAll().isEmpty()) {
+            throw new RuntimeException("系统已经被初始化！");
+        }
+
         AppConfig appConfig = new AppConfig();
 
         // 初始化超级管理员
@@ -105,7 +109,7 @@ public class InitController {
                 permissionRepository.delete(ep);
             }
         }
-        List<Permission> permissions = PermissionUtil.buildAppPermision("com/ztw/admin/controller/*.class");
+        List<Permission> permissions = PermissionUtil.buildAppPermision("com/ztw/admin/*/controller/*.class");
         permissionRoleRepository.deleteAll();
         for (Permission p: permissions) {
             Permission sp = permissionRepository.save(p);
@@ -128,7 +132,7 @@ public class InitController {
         for ( Menu m: existMenus ) {
             menuRepository.delete(m);
         }
-        List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/controller/*.class");
+        List<Menu> menus = MenuUtil.buildAppAdminMenu("com/ztw/admin/*/controller/*.class");
         for (Menu menu: menus) {
             menuRepository.save(menu);
         }

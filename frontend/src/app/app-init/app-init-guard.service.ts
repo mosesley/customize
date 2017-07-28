@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from "@angular/common/http";
-import { AppConfig } from "./app-config";
+import { AppConfig } from "../common/model/app-config";
 import 'rxjs/add/operator/map';
 
 /**

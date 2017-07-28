@@ -20,7 +20,8 @@ const adminRoutes: Routes = [
       { path: '', redirectTo: 'index', pathMatch: 'full'},
       { path: 'index', loadChildren: 'app/admin/main-content/index/index.module#IndexModule'},
       { path: 'user', loadChildren: 'app/admin/main-content/user/user.module#UserModule'},
-      { path: 'role', loadChildren: 'app/admin/main-content/role/role.module#RoleModule'}
+      { path: 'role', loadChildren: 'app/admin/main-content/role/role.module#RoleModule'},
+      { path: 'appConfig', loadChildren: 'app/admin/main-content/appConfig/app-config.module#AppConfigModule'}
     ]
   }
 ];

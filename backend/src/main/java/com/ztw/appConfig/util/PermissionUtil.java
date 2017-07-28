@@ -1,7 +1,7 @@
 package com.ztw.appConfig.util;
 
-import com.ztw.admin.annotations.AuthPermission;
-import com.ztw.admin.model.Permission;
+import com.ztw.admin.basic.annotations.AuthPermission;
+import com.ztw.admin.basic.model.Permission;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;

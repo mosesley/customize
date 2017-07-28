@@ -15,7 +15,7 @@ import {
   MdSidenavModule,
   MdToolbarModule
 } from '@angular/material';
-import { navReducer } from '../common/reducer/nav-reducer';
+import { appNameReducer, navReducer } from '../common/reducer/nav-reducer';
 import { StoreModule } from '@ngrx/store';
 
 /**
@@ -32,7 +32,7 @@ import { StoreModule } from '@ngrx/store';
     MdInputModule,
     MdIconModule,
     MdMenuModule,
-    StoreModule.provideStore({navReducer: navReducer}),
+    StoreModule.provideStore({navReducer: navReducer, appNameReducer: appNameReducer}),
     AdminRoutingModule
   ],
   declarations: [

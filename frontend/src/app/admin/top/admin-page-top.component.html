@@ -1,6 +1,5 @@
 <md-toolbar [class.mat-elevation-z6]="true">
-    <!-- TODO: 显示系统名称，添加菜单toggle -->
-    <a md-button routerLink="/admin/index" class="logo">ng2-Admin</a>
+    <a md-button routerLink="/admin/index" class="logo">{{(AppConfig | async)?.appName}}</a>
     <!-- TODO: 完善搜索功能-->
     <md-input-container class="search" floatPlaceholder="never">
         <span mdPrefix><md-icon>search</md-icon> &nbsp;</span>

@@ -1,8 +1,13 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from '@angular/core';
-import { AdminUser } from '../../common/model/admin-user';
 import { Router } from "@angular/router";
-import { LoginComponent } from "../login/login.component";
+import { Store } from "@ngrx/store";
 import { JwtHelper } from 'angular2-jwt';
+import { Observable } from "rxjs/Observable";
+import { AdminUser } from '../../common/model/admin-user';
+import { AppConfig } from "../../common/model/app-config";
+import { ACCHANGE } from "../../common/reducer/nav-reducer";
+import { LoginComponent } from "../login/login.component";
 
 /**
  * Admin page top component
@@ -13,10 +18,17 @@ import { JwtHelper } from 'angular2-jwt';
   styleUrls: ['./admin-page-top.component.scss']
 })
 export class AdminPageTop implements OnInit {
+  private api_appConfig_url = "/api/admin/appConfig";
   private jwtHelper: JwtHelper = new JwtHelper();
   private loginUser: AdminUser;
+  AppConfig: Observable<AppConfig>;
 
-  constructor (private router: Router) { }
+  constructor (private router: Router, private appConfigStore$: Store<AppConfig>, private http: HttpClient) {
+    this.AppConfig = this.appConfigStore$.select('appNameReducer');
+    this.http.get<AppConfig>(`${this.api_appConfig_url}`).subscribe( data => {
+      this.appConfigStore$.dispatch({type: ACCHANGE, payload: data});
+    })
+  }
 
   ngOnInit(): void {
     this.loginUser = this.jwtHelper.decodeToken(sessionStorage.getItem('jwtToken'));

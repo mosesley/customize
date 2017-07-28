@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
-import { AppConfig } from "./app-config";
+import { AppConfig } from "../common/model/app-config";
 
 /**
  * App Initialize Component

@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <md-card fxFlex="50">
+    <md-card-content>
+      <form [formGroup]="configForm" novalidate (ngSubmit)="onSubmit(configForm.value)" fxLayout="column" fxLayoutGap="10px">
+        <md-input-container>
+          <span mdPrefix><md-icon>settings_system_daydream</md-icon> &nbsp;</span>
+          <input mdInput formControlName="appName" placeholder="系统名称">
+          <md-error>{{ formErrors.appName }}</md-error>
+        </md-input-container>
+        <md-input-container>
+          <span mdPrefix><md-icon>email</md-icon> &nbsp;</span>
+          <input mdInput  formControlName="email" type="email" placeholder="电子邮箱">
+          <md-error>{{ formErrors.email }}</md-error>
+        </md-input-container>
+        <md-error>{{errorMsg}}</md-error>
+        <div>
+          <button [disabled]="configForm.invalid" md-raised-button type="submit">提 交</button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>
+
