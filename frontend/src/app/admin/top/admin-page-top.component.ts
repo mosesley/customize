@@ -6,7 +6,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { Observable } from "rxjs/Observable";
 import { AdminUser } from '../../common/model/admin-user';
 import { AppConfig } from "../../common/model/app-config";
-import { ACCHANGE } from "../../common/reducer/nav-reducer";
+import { AC_CHANGE } from "../../common/reducer/nav-reducer";
 import { LoginComponent } from "../login/login.component";
 
 /**
@@ -26,7 +26,7 @@ export class AdminPageTop implements OnInit {
   constructor (private router: Router, private appConfigStore$: Store<AppConfig>, private http: HttpClient) {
     this.AppConfig = this.appConfigStore$.select('appNameReducer');
     this.http.get<AppConfig>(`${this.api_appConfig_url}`).subscribe( data => {
-      this.appConfigStore$.dispatch({type: ACCHANGE, payload: data});
+      this.appConfigStore$.dispatch({type: AC_CHANGE, payload: data});
     })
   }
 

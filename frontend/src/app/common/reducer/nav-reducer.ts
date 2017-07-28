@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 import { AppConfig } from "../model/app-config";
 
-export const NAVCHANGE = 'NAVCHANGE';
-export const ACCHANGE = 'ACCHANGE';
+export const NAV_CHANGE = 'NAV_CHANGE';
+export const AC_CHANGE = 'AC_CHANGE';
 
 export interface NavState {
   title: string;
@@ -14,7 +14,7 @@ export interface NavState {
  */
 export function navReducer(state: NavState, action: Action): NavState {
   switch (action.type) {
-    case NAVCHANGE:
+    case NAV_CHANGE:
       return { title: action.payload.title};
     default:
       return state;
@@ -29,7 +29,7 @@ export function navReducer(state: NavState, action: Action): NavState {
  */
 export function appNameReducer(state: AppConfig, action: Action): AppConfig {
   switch (action.type) {
-    case ACCHANGE:
+    case AC_CHANGE:
       return action.payload;
     default:
       return state;

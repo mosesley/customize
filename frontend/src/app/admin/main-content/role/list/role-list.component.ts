@@ -7,7 +7,7 @@ import { MessageDialog } from "../../../../common/dialog/message-dialog";
 import { AdminPerRole } from "../../../../common/model/admin-per-role";
 import { AdminPermission } from "../../../../common/model/admin-permission";
 import { AdminRole } from "../../../../common/model/admin-role";
-import { NAVCHANGE, NavState } from '../../../../common/reducer/nav-reducer';
+import { NAV_CHANGE, NavState } from '../../../../common/reducer/nav-reducer';
 import { TableDataSource } from '../../../../common/table/table-data-source';
 import "rxjs/add/operator/map";
 
@@ -35,7 +35,7 @@ export class RoleListComponent implements OnInit {
   constructor(private http: HttpClient,
               private dialog: MdDialog,
               private store$: Store<NavState>) {
-    this.store$.dispatch({type: NAVCHANGE, payload: {title: '角色列表'}});
+    this.store$.dispatch({type: NAV_CHANGE, payload: {title: '角色列表'}});
   }
 
   ngOnInit(): void {
@@ -85,6 +85,9 @@ export class RoleListComponent implements OnInit {
     }).subscribe(
       (data) => {
         this.dataSource.dataChange = "deleteRole";
+        if(this.current_role && this.current_role.id == id) {
+          this.current_role = null;
+        }
       },
       (error: HttpErrorResponse) => {
         if (error.error instanceof Error) {

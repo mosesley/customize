@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialog, MdPaginator, MdSort } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AdminUser } from "../../../../common/model/admin-user";
-import { NAVCHANGE, NavState } from '../../../../common/reducer/nav-reducer';
+import { NAV_CHANGE, NavState } from '../../../../common/reducer/nav-reducer';
 import { TableDataSource } from '../../../../common/table/table-data-source';
 import { UserAddDialogComponent } from '../add/user-add-dialog.component';
 import { MessageDialog } from "../../../../common/dialog/message-dialog";
@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MdSort) sort: MdSort;
 
   constructor(private store$: Store<NavState>, private dialog: MdDialog, private http: HttpClient) {
-    this.store$.dispatch({type: NAVCHANGE, payload: {title: '用户列表'}});
+    this.store$.dispatch({type: NAV_CHANGE, payload: {title: '用户列表'}});
   }
 
   ngOnInit() {

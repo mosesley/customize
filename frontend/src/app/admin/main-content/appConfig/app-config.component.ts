@@ -6,7 +6,7 @@ import { Title } from "@angular/platform-browser";
 import { Store } from "@ngrx/store";
 import { MessageDialog } from "../../../common/dialog/message-dialog";
 import { AppConfig } from "../../../common/model/app-config";
-import { ACCHANGE, NAVCHANGE, NavState } from "../../../common/reducer/nav-reducer";
+import { AC_CHANGE, NAV_CHANGE, NavState } from "../../../common/reducer/nav-reducer";
 
 /**
  * 系统设置模块
@@ -27,7 +27,7 @@ export class AppConfigComponent implements OnInit{
               private store$: Store<NavState>,
               private appConfigStore$: Store<AppConfig>,
               private dialog: MdDialog) {
-    this.store$.dispatch({type: NAVCHANGE, payload: {title: '系统信息'}});
+    this.store$.dispatch({type: NAV_CHANGE, payload: {title: '系统信息'}});
     this.pageTitle.setTitle(`Admin-appConfig`);
     this.http.get<AppConfig>(`${this.api_appConfig_url}`).subscribe(data => {
       this.configForm.setControl('id', new FormControl(data.id));
@@ -92,7 +92,7 @@ export class AppConfigComponent implements OnInit{
         headers: new HttpHeaders().set('Authorization', `${sessionStorage.getItem("jwtToken")}`)
       })
         .subscribe(appConfig => {
-          this.appConfigStore$.dispatch({type: ACCHANGE, payload: appConfig});
+          this.appConfigStore$.dispatch({type: AC_CHANGE, payload: appConfig});
           this.dialog.open(MessageDialog, { data: '修改成功' })
         }, (error: HttpErrorResponse) => {
           this.errorMsg = error.error.message;
