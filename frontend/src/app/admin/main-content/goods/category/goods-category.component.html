@@ -1,0 +1,46 @@
+<div class="mat-elevation-z5">
+  <md-toolbar>
+    <md-input-container floatPlaceholder="never">
+      <span mdPrefix><md-icon>class</md-icon> &nbsp;</span>
+      <input mdInput placeholder="种类名称" required #inputName>
+    </md-input-container>
+    <button md-mini-fab [disabled]="inputName.value.length == 0" (click)="addCategory(inputName)">
+      <md-icon>add</md-icon>
+    </button>
+  </md-toolbar>
+  <md-table #table [dataSource]="dataSource"
+            mdSort mdSortActive="name" mdSortDisableClear mdSortDirection="asc">
+
+    <!-- operation Column -->
+    <ng-container cdkColumnDef="operation">
+      <md-header-cell *cdkHeaderCellDef> 操作</md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-mini-fab>
+          <md-icon>verified_user</md-icon>
+        </button>
+        <button md-mini-fab>
+          <md-icon>delete_forever</md-icon>
+        </button>
+      </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef  md-sort-header disableClear="true"> 种类名称</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}}</md-cell>
+    </ng-container>
+
+    <!-- role Column -->
+    <ng-container cdkColumnDef="category">
+      <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> 种类标识</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.category}}</md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="categoryColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: categoryColumns"></md-row>
+  </md-table>
+  <md-paginator [length]="dataSource.resultsLength"
+                [pageSize]="10"
+                [pageSizeOptions]="[10, 15, 20]">
+  </md-paginator>
+</div>

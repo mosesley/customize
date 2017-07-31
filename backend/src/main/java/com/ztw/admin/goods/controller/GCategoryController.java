@@ -23,6 +23,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping(value = "/admin/goods/category")
 @AutoMenu(name = "商品种类", icon = "class", orderNum = 1)
+@AuthPermission(name = "商品种类", url = "/admin/goods/category")
 public class GCategoryController extends GoodsRootMenu{
 
 

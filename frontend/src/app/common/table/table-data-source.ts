@@ -15,7 +15,7 @@ import 'rxjs/add/operator/map';
  */
 export class TableDataSource<T> extends DataSource<T> {
   resultsLength: number = 0;
-  isLoadingResults: boolean;
+  isLoadingResults: boolean = false;
   private _dataChange = new BehaviorSubject('');
 
   set dataChange(value: string) {
@@ -40,7 +40,6 @@ export class TableDataSource<T> extends DataSource<T> {
     this.sort.mdSortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
     });
-
     return Observable.merge(...displayDataChanges)
       .startWith(null)
       .switchMap(() => {

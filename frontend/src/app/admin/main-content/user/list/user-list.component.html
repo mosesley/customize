@@ -11,7 +11,7 @@
 
     <!-- operation Column -->
     <ng-container cdkColumnDef="operation">
-      <md-header-cell *cdkHeaderCellDef> 操作 </md-header-cell>
+      <md-header-cell *cdkHeaderCellDef> 操作</md-header-cell>
       <md-cell *cdkCellDef="let row">
         <button md-mini-fab (click)="openEditDialog(row)" *ngIf="!row.admin">
           <md-icon>edit</md-icon>
@@ -27,31 +27,31 @@
 
     <!-- username Column -->
     <ng-container cdkColumnDef="username">
-      <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> 用户名 </md-header-cell>
+      <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> 用户名</md-header-cell>
       <md-cell *cdkCellDef="let row"> {{row.username}}</md-cell>
     </ng-container>
 
     <!-- nickname Column -->
     <ng-container cdkColumnDef="nickname">
-      <md-header-cell *cdkHeaderCellDef> 昵称 </md-header-cell>
+      <md-header-cell *cdkHeaderCellDef> 昵称</md-header-cell>
       <md-cell *cdkCellDef="let row"> {{row.nickname}}</md-cell>
     </ng-container>
 
     <!-- status Column -->
     <ng-container cdkColumnDef="status">
-      <md-header-cell *cdkHeaderCellDef> 状态 </md-header-cell>
+      <md-header-cell *cdkHeaderCellDef> 状态</md-header-cell>
       <md-cell *cdkCellDef="let row"> {{row.status ? "启用" : "停用"}}</md-cell>
     </ng-container>
 
     <!-- createDate Column -->
     <ng-container cdkColumnDef="createDate">
-      <md-header-cell *cdkHeaderCellDef> 创建时间 </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.createDate | date:"yyyy-MM-dd HH:mm:ss"}}</md-cell>
+      <md-header-cell *cdkHeaderCellDef> 创建时间</md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.createDate | date:"yyyy-MM-dd"}}</md-cell>
     </ng-container>
 
     <!-- Roles column -->
     <ng-container cdkColumnDef="roles">
-      <md-header-cell *cdkHeaderCellDef> 角色 </md-header-cell>
+      <md-header-cell *cdkHeaderCellDef> 角色</md-header-cell>
       <md-cell *cdkCellDef="let row" fxLayout="row">
         <md-chip-list *ngFor="let role of row.roles.slice(0, 3)">
           <md-chip>{{role.name}}</md-chip>
@@ -65,6 +65,7 @@
     <md-header-row *cdkHeaderRowDef="userColumns"></md-header-row>
     <md-row *cdkRowDef="let row; columns: userColumns;"></md-row>
   </md-table>
+  <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
   <md-paginator [length]="dataSource.resultsLength"
                 [pageSize]="10"
                 [pageSizeOptions]="[10, 15, 20]">

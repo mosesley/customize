@@ -33,7 +33,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     @Override
     public GoodsCategory save(GoodsCategory gc) throws RuntimeException {
         gc.setCategory("CATEGORY_" + PinyinToolkit.cn2FirstSpell(gc.getName()).toUpperCase());
-        if(goodsCategoryRepository.findByCategory(gc.getCategory()).equals(null)) {
+        if(goodsCategoryRepository.findByCategory(gc.getCategory()) == null) {
             return goodsCategoryRepository.save(gc);
         } else {
             throw new RuntimeException("名称标识已经被使用，请换一个名称");

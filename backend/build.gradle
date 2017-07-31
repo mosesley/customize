@@ -6,7 +6,7 @@
 // 在这个段落中你可以声明你的build脚本需要的依赖和解析下载该依赖所使用的仓储位置
 buildscript {
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
         jjwtVersion = '0.7.0'
     }
     repositories {
@@ -58,7 +58,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+    gradleVersion = '4.0.2'
 }
 
 bootRun {
