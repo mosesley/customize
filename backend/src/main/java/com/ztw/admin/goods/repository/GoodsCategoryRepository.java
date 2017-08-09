@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @Author 马旭
- * @Date 2017/7/27-15:17
+ * @Date 2017/8/1-11:26
  */
 @Repository(value = "goodsCategoryRepository")
 public interface GoodsCategoryRepository extends JpaRepository<GoodsCategory, String> {
-    GoodsCategory findByCategory(String category);
+    GoodsCategory findByGoodsId(String goodsId);
+    void deleteByCategoryId(String categoryId);
 }

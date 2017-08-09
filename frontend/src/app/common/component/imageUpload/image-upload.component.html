@@ -1,0 +1,8 @@
+<label [ngStyle]="{'width': imgWidth + 'px', 'height': imgHeight + 'px'}" class="mat-elevation-z1 upload-button" fxLayoutAlign="center center">
+  <img [src]="image" *ngIf="image" width="{{imgWidth}}" height="{{imgHeight}}">
+  <md-icon class="md-icon-48" *ngIf="!image">photo</md-icon><span *ngIf="!image">{{infoMsg}}</span>
+  <input ngFileSelect type="file" (uploadOutput)="onUploadOutput($event)">
+</label>
+
+
+

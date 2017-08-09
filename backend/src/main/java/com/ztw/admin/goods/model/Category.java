@@ -9,13 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * 商品种类
  * @Author 马旭
- * @Date 2017/8/1-11:17
+ * @Date 2017/7/27-14:05
  */
 @Entity
-@Table(name = "t_goods_Category")
+@Table(name = "t_category")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GoodsCategory {
+public class Category {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -23,14 +24,15 @@ public class GoodsCategory {
     private String id;
 
     /**
-     * 商品ID
+     * 类型名称
      */
-    private String goodsId;
+    private String name;
 
     /**
-     * 商品种类ID
+     * 类型标识，例如：CATEGORY_DHJ 标识打火机
+     * 标识在数据库里不能重复
      */
-    private String categoryId;
+    private String category;
 
     public String getId() {
         return id;
@@ -40,19 +42,19 @@ public class GoodsCategory {
         this.id = id;
     }
 
-    public String getGoodsId() {
-        return goodsId;
+    public String getName() {
+        return name;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

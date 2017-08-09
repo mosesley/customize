@@ -1,0 +1,32 @@
+<md-card class="mat-elevation-z5">
+  <form [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm.value)" fxLayout="column" fxLayoutGap="10px">
+    <md-input-container>
+      <span mdPrefix><md-icon>title</md-icon> &nbsp;</span>
+      <input mdInput formControlName="title" placeholder="标题">
+      <md-error>{{ formErrors.title }}</md-error>
+    </md-input-container>
+    <md-input-container>
+      <span mdPrefix><md-icon>confirmation_number</md-icon> &nbsp;</span>
+      <input mdInput formControlName="number" placeholder="编号">
+      <md-error>{{ formErrors.number }}</md-error>
+    </md-input-container>
+    <md-input-container>
+      <span mdPrefix><md-icon>payment</md-icon> &nbsp;</span>
+      <input mdInput formControlName="price" placeholder="价格">
+      <span mdSuffix>元</span>
+      <md-error>{{ formErrors.price }}</md-error>
+    </md-input-container>
+    <md-input-container>
+      <span mdPrefix><md-icon>local_offer</md-icon> &nbsp;</span>
+      <input mdInput formControlName="labels" placeholder="标签，用逗号隔开">
+    </md-input-container>
+    <md-input-container>
+      <textarea mdInput formControlName="des" placeholder="商品描述"></textarea>
+    </md-input-container>
+    <image-upload (uploadInput)="uploadInput($event)" [infoMsg]="'商品展示'"></image-upload>
+    <md-error>{{errorMsg}}</md-error>
+    <div>
+      <button [disabled]="addForm.invalid" md-raised-button type="submit">提 交</button>
+    </div>
+  </form>
+</md-card>

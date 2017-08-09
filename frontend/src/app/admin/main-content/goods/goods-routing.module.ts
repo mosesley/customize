@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { GoodsComponent } from "./goods.component";
-import { GoodsCategoryComponent } from "./category/goods-category.component";
+import { CategoryComponent } from "./category/category.component";
+import { GoodsListComponent } from "./list/goods-list.component";
+import { GoodsAddComponent } from "./add/goods-add.component";
 
 /**
  * GoodsRoutes configuration
@@ -12,7 +14,9 @@ const goodsRoutes: Routes = [
     path: '',
     component: GoodsComponent,
     children: [
-      { path: 'category/list', component: GoodsCategoryComponent }
+      { path: 'list', component: GoodsListComponent },
+      { path: 'add', component: GoodsAddComponent },
+      { path: 'category/list', component: CategoryComponent }
     ]
   }
 ];

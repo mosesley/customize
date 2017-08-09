@@ -15,10 +15,7 @@
     <ng-container cdkColumnDef="operation">
       <md-header-cell *cdkHeaderCellDef> 操作</md-header-cell>
       <md-cell *cdkCellDef="let row">
-        <button md-mini-fab>
-          <md-icon>verified_user</md-icon>
-        </button>
-        <button md-mini-fab>
+        <button md-mini-fab (click)="deleteCategory(row.id)">
           <md-icon>delete_forever</md-icon>
         </button>
       </md-cell>
@@ -32,7 +29,7 @@
 
     <!-- role Column -->
     <ng-container cdkColumnDef="category">
-      <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> 种类标识</md-header-cell>
+      <md-header-cell *cdkHeaderCellDef> 种类标识</md-header-cell>
       <md-cell *cdkCellDef="let row"> {{row.category}}</md-cell>
     </ng-container>
 
