@@ -1,9 +1,12 @@
 package com.ztw.admin.goods.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @Author 马旭
  * @Date 2017/8/1-14:24
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GoodsDto {
 
     private String id;

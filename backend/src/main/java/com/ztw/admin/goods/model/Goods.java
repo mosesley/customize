@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
 
 /**
  * 商品
@@ -50,7 +51,7 @@ public class Goods {
     private String des;
 
     /**
-     * 商品杨张图片,用于展示
+     * 商品样张图片,用于展示
      */
     private String showImgUrl;
 
@@ -121,5 +122,19 @@ public class Goods {
 
     public void setDzImgUrls(String[] dzImgUrls) {
         this.dzImgUrls = dzImgUrls;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", number='" + number + '\'' +
+                ", labels=" + Arrays.toString(labels) +
+                ", price=" + price +
+                ", des='" + des + '\'' +
+                ", showImgUrl='" + showImgUrl + '\'' +
+                ", dzImgUrls=" + Arrays.toString(dzImgUrls) +
+                '}';
     }
 }

@@ -40,8 +40,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods add(Goods goods) {
-
-        return null;
+        return goodsRepository.save(goods);
     }
 
     @Override

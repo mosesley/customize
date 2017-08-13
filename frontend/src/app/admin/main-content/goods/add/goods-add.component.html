@@ -23,10 +23,14 @@
     <md-input-container>
       <textarea mdInput formControlName="des" placeholder="商品描述"></textarea>
     </md-input-container>
-    <image-upload (uploadInput)="uploadInput($event)" [infoMsg]="'商品展示'"></image-upload>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutWrap>
+      <image-upload (uploadInput)="uploadShowImg($event)" [infoMsg]="'商品展示'"></image-upload>
+      <image-upload (uploadInput)="uploadDz1Img($event)" [infoMsg]="'定制图片1'"></image-upload>
+      <image-upload (uploadInput)="uploadDz2Img($event)" [infoMsg]="'定制图片2'"></image-upload>
+    </div>
     <md-error>{{errorMsg}}</md-error>
     <div>
-      <button [disabled]="addForm.invalid" md-raised-button type="submit">提 交</button>
+      <button [disabled]="addForm.invalid" md-raised-button>提 交</button>
     </div>
   </form>
 </md-card>

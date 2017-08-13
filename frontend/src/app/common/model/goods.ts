@@ -8,9 +8,9 @@ import { Category } from "./category";
 export interface Goods {
   id: string;
   title: string;
-  number: number;
+  number: string;
   labels: string[];
-  price: number;
+  price: string;
   des: string;
   showImgUrl: string;
   dzImgUrls: string[];
