@@ -12,6 +12,6 @@ import org.springframework.data.domain.Pageable;
 public interface GoodsService {
     Page<GoodsDto> findAll(Pageable pageable);
     Goods add(Goods goods);
-    void delete(String id);
+    void delete(String id, String uploadDir);
     GoodsDto update(GoodsDto goodsDto);
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @created 2017-07-21 16:43.
  */
 @RestController
-@RequestMapping(value = "/admin/per_role")
+@RequestMapping(value = "/api/admin/per_role")
 public class PerRoleController {
 
     @Autowired

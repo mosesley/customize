@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 })
 export class MenuComponent implements OnInit{
   private menu_api_url = "/api/admin/menus";
-  private menuItems: Observable<AdminMenu[]>;
+  public menuItems: Observable<AdminMenu[]>;
   public hoverElemHeight: number;
   public hoverElemTop: number;
   public outOfArea: number = -200;

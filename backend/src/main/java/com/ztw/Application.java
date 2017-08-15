@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @CrossOrigin 跨域访问，用于开发过程，前端打包加入后需要删除
  */
 @SpringBootApplication
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class Application {
 
     public static void main(String[] args) {

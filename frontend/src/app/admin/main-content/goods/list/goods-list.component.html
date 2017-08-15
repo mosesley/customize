@@ -8,17 +8,19 @@
   <md-card class="mat-elevation-z0" fxLayout="row" fxLayoutGap="10px" fxLayoutWrap>
     <md-card fxFlex="0 0 calc(20% - 40px)" *ngFor="let goods of data | async" class="goods-card">
       <md-card-header>
-        <div md-card-avatar class="example-header-image"></div>
+        <!--<div md-card-avatar></div>-->
         <md-card-title>{{goods.title}}</md-card-title>
-        <md-card-subtitle>{{goods.price | currency:'CNY':true:'3.2-2'}}</md-card-subtitle>
+        <md-card-subtitle>
+          {{goods.price | currency:'CNY':true:'1.2-2'}}
+        </md-card-subtitle>
       </md-card-header>
-      <img md-card-image src="favicon.ico">
+      <img md-card-image src="http://localhost:8080{{goods.showImgUrl}}">
       <md-card-content>
-        <p>{{goods.des}}</p>
+        <p *ngIf="goods.des != 'null'">{{goods.des}}</p>
       </md-card-content>
       <md-card-actions>
-        <button md-button>LIKE</button>
-        <button md-button>SHARE</button>
+        <button md-mini-fab><md-icon>mode_edit</md-icon></button>
+        <button md-mini-fab (click)="delete(goods.id)"><md-icon>delete_forever</md-icon></button>
       </md-card-actions>
     </md-card>
   </md-card>

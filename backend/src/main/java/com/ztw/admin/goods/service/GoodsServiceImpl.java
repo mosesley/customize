@@ -1,5 +1,6 @@
 package com.ztw.admin.goods.service;
 
+import com.ztw.admin.basic.util.FileUploadUtil;
 import com.ztw.admin.goods.model.Goods;
 import com.ztw.admin.goods.model.GoodsDto;
 import com.ztw.admin.goods.repository.CategoryRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 /**
  * @Author 马旭
@@ -31,7 +34,6 @@ public class GoodsServiceImpl implements GoodsService {
         Page<Goods> goodsPage = goodsRepository.findAll(pageable);
         Page<GoodsDto> goodsDtos = goodsPage.map(
                 source ->
-//                        new GoodsDto(source, categoryRepository.findOne(goodsCategoryRepository.findByGoodsId(source.getId()).getCategoryId()))
                         new GoodsDto(source, null)
         );
 
@@ -40,12 +42,18 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods add(Goods goods) {
+        Goods g = goodsRepository.findByTitle(goods.getTitle());
+        if( g != null ) {
+            throw new RuntimeException("添加的商品标题已经被使用");
+        }
         return goodsRepository.save(goods);
     }
 
     @Override
-    public void delete(String id) {
-
+    public void delete(String id, String uploadDir) {
+        goodsRepository.delete(id);
+        goodsCategoryRepository.deleteByGoodsId(id);
+        FileUploadUtil.deleteDir(new File(uploadDir + id));
     }
 
     @Override

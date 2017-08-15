@@ -22,7 +22,7 @@ import java.util.List;
  * @created 2017-05-08 16:54.
  */
 @RestController
-@RequestMapping(value = "/appConfig")
+@RequestMapping(value = "/api/appConfig")
 public class InitController {
 
     @Autowired

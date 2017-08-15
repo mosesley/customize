@@ -19,8 +19,8 @@ import { LoginComponent } from "../login/login.component";
 })
 export class AdminPageTop implements OnInit {
   private api_appConfig_url = "/api/admin/appConfig";
-  private jwtHelper: JwtHelper = new JwtHelper();
-  private loginUser: AdminUser;
+  public jwtHelper: JwtHelper = new JwtHelper();
+  public loginUser: AdminUser;
   AppConfig: Observable<AppConfig>;
 
   constructor (private router: Router, private appConfigStore$: Store<AppConfig>, private http: HttpClient) {

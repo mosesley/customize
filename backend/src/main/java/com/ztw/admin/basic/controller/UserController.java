@@ -23,9 +23,9 @@ import java.io.IOException;
  * @created 2017-05-18 10:57.
  */
 @RestController
-@RequestMapping(value = "/admin/user")
+@RequestMapping(value = "/api/admin/user")
 @AutoMenu(name = "用户", icon = "people", orderNum = 1)
-@AuthPermission(name = "用户管理", url = "/admin/user")
+@AuthPermission(name = "用户管理", url = "/api/admin/user")
 public class UserController extends AuthRootMenu {
 
     @Autowired

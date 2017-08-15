@@ -34,7 +34,7 @@ public class GoodsDto {
     /**
      * 商品描述
      */
-    private String describe;
+    private String des;
 
     /**
      * 商品杨张图片,用于展示
@@ -61,7 +61,7 @@ public class GoodsDto {
         this.number = goods.getNumber();
         this.labels = goods.getLabels();
         this.price = goods.getPrice();
-        this.describe = goods.getDes();
+        this.des = goods.getDes();
         this.showImgUrl = goods.getShowImgUrl();
         this.dzImgUrls = goods.getDzImgUrls();
         this.category = category;
@@ -107,12 +107,12 @@ public class GoodsDto {
         this.price = price;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDes() {
+        return des;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public String getShowImgUrl() {

@@ -16,7 +16,7 @@ import java.util.List;
  * @created 2017-07-10 12:17.
  */
 @RestController
-@RequestMapping(value = "/admin/menus")
+@RequestMapping(value = "/api/admin/menus")
 public class MenuController {
 
     @Autowired

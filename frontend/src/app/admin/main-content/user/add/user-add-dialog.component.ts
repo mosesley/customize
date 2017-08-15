@@ -11,9 +11,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 })
 export class UserAddDialogComponent implements OnInit {
   private api_user_add_url = "/api/admin/user/add";
-  private addError: string;
-  private addForm: FormGroup;
-  private submitted: boolean = false;
+  public addError: string;
+  public addForm: FormGroup;
+  public submitted: boolean = false;
 
   constructor(private dialogRef: MdDialogRef<UserAddDialogComponent>,
               private fb: FormBuilder,

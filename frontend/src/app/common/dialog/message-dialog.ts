@@ -8,5 +8,5 @@ import { MD_DIALOG_DATA } from '@angular/material';
   template: '{{data}}'
 })
 export class MessageDialog {
-  constructor(@Inject(MD_DIALOG_DATA) private data: any) {}
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) {}
 }

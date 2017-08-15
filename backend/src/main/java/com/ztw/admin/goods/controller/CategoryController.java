@@ -20,9 +20,9 @@ import java.io.IOException;
  * @Date 2017/8/2-9:19
  */
 @RestController
-@RequestMapping(value = "/admin/goods/category")
+@RequestMapping(value = "/api/admin/goods/category")
 @AutoMenu(name = "商品种类", icon = "style", orderNum = 1)
-@AuthPermission(name = "商品种类", url = "/admin/goods/category")
+@AuthPermission(name = "商品种类", url = "/api/admin/goods/category")
 public class CategoryController extends GoodsRootMenu {
 
     @Autowired

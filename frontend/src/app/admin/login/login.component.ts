@@ -15,9 +15,9 @@ import { JwtToken } from "../../common/model/jwt-token";
 })
 export class LoginComponent implements OnInit{
   public static redirectUrl: string; // Store the url so we can redirect after logging in
-  private login_url_api = "/api/admin/login";
-  private loginForm: FormGroup;
-  private loginError: string;
+  public login_url_api = "/api/admin/login";
+  public loginForm: FormGroup;
+  public loginError: string;
 
   constructor(private fb: FormBuilder,
               private http: HttpClient,

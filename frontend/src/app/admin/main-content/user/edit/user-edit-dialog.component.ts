@@ -12,9 +12,9 @@ import { AdminUser } from "../../../../common/model/admin-user";
 })
 export class UserEditDialogComponent implements OnInit {
   private api_user_update_url = "/api/admin/user/update";
-  private errorMsg: string;
-  private editForm: FormGroup;
-  private submitted: boolean = false;
+  public errorMsg: string;
+  public editForm: FormGroup;
+  public submitted: boolean = false;
 
   constructor(private dialogRef: MdDialogRef<UserEditDialogComponent>,
               @Inject(MD_DIALOG_DATA) private data: AdminUser,

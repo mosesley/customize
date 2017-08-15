@@ -23,9 +23,9 @@ import java.util.List;
  * @created 2017-07-19 14:43.
  */
 @RestController
-@RequestMapping(value = "/admin/role")
+@RequestMapping(value = "/api/admin/role")
 @AutoMenu(name = "角色", icon = "verified_user", orderNum = 2)
-@AuthPermission(name = "角色管理", url = "/admin/role")
+@AuthPermission(name = "角色管理", url = "/api/admin/role")
 public class RoleController extends AuthRootMenu{
 
     @Autowired

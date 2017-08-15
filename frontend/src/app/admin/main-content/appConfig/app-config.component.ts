@@ -18,9 +18,9 @@ import { AC_CHANGE, NAV_CHANGE, NavState } from "../../../common/reducer/nav-red
 })
 export class AppConfigComponent implements OnInit{
   private api_appConfig_url = "/api/admin/appConfig";
-  private configForm: FormGroup;
-  private errorMsg: string;
-  private submitted: boolean = false;
+  public configForm: FormGroup;
+  public errorMsg: string;
+  public submitted: boolean = false;
 
   constructor(private pageTitle: Title,
               private http: HttpClient,

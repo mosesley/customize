@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface GoodsCategoryRepository extends JpaRepository<GoodsCategory, String> {
     GoodsCategory findByGoodsId(String goodsId);
     void deleteByCategoryId(String categoryId);
+    void deleteByGoodsId(String goodsId);
 }

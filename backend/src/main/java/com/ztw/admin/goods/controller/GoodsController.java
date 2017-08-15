@@ -7,6 +7,7 @@ import com.ztw.admin.goods.model.Goods;
 import com.ztw.admin.goods.model.GoodsDto;
 import com.ztw.admin.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +25,16 @@ import java.util.Map;
  * @Date 2017/8/1-9:44
  */
 @RestController
-@RequestMapping(value = "/admin/goods")
+@RequestMapping(value = "/api/admin/goods")
 @AutoMenu(name = "商品", icon = "store", orderNum = 2)
-@AuthPermission(name = "商品", url = "/admin/goods")
+@AuthPermission(name = "商品", url = "/api/admin/goods")
 public class GoodsController extends GoodsRootMenu{
 
     @Autowired
     private GoodsService goodsService;
+
+    @Value("${web.upload-path}")
+    private String basicDir;
 
     @GetMapping(value = "/list")
     @AutoMenu(name = "商品列表", orderNum = 1)
@@ -50,33 +54,39 @@ public class GoodsController extends GoodsRootMenu{
     @PostMapping(value = "/add")
     @AuthPermission(name = "商品添加", url = "/add", method = "POST")
     @Transactional
-    public Goods add(Goods goods, HttpServletRequest request,
+    public Goods add(Goods goods,
                      @RequestParam("showImg") MultipartFile showImg,
                      @RequestParam("dz1Img") MultipartFile dz1Img,
                      @RequestParam("dz2Img") MultipartFile dz2Img) throws IOException {
+        Goods g = goodsService.add(goods);
         // 文件保存路径
-        String uploadDir = request.getSession().getServletContext().getRealPath("/resources/goods/" + goods.getTitle());
-        System.out.println(uploadDir);
+        String uploadDir = "/goods/" + g.getId();
 
         // 文件保存
-        Map<String, Object> showImgFileInfo = FileUploadUtil.fileUpload(showImg, uploadDir);
+        Map<String, Object> showImgFileInfo = FileUploadUtil.fileUpload(showImg, basicDir, uploadDir);
         if (showImgFileInfo.get(FileUploadUtil.ERROR) != null) {
-            System.out.println(showImgFileInfo.get(FileUploadUtil.ERROR));
+            throw new RuntimeException(showImgFileInfo.get(FileUploadUtil.ERROR).toString());
         } else {
-            goods.setShowImgUrl((String) showImgFileInfo.get(FileUploadUtil.STORE_NAME));
+            g.setShowImgUrl((String) showImgFileInfo.get(FileUploadUtil.STORE_NAME));
         }
 
-        Map<String, Object> dz1ImgFileInfo = FileUploadUtil.fileUpload(dz1Img, uploadDir);
-        Map<String, Object> dz2ImgFileInfo = FileUploadUtil.fileUpload(dz2Img, uploadDir);
+        Map<String, Object> dz1ImgFileInfo = FileUploadUtil.fileUpload(dz1Img, basicDir, uploadDir);
+        Map<String, Object> dz2ImgFileInfo = FileUploadUtil.fileUpload(dz2Img, basicDir, uploadDir);
         if (dz1ImgFileInfo.get(FileUploadUtil.ERROR) != null || dz2ImgFileInfo.get(FileUploadUtil.ERROR) != null) {
-            System.out.println(dz1ImgFileInfo.get(FileUploadUtil.ERROR));
-            System.out.println(dz2ImgFileInfo.get(FileUploadUtil.ERROR));
+            throw new RuntimeException(dz1ImgFileInfo.get(FileUploadUtil.ERROR).toString() + dz2ImgFileInfo.get(FileUploadUtil.ERROR));
         } else {
-            goods.setDzImgUrls(new String[]{(String) dz1ImgFileInfo.get(FileUploadUtil.STORE_NAME), (String) dz2ImgFileInfo.get(FileUploadUtil.STORE_NAME)});
+            g.setDzImgUrls(new String[]{(String) dz1ImgFileInfo.get(FileUploadUtil.STORE_NAME), (String) dz2ImgFileInfo.get(FileUploadUtil.STORE_NAME)});
         }
 
-        System.out.println(goods.toString());
-        return goodsService.add(goods);
+        return g;
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    @AuthPermission(name = "删除商品", url = "/delete/{id}", method = "GET")
+    @Transactional
+    public void delete(@PathVariable("id") String id) {
+        String uploadDir = basicDir + "/goods/";
+        goodsService.delete(id, uploadDir);
     }
 
 }

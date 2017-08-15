@@ -15,8 +15,8 @@ import { AppConfig } from "../common/model/app-config";
 })
 export class AppInitComponent implements OnInit{
   private init_url_api = "/api/appConfig";
-  private initForm: FormGroup;
-  private submitted: boolean = false;
+  public initForm: FormGroup;
+  public submitted: boolean = false;
 
   constructor(private pageTitle: Title,
               private fb: FormBuilder,

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date 2017/7/28-9:28
  */
 @RestController
-@RequestMapping(value = "/admin/appConfig")
+@RequestMapping(value = "/api/admin/appConfig")
 @AutoMenu(name = "系统设置", icon = "settings", orderNum = 1)
 public class AppController extends AppRootMenu {
 

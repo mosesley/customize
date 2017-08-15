@@ -27,11 +27,11 @@ public class FileUploadUtil {
      * @throws IOException
      * @throws IllegalStateException
      */
-    public static Map<String, Object> fileUpload(MultipartFile file, String uploadDir)
+    public static Map<String, Object> fileUpload(MultipartFile file, String basicDir, String uploadDir)
             throws IllegalStateException, IOException {
         Map<String, Object> fileInfo = new HashMap<>();
-        if (!new File(uploadDir).exists()) { // 如果目录不存在，创建一个目录
-            File dir = new File(uploadDir);
+        if (!new File(basicDir + File.separator + uploadDir).exists()) { // 如果目录不存在，创建一个目录
+            File dir = new File(basicDir + File.separator + uploadDir);
             dir.mkdirs();
         }
         if (!file.isEmpty()) {
@@ -41,12 +41,12 @@ public class FileUploadUtil {
                 return fileInfo;
             }
             String realName = file.getOriginalFilename(); // 获取原文件名
-            String storeName = FileUploadUtil.rename(realName); // 文件存储名称
+            String storeName = uploadDir + File.separator + FileUploadUtil.rename(realName); // 文件存储名称
             fileInfo.put(FileUploadUtil.REAL_NAME, realName);
             fileInfo.put(FileUploadUtil.STORE_NAME, storeName);
             fileInfo.put(FileUploadUtil.SIZE, file.getSize());
 
-            File outFile = new File(uploadDir + File.separator + storeName);// 路径加文件名
+            File outFile = new File(basicDir + File.separator + storeName);// 路径加文件名
             file.transferTo(outFile); // 保存文件
         } else {
             fileInfo.put(FileUploadUtil.ERROR, "文件为空");
@@ -62,6 +62,23 @@ public class FileUploadUtil {
         if(delFile.exists()) {
             delFile.delete();
         }
+    }
+
+    /**
+     * 递归删除目录下的所有文件及子目录下所有文件
+     * @return boolean Returns "true" if all deletions were successful.
+     *                 If a deletion fails, the method stops attempting to
+     *                 delete and returns "false".
+     */
+    public static void deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                deleteDir(new File(dir, children[i]));
+            }
+        }
+        // 目录此时为空，可以删除
+        dir.delete();
     }
 
     /**

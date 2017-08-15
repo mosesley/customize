@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @created 2017-05-31 10:44.
  */
 @RestController
-@RequestMapping(value = "/admin/login")
+@RequestMapping(value = "/api/admin/login")
 public class LoginController {
 
     @Autowired
