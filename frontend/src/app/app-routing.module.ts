@@ -9,7 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/init',
+    redirectTo: '/index',
     pathMatch: 'full'
   },
   {
@@ -19,6 +19,10 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
+  },
+  {
+    path: 'index',
+    loadChildren: 'app/index/index.module#IndexModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];
